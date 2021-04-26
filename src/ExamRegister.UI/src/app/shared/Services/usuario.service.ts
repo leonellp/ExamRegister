@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { take } from 'rxjs/internal/operators/take';
 import { environment } from 'src/environments/environment';
+import { Paginacao } from '../DTOs/Paginacao';
 import { UsuarioDTO } from '../DTOs/usuario-dto';
 
 @Injectable({
@@ -12,9 +13,16 @@ export class UsuarioService {
   private readonly API = `${environment.API}usuario`;
 
   constructor(private http: HttpClient) { }
-  
-  list() {
-    return this.http.get<UsuarioDTO[]>(this.API).pipe(take(1));
+
+  list(skip: number, top: number, count: boolean, soinativo?: boolean, pesquisa?: string) {
+    return this.http.get<Paginacao<UsuarioDTO>>(
+      this.API +
+      "?skip=" + skip +
+      "&top=" + top +
+      "&count=" + count +
+      "&soinativo=" + soinativo +
+      "&pesquisa=" + pesquisa
+    ).pipe(take(1));
   }
 
   loadByID(id: string) {

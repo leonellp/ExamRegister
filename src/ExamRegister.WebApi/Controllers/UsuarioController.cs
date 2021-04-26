@@ -4,6 +4,7 @@ using ExamRegister.WebApi.Abstractions;
 using ExamRegister.WebApi.Abstractions.DTO;
 using System;
 using System.Collections.Generic;
+using ExamRegister.Business.Abstractions.DTO;
 
 namespace ExamRegister.WebApi.Controllers {
     [ApiController]
@@ -17,8 +18,14 @@ namespace ExamRegister.WebApi.Controllers {
 
         [HttpGet]
         [Route("")]
-        public IEnumerable<UsuarioDTO> List(bool excluidos = false) {
-            return service.List(excluidos);
+        public paginacao<UsuarioDTO> List(
+            int skip = 0,
+            int top = 10,
+            bool count = false,
+            bool? soinativos = false,
+            string pesquisa = null
+            ) {
+            return service.List(skip, top, count, soinativos, pesquisa);
         }
 
         [HttpGet]

@@ -269,49 +269,49 @@ namespace ExamRegister.DA {
                     .IsRequired()
                     .HasMaxLength(300);
 
-                entity.HasOne(d => d.idclinicaNavigation)
+                entity.HasOne(d => d.Clinica)
                     .WithMany(p => p.exame)
                     .HasForeignKey(d => d.idclinica)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("idclinica");
 
-                entity.HasOne(d => d.idgrupomedicoNavigation)
+                entity.HasOne(d => d.Grupodemedico)
                     .WithMany(p => p.exame)
                     .HasForeignKey(d => d.idgrupomedico)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("idgrupodemedico");
 
-                entity.HasOne(d => d.idmedicorespNavigation)
+                entity.HasOne(d => d.Medicoresp)
                     .WithMany(p => p.exameidmedicorespNavigation)
                     .HasForeignKey(d => d.idmedicoresp)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("idmedicoresp");
 
-                entity.HasOne(d => d.idmedicosolicNavigation)
+                entity.HasOne(d => d.Medicocolic)
                     .WithMany(p => p.exameidmedicosolicNavigation)
                     .HasForeignKey(d => d.idmedicosolic)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("idmedsolic");
 
-                entity.HasOne(d => d.idorgaoNavigation)
+                entity.HasOne(d => d.Orgao)
                     .WithMany(p => p.exame)
                     .HasForeignKey(d => d.idorgao)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("idorgao");
 
-                entity.HasOne(d => d.idpacienteNavigation)
+                entity.HasOne(d => d.Paciente)
                     .WithMany(p => p.exame)
                     .HasForeignKey(d => d.idpaciente)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("idpaciente");
 
-                entity.HasOne(d => d.idpecaNavigation)
+                entity.HasOne(d => d.Peca)
                     .WithMany(p => p.exame)
                     .HasForeignKey(d => d.idpeca)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("idpeca");
 
-                entity.HasOne(d => d.idreuniaoNavigation)
+                entity.HasOne(d => d.Reuniao)
                     .WithMany(p => p.exame)
                     .HasForeignKey(d => d.idreuniao)
                     .OnDelete(DeleteBehavior.ClientSetNull)

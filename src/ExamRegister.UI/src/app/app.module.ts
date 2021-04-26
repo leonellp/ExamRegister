@@ -21,6 +21,8 @@ import { DiagnosticoComponent } from './diagnostico/diagnostico.component';
 import { OrgaoComponent } from './orgao/orgao.component';
 import { PacienteComponent } from './paciente/paciente.component';
 import { PecaComponent } from './peca/peca.component';
+import { UsuarioComponent } from './usuario/usuario.component';
+import { ExameComponent } from './exame/exame.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +35,9 @@ import { PecaComponent } from './peca/peca.component';
     DiagnosticoComponent,
     OrgaoComponent,
     PacienteComponent,
-    PecaComponent
+    PecaComponent,
+    UsuarioComponent,
+    ExameComponent
   ],
   imports: [
     BrowserModule,

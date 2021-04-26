@@ -41,6 +41,7 @@ export class GrupoDeMedicoComponent implements OnInit {
     sessionStorage.removeItem("paciente");
     sessionStorage.removeItem("peca");
     sessionStorage.removeItem("reuniao");
+    sessionStorage.removeItem("novoUsuario");
   }
 
   gruposCount(): number {
@@ -52,10 +53,6 @@ export class GrupoDeMedicoComponent implements OnInit {
     this.grupoService.list((this.pagina - 1) * this.pageSize, this.pageSize, true, false, this.pesquisa).subscribe(grupos => {
       this.grupos = grupos;
     });
-
-    if (this.pesquisa != null && this.grupos == null) {
-      
-    }
   }
 
   onDelete(grupo: GrupodemedicoDTO) {

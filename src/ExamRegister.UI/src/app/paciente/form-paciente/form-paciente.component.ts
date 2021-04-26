@@ -4,7 +4,6 @@ import { BaseFormComponent } from 'src/app/shared/base-form/base-form.component'
 import { InformacaoDTO } from 'src/app/shared/DTOs/informacao-dto';
 import { PacienteDTO } from 'src/app/shared/DTOs/paciente-dto';
 import { AlertModalService } from 'src/app/shared/Services/alert-modal.service';
-import { InformacaoService } from 'src/app/shared/Services/informacao.service';
 import { PacienteService } from 'src/app/shared/Services/paciente.service';
 import { PacienteinformacaoDTO } from 'src/app/shared/DTOs/pacienteinformacao-dto';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
@@ -12,10 +11,6 @@ import { HistoricopacienteDTO } from 'src/app/shared/DTOs/historicopaciente-dto'
 import { delay } from 'rxjs/operators';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
-import { HistoricoService } from 'src/app/shared/Services/historico.service';
-import { PacienteinformacaoService } from 'src/app/shared/Services/pacienteinformacao.service';
-import { Observable } from 'rxjs';
-import { Paginacao } from 'src/app/shared/DTOs/Paginacao';
 
 @Component({
   selector: 'app-form-paciente',
@@ -36,9 +31,6 @@ export class FormPacienteComponent extends BaseFormComponent implements OnInit {
 
   constructor(
     private pacienteService: PacienteService,
-    private historicoService: HistoricoService,
-    private pacienteinformacaoService: PacienteinformacaoService,
-    private informacaoService: InformacaoService,
     private formBuilder: FormBuilder,
     private alertService: AlertModalService,
     private modalService: BsModalService,

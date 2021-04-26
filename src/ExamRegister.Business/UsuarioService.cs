@@ -7,6 +7,7 @@ using System.Security.Cryptography;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using ExamRegister.DA.Abstractions.Models;
 using ExamRegister.WebApi.Abstractions.DTO;
+using ExamRegister.Business.Abstractions.DTO;
 
 namespace ExamRegister.Business {
     public class UsuarioService : IUsuarioService {
@@ -63,15 +64,39 @@ namespace ExamRegister.Business {
             repository.Insert(user);
         }
 
-        public IQueryable<UsuarioDTO> List(bool soinativos) {
+        public paginacao<UsuarioDTO> List(
+            int skip,
+            int top,
+            bool count,
+            bool? soinativos = null,
+            string pesquisa = null
+            ) {
+
+            int? nCount = null;
+
             var usuarios = repository.List();
-            if (soinativos) {
+            if (soinativos == true) {
                 usuarios = usuarios.Where(a => a.inativo != null);
             } else {
                 usuarios = usuarios.Where(a => a.inativo == null);
             }
+            if (pesquisa != null) {
+                usuarios = usuarios.Where(a => a.idexterno.ToUpper().Contains(pesquisa.ToUpper()) || a.nome.ToUpper().Contains(pesquisa.ToUpper()));
+            }
 
-            return usuarios.ProjectTo<UsuarioDTO>(mapper.ConfigurationProvider);
+            if (count) {
+                nCount = usuarios.Count();
+            }
+
+            if (skip < 0) skip = 0;
+            usuarios = usuarios.OrderBy(a => a.nome);
+            usuarios = usuarios.Skip(skip).Take(top);
+
+
+            return new paginacao<UsuarioDTO>() {
+                values = usuarios.ProjectTo<UsuarioDTO>(mapper.ConfigurationProvider).ToArray(),
+                count = nCount
+            };
         }
 
         public void Update(Guid Idusuario, UsuarioDTO usuarioNew) {

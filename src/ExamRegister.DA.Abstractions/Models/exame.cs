@@ -71,14 +71,14 @@ namespace ExamRegister.DA.Abstractions.Models
         public int? hiv { get; set; }
         public int? deschiv { get; set; }
 
-        public virtual clinica idclinicaNavigation { get; set; }
-        public virtual grupodemedico idgrupomedicoNavigation { get; set; }
-        public virtual medico idmedicorespNavigation { get; set; }
-        public virtual medico idmedicosolicNavigation { get; set; }
-        public virtual orgao idorgaoNavigation { get; set; }
-        public virtual paciente idpacienteNavigation { get; set; }
-        public virtual peca idpecaNavigation { get; set; }
-        public virtual reuniao idreuniaoNavigation { get; set; }
+        public virtual clinica Clinica { get; set; }
+        public virtual grupodemedico Grupodemedico { get; set; }
+        public virtual medico Medicoresp { get; set; }
+        public virtual medico Medicocolic { get; set; }
+        public virtual orgao Orgao { get; set; }
+        public virtual paciente Paciente { get; set; }
+        public virtual peca Peca { get; set; }
+        public virtual reuniao Reuniao { get; set; }
         public virtual ICollection<categoria> categoria { get; set; }
         public virtual ICollection<categoriaexame> categoriaexame { get; set; }
         public virtual ICollection<examediag> examediag { get; set; }

@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EMPTY } from 'rxjs';
-import { Observable } from 'rxjs/internal/Observable';
 import { switchMap, take } from 'rxjs/operators';
+import { Paginacao } from '../shared/DTOs/Paginacao';
 import { UsuarioDTO } from '../shared/DTOs/usuario-dto';
 import { AlertModalService } from '../shared/Services/alert-modal.service';
 import { UsuarioService } from '../shared/Services/usuario.service';
@@ -14,7 +14,14 @@ import { UsuarioService } from '../shared/Services/usuario.service';
 })
 export class UsuarioComponent implements OnInit {
 
-  usuarios: Observable<UsuarioDTO[]>;
+  @Output() public paginaChange = new EventEmitter<number>();
+  pagina: number = 0;
+  pageSize: number = 5;
+
+  pesquisa: string = "";
+  temPesquisa: boolean = false;
+
+  usuarios?: Paginacao<UsuarioDTO>;
   usuarioSelecionado!: UsuarioDTO;
 
   constructor(
@@ -24,12 +31,22 @@ export class UsuarioComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute
   ) {
-    this.usuarios = this.usuarioservice.list();
-
+    this.onList(1);
   }
 
   ngOnInit() {
     sessionStorage.removeItem("medicoSalvo");
+  }
+
+  usuariosCount(): number {
+    return this.usuarios?.count ?? 0;
+  }
+
+  onList($event: any) {
+    this.pagina = $event;
+    this.usuarioservice.list((this.pagina - 1) * this.pageSize, this.pageSize, true, false, this.pesquisa).subscribe(usuarios => {
+      this.usuarios = usuarios;
+    });
   }
 
   onDelete(usuario: UsuarioDTO) {
@@ -54,6 +71,15 @@ export class UsuarioComponent implements OnInit {
 
   onEdit(usuario: UsuarioDTO) {
     this.router.navigate(['editar', usuario.idusuario], { relativeTo: this.route });
+  }
+
+  reload() {
+    location.reload();
+  }
+  
+  onPesquisar() {
+    this.onList(1);
+    this.temPesquisa = true;
   }
 
 }

@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { PacienteRoutingModule } from './paciente-routing.module';
 import { PacienteInformacaoComponent } from './paciente-informacao/paciente-informacao.component';
 import { HistoricoPacienteComponent } from './historico-paciente/historico-paciente.component';
-import { PacienteComponent } from './paciente.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { FormInformacaoComponent } from './informacao/form-informacao/form-informacao.component';

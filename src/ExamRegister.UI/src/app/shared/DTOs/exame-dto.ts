@@ -1,3 +1,14 @@
+import { CategoriaexameDTO } from "./categoriaexame-dto";
+import { ClinicaDTO } from "./clinica-dto";
+import { ExamemedicorespdiagnosticoDTO } from "./examemedicorespdiagnostico-dto";
+import { GrupodemedicoDTO } from "./grupodemedico-dto";
+import { ImagemDTO } from "./imagem-dto";
+import { MedicoDTO } from "./medico-dto";
+import { OrgaoDTO } from "./orgao-dto";
+import { PacienteDTO } from "./paciente-dto";
+import { PecaDTO } from "./peca-dto";
+import { ReuniaoDTO } from "./reuniao-dto";
+
 export interface ExameDTO {
     idexame: string;
     idexterno: string;
@@ -53,4 +64,17 @@ export interface ExameDTO {
     descvhb ?: number;
     hiv ?: number;
     deschiv ?: number;
+
+    paciente: PacienteDTO;
+    orgao: OrgaoDTO;
+    peca: PecaDTO;
+    grupodemedico: GrupodemedicoDTO;
+    medicosolic: MedicoDTO;
+    clinica: ClinicaDTO;
+    medicoresp: MedicoDTO;
+    reuniao: ReuniaoDTO;
+    examemedicorespdiagnostico: ExamemedicorespdiagnosticoDTO[];
+    categoriaexame: CategoriaexameDTO[];
+    imagem: ImagemDTO[];
+    
 }
