@@ -1,0 +1,163 @@
+<form class="container-sm" [formGroup]="formulario">
+    <div class="card mt-3">
+
+        <div class="card-header">
+            <div class="float-left">
+                <h5>Novo paciente</h5>
+            </div>
+            <div class="float-right">
+                <button class="btn" (click)="onBack()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                        class="bi bi-reply-fill" viewBox="0 0 16 16">
+                        <path
+                            d="M5.921 11.9 1.353 8.62a.719.719 0 0 1 0-1.238L5.921 4.1A.716.716 0 0 1 7 4.719V6c1.5 0 6 0 7 8-2.5-4.5-7-4-7-4v1.281c0 .56-.606.898-1.079.62z" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <div class="card-body">
+            <div class="mb-3 row">
+                <div class="col-3">
+                    <label for="idexterno" class="form-label">Registro *</label>
+                    <input name="idexterno" formControlName="idexterno" type="text" class="form-control" id="idexterno"
+                        placeholder="Registro do paciente" required [ngClass]="aplicaCssErro('idexterno')">
+                    <app-error-msg [control]="formulario.get('idexterno')" label="Código"></app-error-msg>
+                </div>
+                <div class="col">
+                    <label for="nome" class="form-label">Nome *</label>
+                    <input name="nome" formControlName="nome" type="text" class="form-control" id="nome"
+                        placeholder="Nome" required [ngClass]="aplicaCssErro('nome')">
+                    <app-error-msg [control]="formulario.get('nome')" label="Nome"></app-error-msg>
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <div class="col-3">
+                    <label for="nascimento" class="form-label">Data de nascimento *</label>
+                    <input name="nascimento" formControlName="nascimento" type="date" class="form-control" required
+                        [ngClass]="aplicaCssErro('nascimento')">
+                    <app-error-msg [control]="formulario.get('nascimento')" label="Data de nascimento"></app-error-msg>
+                </div>
+                <div class="col-3">
+                    <label for="sexo" class="form-label">Sexo *</label>
+                    <select class="form-control" id="sexo" formControlName="sexo" required
+                        [ngClass]="aplicaCssErro('sexo')">
+                        <option>Masculino</option>
+                        <option>Feminino</option>
+                        <option>Outro</option>
+                        <option>Prefiro não declarar</option>
+                    </select>
+                    <app-error-msg [control]="formulario.get('sexo')" label="Sexo"></app-error-msg>
+                </div>
+            </div>
+        </div>
+
+        <tabset>
+            <tab heading="Informações" class="col">
+                <div class="card-body">
+                    <button class="btn btn-outline-success mb-3 btn-sm" (click)="openModal(addInformacao)">
+                        Informação
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-plus-circle-dotted" viewBox="0 0 16 16">
+                            <path
+                                d="M8 0c-.176 0-.35.006-.523.017l.064.998a7.117 7.117 0 0 1 .918 0l.064-.998A8.113 8.113 0 0 0 8 0zM6.44.152c-.346.069-.684.16-1.012.27l.321.948c.287-.098.582-.177.884-.237L6.44.153zm4.132.271a7.946 7.946 0 0 0-1.011-.27l-.194.98c.302.06.597.14.884.237l.321-.947zm1.873.925a8 8 0 0 0-.906-.524l-.443.896c.275.136.54.29.793.459l.556-.831zM4.46.824c-.314.155-.616.33-.905.524l.556.83a7.07 7.07 0 0 1 .793-.458L4.46.824zM2.725 1.985c-.262.23-.51.478-.74.74l.752.66c.202-.23.418-.446.648-.648l-.66-.752zm11.29.74a8.058 8.058 0 0 0-.74-.74l-.66.752c.23.202.447.418.648.648l.752-.66zm1.161 1.735a7.98 7.98 0 0 0-.524-.905l-.83.556c.169.253.322.518.458.793l.896-.443zM1.348 3.555c-.194.289-.37.591-.524.906l.896.443c.136-.275.29-.54.459-.793l-.831-.556zM.423 5.428a7.945 7.945 0 0 0-.27 1.011l.98.194c.06-.302.14-.597.237-.884l-.947-.321zM15.848 6.44a7.943 7.943 0 0 0-.27-1.012l-.948.321c.098.287.177.582.237.884l.98-.194zM.017 7.477a8.113 8.113 0 0 0 0 1.046l.998-.064a7.117 7.117 0 0 1 0-.918l-.998-.064zM16 8a8.1 8.1 0 0 0-.017-.523l-.998.064a7.11 7.11 0 0 1 0 .918l.998.064A8.1 8.1 0 0 0 16 8zM.152 9.56c.069.346.16.684.27 1.012l.948-.321a6.944 6.944 0 0 1-.237-.884l-.98.194zm15.425 1.012c.112-.328.202-.666.27-1.011l-.98-.194c-.06.302-.14.597-.237.884l.947.321zM.824 11.54a8 8 0 0 0 .524.905l.83-.556a6.999 6.999 0 0 1-.458-.793l-.896.443zm13.828.905c.194-.289.37-.591.524-.906l-.896-.443c-.136.275-.29.54-.459.793l.831.556zm-12.667.83c.23.262.478.51.74.74l.66-.752a7.047 7.047 0 0 1-.648-.648l-.752.66zm11.29.74c.262-.23.51-.478.74-.74l-.752-.66c-.201.23-.418.447-.648.648l.66.752zm-1.735 1.161c.314-.155.616-.33.905-.524l-.556-.83a7.07 7.07 0 0 1-.793.458l.443.896zm-7.985-.524c.289.194.591.37.906.524l.443-.896a6.998 6.998 0 0 1-.793-.459l-.556.831zm1.873.925c.328.112.666.202 1.011.27l.194-.98a6.953 6.953 0 0 1-.884-.237l-.321.947zm4.132.271a7.944 7.944 0 0 0 1.012-.27l-.321-.948a6.954 6.954 0 0 1-.884.237l.194.98zm-2.083.135a8.1 8.1 0 0 0 1.046 0l-.064-.998a7.11 7.11 0 0 1-.918 0l-.064.998zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z" />
+                        </svg>
+                    </button>
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Informação</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let informacao2 of pacienteInformacao">
+                                <td>{{ informacao2.informacao?.nome }}</td>
+                                <td>
+                                    <span class="float-right">
+                                        <button class="btn btn-outline-danger mb-1 btn-sm"
+                                            (click)="onDeleteInfo(informacao2)">
+                                            Remover
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red"
+                                                class="bi bi-trash-fill" viewBox="0 0 16 16">
+                                                <path
+                                                    d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
+                                            </svg>
+                                        </button>
+                                    </span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </tab>
+            <tab heading="Histórico clínico" class="col">
+                <div class="card-body">
+                    <button class="btn btn-outline-success mb-3 btn-sm" (click)="openModal(historico)">
+                        Histórico
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-plus-circle-dotted" viewBox="0 0 16 16">
+                            <path
+                                d="M8 0c-.176 0-.35.006-.523.017l.064.998a7.117 7.117 0 0 1 .918 0l.064-.998A8.113 8.113 0 0 0 8 0zM6.44.152c-.346.069-.684.16-1.012.27l.321.948c.287-.098.582-.177.884-.237L6.44.153zm4.132.271a7.946 7.946 0 0 0-1.011-.27l-.194.98c.302.06.597.14.884.237l.321-.947zm1.873.925a8 8 0 0 0-.906-.524l-.443.896c.275.136.54.29.793.459l.556-.831zM4.46.824c-.314.155-.616.33-.905.524l.556.83a7.07 7.07 0 0 1 .793-.458L4.46.824zM2.725 1.985c-.262.23-.51.478-.74.74l.752.66c.202-.23.418-.446.648-.648l-.66-.752zm11.29.74a8.058 8.058 0 0 0-.74-.74l-.66.752c.23.202.447.418.648.648l.752-.66zm1.161 1.735a7.98 7.98 0 0 0-.524-.905l-.83.556c.169.253.322.518.458.793l.896-.443zM1.348 3.555c-.194.289-.37.591-.524.906l.896.443c.136-.275.29-.54.459-.793l-.831-.556zM.423 5.428a7.945 7.945 0 0 0-.27 1.011l.98.194c.06-.302.14-.597.237-.884l-.947-.321zM15.848 6.44a7.943 7.943 0 0 0-.27-1.012l-.948.321c.098.287.177.582.237.884l.98-.194zM.017 7.477a8.113 8.113 0 0 0 0 1.046l.998-.064a7.117 7.117 0 0 1 0-.918l-.998-.064zM16 8a8.1 8.1 0 0 0-.017-.523l-.998.064a7.11 7.11 0 0 1 0 .918l.998.064A8.1 8.1 0 0 0 16 8zM.152 9.56c.069.346.16.684.27 1.012l.948-.321a6.944 6.944 0 0 1-.237-.884l-.98.194zm15.425 1.012c.112-.328.202-.666.27-1.011l-.98-.194c-.06.302-.14.597-.237.884l.947.321zM.824 11.54a8 8 0 0 0 .524.905l.83-.556a6.999 6.999 0 0 1-.458-.793l-.896.443zm13.828.905c.194-.289.37-.591.524-.906l-.896-.443c-.136.275-.29.54-.459.793l.831.556zm-12.667.83c.23.262.478.51.74.74l.66-.752a7.047 7.047 0 0 1-.648-.648l-.752.66zm11.29.74c.262-.23.51-.478.74-.74l-.752-.66c-.201.23-.418.447-.648.648l.66.752zm-1.735 1.161c.314-.155.616-.33.905-.524l-.556-.83a7.07 7.07 0 0 1-.793.458l.443.896zm-7.985-.524c.289.194.591.37.906.524l.443-.896a6.998 6.998 0 0 1-.793-.459l-.556.831zm1.873.925c.328.112.666.202 1.011.27l.194-.98a6.953 6.953 0 0 1-.884-.237l-.321.947zm4.132.271a7.944 7.944 0 0 0 1.012-.27l-.321-.948a6.954 6.954 0 0 1-.884.237l.194.98zm-2.083.135a8.1 8.1 0 0 0 1.046 0l-.064-.998a7.11 7.11 0 0 1-.918 0l-.064.998zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z" />
+                        </svg>
+                    </button>
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Descrição</th>
+                                <th>Data</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let historico of historicosInseridos">
+                                <td>{{ historico?.descricao }}</td>
+                                <td>{{ historico?.data | date: "dd/MM/yyyy" }}</td>
+                                <td>
+                                    <span class="float-right">
+                                        <button class="btn btn-outline-danger mb-1 btn-sm"
+                                            (click)="onDeleteHistorico(historico)">
+                                            Remover
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red"
+                                                class="bi bi-trash-fill" viewBox="0 0 16 16">
+                                                <path
+                                                    d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
+                                            </svg>
+                                        </button>
+                                    </span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </tab>
+        </tabset>
+        <div class="card-footer">
+            <button type="submit" class="btn btn-primary" (click)="submit()">
+                Salvar
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-save"
+                    viewBox="0 0 16 16">
+                    <path
+                        d="M2 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H9.5a1 1 0 0 0-1 1v7.293l2.646-2.647a.5.5 0 0 1 .708.708l-3.5 3.5a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L7.5 9.293V2a2 2 0 0 1 2-2H14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h2.5a.5.5 0 0 1 0 1H2z" />
+                </svg>
+            </button>
+
+            <button *ngIf="this.formulario.value.idpaciente == null" class="btn float-right" (click)="onClear()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="Red" class="bi bi-eraser-fill"
+                    viewBox="0 0 16 16">
+                    <path
+                        d="M8.086 2.207a2 2 0 0 1 2.828 0l3.879 3.879a2 2 0 0 1 0 2.828l-5.5 5.5A2 2 0 0 1 7.879 15H5.12a2 2 0 0 1-1.414-.586l-2.5-2.5a2 2 0 0 1 0-2.828l6.879-6.879zm.66 11.34L3.453 8.254 1.914 9.793a1 1 0 0 0 0 1.414l2.5 2.5a1 1 0 0 0 .707.293H7.88a1 1 0 0 0 .707-.293l.16-.16z" />
+                </svg>
+                limpar
+            </button>
+        </div>
+    </div>
+</form>
+
+<ng-template #addInformacao>
+    <app-paciente-informacao (inserirInformacao)="incluirInfo($event)"></app-paciente-informacao>
+</ng-template>
+
+<ng-template #historico>
+    <app-historico-paciente (inserirHistorico)="incluirHistorico($event)"></app-historico-paciente>
+</ng-template>

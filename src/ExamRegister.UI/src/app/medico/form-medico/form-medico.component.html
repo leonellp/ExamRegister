@@ -1,0 +1,118 @@
+<form class="container-sm" [formGroup]="formulario">
+    <div class="card mt-3">
+        <div class="card-header">
+            <div class="float-left">
+                <h5>Novo Médico</h5>
+            </div>
+            <div class="float-right">
+                <button class="btn" (click)="onBack()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                        class="bi bi-reply-fill" viewBox="0 0 16 16">
+                        <path
+                            d="M5.921 11.9 1.353 8.62a.719.719 0 0 1 0-1.238L5.921 4.1A.716.716 0 0 1 7 4.719V6c1.5 0 6 0 7 8-2.5-4.5-7-4-7-4v1.281c0 .56-.606.898-1.079.62z" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="form-group row">
+                <div class="col-3">
+                    <label for="crm" class="form-label">CRM *</label>
+                    <input name="crm" formControlName="crm" type="text" class="form-control" id="crm"
+                        placeholder="CRM do Médico" required [ngClass]="aplicaCssErro('crm')">
+                    <app-error-msg [control]="formulario.get('crm')" label="CRM"></app-error-msg>
+                </div>
+
+                <div class="col">
+                    <label for="nome" class="form-label">Nome *</label>
+                    <input name="nome" formControlName="nome" type="text" class="form-control" id="nome"
+                        placeholder="Nome" required [ngClass]="aplicaCssErro('nome')">
+                    <app-error-msg [control]="formulario.get('nome')" label="Nome"></app-error-msg>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col">
+                    <label for="email" class="form-label">Email *</label>
+                    <input name="email" formControlName="email" class="form-control" placeholder="email@email.com"
+                        required [ngClass]="aplicaCssErro('email')">
+                    <app-error-msg [control]="formulario.get('email')" label="Email"></app-error-msg>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-3">
+                    <label for="telefone" class="form-label">Telefone *</label>
+                    <input name="telefone" formControlName="telefone" class="form-control" placeholder="(00)0000-0000"
+                        required [ngClass]="aplicaCssErro('telefone')">
+                    <app-error-msg [control]="formulario.get('telefone')" label="Telefone"></app-error-msg>
+                </div>
+
+                <div class="col-3">
+                    <label for="telefone2" class="form-label">Telefone Médico*</label>
+                    <input name="telefone2" formControlName="telefone2" class="form-control" placeholder="(00)0000-0000"
+                        required [ngClass]="aplicaCssErro('telefone2')">
+                    <app-error-msg [control]="formulario.get('telefone2')" label="Telefone médico"></app-error-msg>
+                </div>
+
+                <div class="col-3">
+                    <label for="celular" class="form-label">Celular *</label>
+                    <input name="celular" formControlName="celular" class="form-control" placeholder="(00)00000-0000"
+                        required [ngClass]="aplicaCssErro('celular')">
+                    <app-error-msg [control]="formulario.get('celular')" label="Celular"></app-error-msg>
+                </div>
+            </div>
+            <hr>
+            <h5>Clinicas</h5>
+            <button class="btn btn-outline-success mb-3 btn-sm" (click)="openModal(addClinica)">
+                Nova clínica
+            </button>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Clínica</th>
+                        <th>Endereço</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let _medicoClinica of medicoClinica">
+                        <td>{{ _medicoClinica.clinica.nome }}</td>
+                        <td>{{ _medicoClinica.clinica.endereco.bairro }},
+                            {{ _medicoClinica.clinica.endereco.cidade.nome }} -
+                            {{ _medicoClinica.clinica.endereco.estado.sigla }}</td>
+                        <td>
+                            <span class="float-right">
+                                <button class="btn btn-outline-danger mb-1 btn-sm" (click)="onRemove(_medicoClinica)">
+                                    Remover
+                                </button>
+                            </span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="card-footer">
+            <button type="submit" class="btn btn-primary" (click)="submit()">
+                Salvar
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-save"
+                    viewBox="0 0 16 16">
+                    <path
+                        d="M2 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H9.5a1 1 0 0 0-1 1v7.293l2.646-2.647a.5.5 0 0 1 .708.708l-3.5 3.5a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L7.5 9.293V2a2 2 0 0 1 2-2H14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h2.5a.5.5 0 0 1 0 1H2z" />
+                </svg>
+            </button>
+
+            <button *ngIf="this.formulario.value.idmedico == null" class="btn float-right" (click)="onClear()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="Red" class="bi bi-eraser-fill"
+                    viewBox="0 0 16 16">
+                    <path
+                        d="M8.086 2.207a2 2 0 0 1 2.828 0l3.879 3.879a2 2 0 0 1 0 2.828l-5.5 5.5A2 2 0 0 1 7.879 15H5.12a2 2 0 0 1-1.414-.586l-2.5-2.5a2 2 0 0 1 0-2.828l6.879-6.879zm.66 11.34L3.453 8.254 1.914 9.793a1 1 0 0 0 0 1.414l2.5 2.5a1 1 0 0 0 .707.293H7.88a1 1 0 0 0 .707-.293l.16-.16z" />
+                </svg>
+                limpar
+            </button>
+        </div>
+    </div>
+</form>
+
+<ng-template #addClinica>
+    <app-medico-clinica (inserirClinica)="incluirClinica($event)"></app-medico-clinica>
+</ng-template>

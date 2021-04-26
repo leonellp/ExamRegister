@@ -1,0 +1,39 @@
+<form class="container-sm" [formGroup]="formulario" (ngSubmit)="submit()">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Novo usuário</h5>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label for="nome" class="form-label">Nome *</label>
+                    <input name="nome" formControlName="nome" type="text" class="form-control" id="nome"
+                        placeholder="Nome" required>
+                </div>
+                <div class="mb-3">
+                    <label for="user" class="form-label">Usuário *</label>
+                    <input name="user" formControlName="user" type="text" class="form-control" id="user"
+                        placeholder="Usuário para login">
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Senha *</label>
+                    <input name="password" formControlName="password" type="password" class="form-control" id="password"
+                        placeholder="Senha">
+                </div>
+                <div class="mb-3">
+                    <label for="confirmaPassword" class="form-label">Confirma Senha *</label>
+                    <input name="confirmaPassword" formControlName="confirmaPassword" type="password"
+                        class="form-control" id="confirmaPassword" placeholder="Corfirme sua senha">
+                </div>
+                <div class="mb-3">
+                    <label for="idexterno" class="form-label">Código *</label>
+                    <input name="idexterno" formControlName="idexterno" type="text" class="form-control" id="idexterno"
+                        placeholder="Código do usuário">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary" [disabled]="!formulario.valid">Salvar</button>
+            </div>
+        </div>
+    </div>
+</form>

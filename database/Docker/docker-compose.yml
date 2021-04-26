@@ -1,0 +1,40 @@
+version: '3.5'
+
+services:
+  postgres:
+    container_name: postgres_container
+    image: postgres
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-1234}
+#      PGDATA: /data/postgres
+    volumes:
+       - "C:/Gabriel/Docker/Postgres/data:/var/lib/postgresql/data/"
+       - "C:/Gabriel/Docker/Postgres/backups:/var/lib/postgresql/backups/"
+    ports:
+      - "5432:5432"
+    networks:
+      - postgres
+    restart: unless-stopped
+  
+  # pgadmin:
+  #   container_name: pgadmin_container
+  #   image: dpage/pgadmin4
+  #   environment:
+  #     PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-gleonelpontani@gmail.com}
+  #     PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
+  #   volumes:
+  #      - "C:/Gabriel/Docker/Postgres/pgadmin:/var/lib/pgadmin/"
+  #   ports:
+  #     - "${PGADMIN_PORT:-5050}:80"
+  #   networks:
+  #     - postgres
+  #   restart: unless-stopped
+
+networks:
+  postgres:
+    driver: bridge
+
+#volumes:
+#    postgres:
+#    pgadmin:

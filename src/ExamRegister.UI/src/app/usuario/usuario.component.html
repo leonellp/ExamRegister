@@ -1,0 +1,52 @@
+<div class="card mt-3">
+  <div class="card-header">
+    <div class="float-left">
+      <h4>Usuários</h4>
+    </div>
+    <div class="float-right">
+      <button type="button" class="btn btn-primary" routerLink="novo">Novo usuário</button>
+    </div>
+  </div>
+  <div class="card-body">
+    <table class="table table-hover" *ngIf="usuarios; else loading">
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>Usuário</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let usuario of (usuarios | async)">
+          <td>{{ usuario.nome }}</td>
+          <td>{{ usuario.user }}</td>
+           <td>
+
+            <span class="float-right">
+              <button style="margin-right: 10px;" class="btn btn-outline-warning mb-1 btn-sm" (click)="onEdit(usuario)">
+                Editar
+              </button>
+
+              <button class="btn btn-outline-danger mb-1 btn-sm" (click)="onDelete(usuario)">
+                Remover
+              </button>
+            </span>
+          </td> 
+        </tr>
+      </tbody>
+    </table> 
+
+    <ng-template #loading>
+      <span>Carregando Cursos...</span>
+    </ng-template>
+
+    <!--ng-template #loadingError>
+      <div *ngIf="error$ | async; else loading" >
+        Erro ao carregar cursos. Tente novamente mais tarde.
+      </div>
+      <ng-template #loading>
+          <span>Carregando Cursos...</span>
+      </ng-template>
+    </ng-template -->
+  </div>
+</div>
