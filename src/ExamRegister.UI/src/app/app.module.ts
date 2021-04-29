@@ -23,6 +23,11 @@ import { PacienteComponent } from './paciente/paciente.component';
 import { PecaComponent } from './peca/peca.component';
 import { UsuarioComponent } from './usuario/usuario.component';
 import { ExameComponent } from './exame/exame.component';
+import { IConfig, NgxMaskModule } from 'ngx-mask';
+
+const maskConfig: Partial<IConfig> = {
+  validation: false,
+};
 
 @NgModule({
   declarations: [
@@ -48,7 +53,8 @@ import { ExameComponent } from './exame/exame.component';
     BrowserAnimationsModule,
     NgbModule,
     FormsModule,
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+    NgxMaskModule.forRoot(maskConfig),
   ],
   providers: [
     AuthService, 

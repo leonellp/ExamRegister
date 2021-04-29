@@ -8,6 +8,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { SharedModule } from '../shared/shared.module';
 import { NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
+import { IConfig, NgxMaskModule } from 'ngx-mask';
+
+const maskConfig: Partial<IConfig> = {
+  validation: false,
+};
 
 @NgModule({
   imports: [
@@ -19,6 +24,7 @@ import { NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
     ModalModule.forRoot(),
     SharedModule,
     NgbTypeaheadModule,
+    NgxMaskModule.forRoot(maskConfig),
   ],
   declarations: [MedicoClinicaComponent, FormMedicoComponent]
 })
