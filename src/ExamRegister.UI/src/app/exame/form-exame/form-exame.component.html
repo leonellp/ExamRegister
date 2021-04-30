@@ -1,7 +1,5 @@
-<form class="container-sm">
-    <!-- [formGroup]="formulario" -->
-    <div class="card mt-3">
-
+<form class="container-sm" [formGroup]="formulario">
+    <div class="card mt-3 mb-3">
         <div class="card-header">
             <div class="float-left">
                 <h3>Cadastro de Exame</h3>
@@ -22,29 +20,31 @@
             <div class="form-group row">
                 <div class="col">
                     <label for="idexterno" class="form-label">Registro *</label>
-                    <!-- formControlName="idexterno" -->
                     <input name="idexterno" type="text" class="form-control" id="idexterno"
-                        placeholder="Registro do exame" required>
-                    <!-- <app-error-msg [control]="formulario.get('idexterno')" label="Código"></app-error-msg> -->
+                        placeholder="Registro do exame" required formControlName="idexterno"
+                        [ngClass]="aplicaCssErro('idexterno')">
+                    <app-error-msg [control]="formulario.get('idexterno')" label="Código"></app-error-msg>
                 </div>
                 <div class="col">
                     <label for="datain" class="form-label">Data de entrada *</label>
-                    <input name="datain" type="date" class="form-control" id="datain" placeholder="datain" required>
-                    <!-- <app-error-msg [control]="formulario.get('datain')" label="Data de entrada"></app-error-msg> -->
+                    <input name="datain" type="date" class="form-control" id="datain" placeholder="datain" required
+                        formControlName="datain" [ngClass]="aplicaCssErro('datain')">
+                    <app-error-msg [control]="formulario.get('datain')" label="Data de entrada"></app-error-msg>
                 </div>
                 <div class="col">
                     <label for="dataout" class="form-label">Data de saída *</label>
-                    <input name="dataout" type="date" class="form-control" id="dataout" placeholder="dataout" required>
-                    <!-- <app-error-msg [control]="formulario.get('dataout')" label="Data de saída"></app-error-msg> -->
+                    <input name="dataout" type="date" class="form-control" id="dataout" placeholder="dataout" required
+                        formControlName="dataout" [ngClass]="aplicaCssErro('dataout')">
+                    <app-error-msg [control]="formulario.get('dataout')" label="Data de saída"></app-error-msg>
                 </div>
             </div>
 
             <div class="form-group row">
                 <div class="col-4">
                     <label for="paciente" class="form-label">Paciente *</label>
-                    <input name="paciente" type="button" class="form-control" id="paciente" value="paciente.nome"
-                        required readonly>
-                    <!-- <app-error-msg [control]="formulario.get('paciente')" label="Paciente"></app-error-msg> -->
+                    <input name="paciente" type="button" class="form-control" id="paciente" placeholder="Pacientes" value="{{ this.formulario.value.paciente?.nome}}"
+                        required formControlName="paciente" [ngClass]="aplicaCssErro('paciente')" (click)="openModal(addPaciente)">
+                    <app-error-msg [control]="formulario.get('paciente')" label="Paciente"></app-error-msg>
                 </div>
 
                 <div class="col-4">
@@ -62,57 +62,58 @@
             </div>
         </div>
 
-        <div class="card-body row">
-            <div class="col-4">
-                <label for="peca" class="form-label">Peça *</label>
-                <input name="peca" type="button" class="form-control" id="peca" value="peca.nome" required readonly>
-                <!-- <app-error-msg [control]="formulario.get('peca')" label="Peça"></app-error-msg> -->
+        <div class="card-body col ">
+            <div class="form-group row justify-content-around">
+                <div class="col-4">
+                    <label for="peca" class="form-label">Peça *</label>
+                    <input name="peca" type="button" class="form-control" id="peca" value="peca.nome" required readonly>
+                    <!-- <app-error-msg [control]="formulario.get('peca')" label="Peça"></app-error-msg> -->
+                </div>
+
+                <div class="col-2"></div>
+
+                <div class="col-4">
+                    <label for="grupodemedico" class="form-label">Grupo de Médico *</label>
+                    <input name="grupodemedico" type="button" class="form-control" id="grupodemedico"
+                        value="grupodemedico.nome" required readonly>
+                    <!-- <app-error-msg [control]="formulario.get('grupodemedico')" label="Grupo de Médico"></app-error-msg> -->
+                </div>
             </div>
 
-            <div class="col-2"></div>
+            <div class="form-group row justify-content-around">
+                <div class="col-4">
+                    <label for="medicosolic" class="form-label">Médico Solicitante *</label>
+                    <input name="medicosolic" type="button" class="form-control" id="medicosolic"
+                        value="medicosolic.nome" required readonly>
+                    <!-- <app-error-msg [control]="formulario.get('medicosolic')" label="Médico Solicitante"></app-error-msg> -->
+                </div>
 
-            <div class="col-4">
-                <label for="grupodemedico" class="form-label">Grupo de Médico *</label>
-                <input name="grupodemedico" type="button" class="form-control" id="grupodemedico"
-                    value="grupodemedico.nome" required readonly>
-                <!-- <app-error-msg [control]="formulario.get('grupodemedico')" label="Grupo de Médico"></app-error-msg> -->
-            </div>
-        </div>
+                <div class="col-2"></div>
 
-        <div class="card-body row">
-            <div class="col-4">
-                <label for="medicosolic" class="form-label">Médico Solicitante *</label>
-                <input name="medicosolic" type="button" class="form-control" id="medicosolic" value="medicosolic.nome"
-                    required readonly>
-                <!-- <app-error-msg [control]="formulario.get('medicosolic')" label="Médico Solicitante"></app-error-msg> -->
-            </div>
-
-            <div class="col-2"></div>
-
-            <div class="col-4">
-                <label for="clinica" class="form-label">Clínica *</label>
-                <input name="clinica" type="button" class="form-control" id="clinica" value="clinica.nome" required
-                    readonly>
-                <!-- <app-error-msg [control]="formulario.get('clinica')" label="Clínica"></app-error-msg> -->
+                <div class="col-4">
+                    <label for="clinica" class="form-label">Clínica *</label>
+                    <input name="clinica" type="button" class="form-control" id="clinica" value="clinica.nome" required
+                        readonly>
+                    <!-- <app-error-msg [control]="formulario.get('clinica')" label="Clínica"></app-error-msg> -->
+                </div>
             </div>
 
-        </div>
+            <div class="form-group row justify-content-around">
+                <div class="col-4">
+                    <label for="medicoresp" class="form-label">Médico Responsável *</label>
+                    <input name="medicoresp" type="button" class="form-control" id="medicoresp" value="medicoresp.nome"
+                        required readonly>
+                    <!-- <app-error-msg [control]="formulario.get('medicoresp')" label="Médico Responsável"></app-error-msg> -->
+                </div>
 
-        <div class="card-body row">
-            <div class="col-4">
-                <label for="medicoresp" class="form-label">Médico Responsável *</label>
-                <input name="medicoresp" type="button" class="form-control" id="medicoresp" value="medicoresp.nome"
-                    required readonly>
-                <!-- <app-error-msg [control]="formulario.get('medicoresp')" label="Médico Responsável"></app-error-msg> -->
-            </div>
+                <div class="col-2"></div>
 
-            <div class="col-2"></div>
-
-            <div class="col-4">
-                <label for="reuniao" class="form-label">Reunião *</label>
-                <input name="reuniao" type="button" class="form-control" id="reuniao" value="reuniao.nome" required
-                    readonly>
-                <!-- <app-error-msg [control]="formulario.get('reuniao')" label="Reunião"></app-error-msg> -->
+                <div class="col-4">
+                    <label for="reuniao" class="form-label">Reunião *</label>
+                    <input name="reuniao" type="button" class="form-control" id="reuniao" value="reuniao.nome" required
+                        readonly>
+                    <!-- <app-error-msg [control]="formulario.get('reuniao')" label="Reunião"></app-error-msg> -->
+                </div>
             </div>
         </div>
 
@@ -126,8 +127,7 @@
             <hr>
             <div class="col">
                 <label for="diagnostico" class="form-label">Diagnóstico *</label>
-                <textarea name="diagnostico" id="diagnostico" type="button" class="form-control" cols="30" rows="3"
-                    readonly>diagnostico.nome</textarea>
+                <textarea name="diagnostico" id="diagnostico" type="button" class="form-control" cols="30" rows="3" placeholder="Descrição do diagnóstico"></textarea>
                 <!-- <app-error-msg [control]="formulario.get('diagnostico')" label="Diagnóstico"></app-error-msg> -->
             </div>
         </div>
@@ -285,253 +285,268 @@
             </div>
 
             <div class="col">
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th scope="col">Dados clínicos</th>
-                            <th scope="col">Sim</th>
-                            <th scope="col">Não</th>
-                            <th scope="col">Não sei</th>
-                        </tr>
-                    </thead>
+                <div class="col ml-auto mr-auto">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr class="row">
+                                <th class="col-3"></th>
+                                <th class="col-4"></th>
+                                <th class="col">Sim</th>
+                                <th class="col">Não</th>
+                                <th class="col">Não sei</th>
+                            </tr>
+                        </thead>
 
-                    <tbody>
-                        <tr>
-                            <th scope="row"> É transplantado de fígado? * </th>
-                            <td>
-                                <input type="radio" formControlName="transplantadofigado" name="transplantadofigado"
-                                    class="ml-2" value="1">
-                            </td>
-                            <td>
-                                <input type="radio" formControlName="transplantadofigado" name="transplantadofigado"
-                                    class="ml-2" value="2">
-                            </td>
+                        <tbody>
+                            <tr class="row">
+                                <th class="col-3"> É transplantado de fígado? * </th>
+                                <td class="col-4">
+                                    <div class="row">
+                                        <p class="col small">* pelo menos aproximado</p>
+                                        <div class="col">
+                                            <input name="datatransplante" type="date" class="form-control"
+                                                id="datatransplante" placeholder="datatransplante" required>
+                                            <app-error-msg [control]="formulario.get('datatransplante')"
+                                                label="Data do tranplando, pelo menos aproximado"></app-error-msg>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="col">
+                                    <input type="radio" formControlName="transplantadofigado" name="transplantadofigado"
+                                        class="ml-2" value="1">
+                                </td>
+                                <td class="col">
+                                    <input type="radio" formControlName="transplantadofigado" name="transplantadofigado"
+                                        class="ml-2" value="2">
+                                </td>
 
-                            <td>
-                                <input type="radio" formControlName="transplantadofigado" name="transplantadofigado"
-                                    class="ml-2" value="3">
-                            </td>
-                        </tr>
-
-                        <div class="row m-3">
-                            <!-- *ngIf="transplantadofigado.value === 1" -->
-                            <div class="col">
-                                <p for="datatransplante"> * Data do transplante, pelo menos aproximado</p>
-                            </div>
-                            <div class="col-4">
-                                <input name="datatransplante" type="date" class="form-control" id="datatransplante"
-                                    placeholder="datatransplante" required>
-                                <!-- <app-error-msg [control]="formulario.get('datatransplante')" label="Data do tranplando, pelo menos aproximado"></app-error-msg> -->
-                            </div>
-                        </div>
-
-                        <tr>
-                            <th scope="row">Icterícia *</th>
-                            <td>
-                                <input type="radio" formControlName="ictericia" name="ictericia" class="ml-2" value="1">
-                            </td>
-
-                            <td>
-                                <input type="radio" formControlName="ictericia" name="ictericia" class="ml-2" value="2">
-                            </td>
-
-                            <td>
-                                <input type="radio" formControlName="ictericia" name="ictericia" class="ml-2" value="3">
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <th>Ascite *</th>
-                            <td>
-                                <input type="radio" formControlName="ascite" name="ascite" class="ml-2" value="1">
-                            </td>
-                            <td>
-                                <input type="radio" formControlName="ascite" name="ascite" class="ml-2" value="2">
-                            </td>
-                            <td>
-                                <input type="radio" formControlName="ascite" name="ascite" class="ml-2" value="3">
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <th>Edema MMII? * </th>
-                            <td>
-                                <input type="radio" formControlName="edema" name="edema" class="ml-2" value="1">
-                            </td>
-                            <td>
-                                <input type="radio" formControlName="edema" name="edema" class="ml-2" value="2">
-                            </td>
-                            <td>
-                                <input type="radio" formControlName="edema" name="edema" class="ml-2" value="3">
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <th>Circulação colateral? * </th>
-                            <td>
-                                <input type="radio" formControlName="circulacaocolateral" name="circulacaocolateral"
-                                    class="ml-2" value="1">
-                            </td>
-                            <td>
-                                <input type="radio" formControlName="circulacaocolateral" name="circulacaocolateral"
-                                    class="ml-2" value="2">
-                            </td>
-                            <td>
-                                <input type="radio" formControlName="circulacaocolateral" name="circulacaocolateral"
-                                    class="ml-2" value="3">
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <th>Varizes esofágicas? * </th>
-                            <td>
-                                <input type="radio" formControlName="varizesofagicas" name="varizesofagicas"
-                                    class="ml-2" value="1">
-                            </td>
-
-                            <td>
-                                <input type="radio" formControlName="varizesofagicas" name="varizesofagicas"
-                                    class="ml-2" value="2">
-                            </td>
-                            <td>
-                                <input type="radio" formControlName="varizesofagicas" name="varizesofagicas"
-                                    class="ml-2" value="3">
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <th>Hepatomegalia? * </th>
-                            <td>
-                                <input type="radio" formControlName="hepatomegalia" name="hepatomegalia" class="ml-2"
-                                    value="1">
-                            </td>
-                            <td>
-                                <input type="radio" formControlName="hepatomegalia" name="hepatomegalia" class="ml-2"
-                                    value="2">
-                            </td>
-                            <td>
-                                <input type="radio" formControlName="hepatomegalia" name="hepatomegalia" class="ml-2"
-                                    value="3">
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <th>Fígado endurecido? * </th>
-                            <td>
-                                <input type="radio" formControlName="figadoendurecido" name="figadoendurecido"
-                                    class="ml-2" value="1">
-                            </td>
-                            <td>
-                                <input type="radio" formControlName="figadoendurecido" name="figadoendurecido"
-                                    class="ml-2" value="2">
-                            </td>
-                            <td>
-                                <input type="radio" formControlName="figadoendurecido" name="figadoendurecido"
-                                    class="ml-2" value="3">
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <th>Fígado nodular? * </th>
-                            <td>
-                                <input type="radio" formControlName="figadonodular" name="figadonodular" class="ml-2"
-                                    value="1">
-                            </td>
-                            <td>
-                                <input type="radio" formControlName="figadonodular" name="figadonodular" class="ml-2"
-                                    value="2">
-                            </td>
-                            <td>
-                                <input type="radio" formControlName="figadonodular" name="figadonodular" class="ml-2"
-                                    value="3">
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <th>Esplenomegalia? * </th>
-                            <td>
-                                <input type="radio" formControlName="esplenomegalia" name="esplenomegalia" class="ml-2"
-                                    value="1">
-                            </td>
-                            <td>
-                                <input type="radio" formControlName="esplenomegalia" name="esplenomegalia" class="ml-2"
-                                    value="2">
-                            </td>
-                            <td>
-                                <input type="radio" formControlName="esplenomegalia" name="esplenomegalia" class="ml-2"
-                                    value="3">
-                            </td>
-                        </tr>
+                                <td class="col">
+                                    <input type="radio" formControlName="transplantadofigado" name="transplantadofigado"
+                                        class="ml-2" value="3">
+                                </td>
+                            </tr>
 
 
-                        <tr>
-                            <th>Hipertensão arterial? * </th>
-                            <td>
-                                <input type="radio" formControlName="hipertensaoarterial" name="hipertensaoarterial"
-                                    class="ml-2" value="1">
-                            </td>
-                            <td>
-                                <input type="radio" formControlName="hipertensaoarterial" name="hipertensaoarterial"
-                                    class="ml-2" value="2">
-                            </td>
-                            <td>
-                                <input type="radio" formControlName="hipertensaoarterial" name="hipertensaoarterial"
-                                    class="ml-2" value="3">
-                            </td>
-                        </tr>
+                            <tr class="row">
+                                <th class="col-3">Icterícia *</th>
+                                <th class="col-4"></th>
+                                <td class="col">
+                                    <input type="radio" formControlName="ictericia" name="ictericia" class="ml-2"
+                                        value="1">
+                                </td>
 
-                        <tr>
-                            <th>Alguma doença auto-imune fora do fígado? *</th>
-                            <td>
-                                <input type="radio" formControlName="doencaautoimune" name="doencaautoimune"
-                                    class="ml-2" value="1">
-                            </td>
-                            <td>
-                                <input type="radio" formControlName="doencaautoimune" name="doencaautoimune"
-                                    class="ml-2" value="2">
-                            </td>
-                            <td>
-                                <input type="radio" formControlName="doencaautoimune" name="doencaautoimune"
-                                    class="ml-2" value="3">
-                            </td>
-                        </tr>
+                                <td class="col">
+                                    <input type="radio" formControlName="ictericia" name="ictericia" class="ml-2"
+                                        value="2">
+                                </td>
 
-                        <div class="m-3">
-                            <!-- *ngIf="transplantadofigado.value === 1" -->
-                            <div class="col-4">
-                                <input name="descdoencaautoimune" type="text" class="form-control"
-                                    id="descdoencaautoimune" placeholder="descrição da doença" required>
-                                <!-- <app-error-msg [control]="formulario.get('descdoencaautoimune')" label="Descrição da doença"></app-error-msg> -->
-                            </div>
-                        </div>
+                                <td class="col">
+                                    <input type="radio" formControlName="ictericia" name="ictericia" class="ml-2"
+                                        value="3">
+                                </td>
+                            </tr>
 
-                        <tr>
-                            <th>Uso de medicamentos? * </th>
-                            <td>
-                                <input type="radio" formControlName="usamedicamento" name="usamedicamento" class="ml-2"
-                                    value="1">
-                            </td>
-                            <td>
-                                <input type="radio" formControlName="usamedicamento" name="usamedicamento" class="ml-2"
-                                    value="2">
-                            </td>
-                            <td>
-                                <input type="radio" formControlName="usamedicamento" name="usamedicamento" class="ml-2"
-                                    value="3">
-                            </td>
-                        </tr>
+                            <tr class="row">
+                                <th class="col-3">Ascite *</th>
+                                <th class="col-4"></th>
+                                <td class="col">
+                                    <input type="radio" formControlName="ascite" name="ascite" class="ml-2" value="1">
+                                </td>
+                                <td class="col">
+                                    <input type="radio" formControlName="ascite" name="ascite" class="ml-2" value="2">
+                                </td>
+                                <td class="col">
+                                    <input type="radio" formControlName="ascite" name="ascite" class="ml-2" value="3">
+                                </td>
+                            </tr>
 
-                        <div class="m-3">
-                            <!-- *ngIf="transplantadofigado.value === 1" -->
-                            <div class="col">
-                                <textarea name="descusamedicamento" class="form-control"
-                                    formControlName="descusamedicamento" id="descusamedicamento" cols="30" rows="2"
-                                    placeholder="Descrição dos medicamentos" required></textarea>
-                                <!-- <app-error-msg [control]="formulario.get('datatransplante')" label="Data do tranplando, pelo menos aproximado"></app-error-msg> -->
-                            </div>
-                        </div>
-                    </tbody>
-                </table>
+                            <tr class="row">
+                                <th class="col-3">Edema MMII? * </th>
+                                <th class="col-4"></th>
+                                <td class="col">
+                                    <input type="radio" formControlName="edema" name="edema" class="ml-2" value="1">
+                                </td>
+                                <td class="col">
+                                    <input type="radio" formControlName="edema" name="edema" class="ml-2" value="2">
+                                </td>
+                                <td class="col">
+                                    <input type="radio" formControlName="edema" name="edema" class="ml-2" value="3">
+                                </td>
+                            </tr>
+
+                            <tr class="row">
+                                <th class="col-3">Circulação colateral? * </th>
+                                <th class="col-4"></th>
+                                <td class="col">
+                                    <input type="radio" formControlName="circulacaocolateral" name="circulacaocolateral"
+                                        class="ml-2" value="1">
+                                </td>
+                                <td class="col">
+                                    <input type="radio" formControlName="circulacaocolateral" name="circulacaocolateral"
+                                        class="ml-2" value="2">
+                                </td>
+                                <td class="col">
+                                    <input type="radio" formControlName="circulacaocolateral" name="circulacaocolateral"
+                                        class="ml-2" value="3">
+                                </td>
+                            </tr>
+
+                            <tr class="row">
+                                <th class="col-3">Varizes esofágicas? * </th>
+                                <th class="col-4"></th>
+                                <td class="col">
+                                    <input type="radio" formControlName="varizesofagicas" name="varizesofagicas"
+                                        class="ml-2" value="1">
+                                </td>
+
+                                <td class="col">
+                                    <input type="radio" formControlName="varizesofagicas" name="varizesofagicas"
+                                        class="ml-2" value="2">
+                                </td>
+                                <td class="col">
+                                    <input type="radio" formControlName="varizesofagicas" name="varizesofagicas"
+                                        class="ml-2" value="3">
+                                </td>
+                            </tr>
+
+                            <tr class="row">
+                                <th class="col-3">Hepatomegalia? * </th>
+                                <th class="col-4"></th>
+                                <td class="col">
+                                    <input type="radio" formControlName="hepatomegalia" name="hepatomegalia"
+                                        class="ml-2" value="1">
+                                </td>
+                                <td class="col">
+                                    <input type="radio" formControlName="hepatomegalia" name="hepatomegalia"
+                                        class="ml-2" value="2">
+                                </td>
+                                <td class="col">
+                                    <input type="radio" formControlName="hepatomegalia" name="hepatomegalia"
+                                        class="ml-2" value="3">
+                                </td>
+                            </tr>
+
+                            <tr class="row">
+                                <th class="col-3">Fígado endurecido? * </th>
+                                <th class="col-4"></th>
+                                <td class="col">
+                                    <input type="radio" formControlName="figadoendurecido" name="figadoendurecido"
+                                        class="ml-2" value="1">
+                                </td>
+                                <td class="col">
+                                    <input type="radio" formControlName="figadoendurecido" name="figadoendurecido"
+                                        class="ml-2" value="2">
+                                </td>
+                                <td class="col">
+                                    <input type="radio" formControlName="figadoendurecido" name="figadoendurecido"
+                                        class="ml-2" value="3">
+                                </td>
+                            </tr>
+
+                            <tr class="row">
+                                <th class="col-3">Fígado nodular? * </th>
+                                <th class="col-4"></th>
+                                <td class="col">
+                                    <input type="radio" formControlName="figadonodular" name="figadonodular"
+                                        class="ml-2" value="1">
+                                </td>
+                                <td class="col">
+                                    <input type="radio" formControlName="figadonodular" name="figadonodular"
+                                        class="ml-2" value="2">
+                                </td>
+                                <td class="col">
+                                    <input type="radio" formControlName="figadonodular" name="figadonodular"
+                                        class="ml-2" value="3">
+                                </td>
+                            </tr>
+
+                            <tr class="row">
+                                <th class="col-3">Esplenomegalia? * </th>
+                                <th class="col-4"></th>
+                                <td class="col">
+                                    <input type="radio" formControlName="esplenomegalia" name="esplenomegalia"
+                                        class="ml-2" value="1">
+                                </td>
+                                <td class="col">
+                                    <input type="radio" formControlName="esplenomegalia" name="esplenomegalia"
+                                        class="ml-2" value="2">
+                                </td>
+                                <td class="col">
+                                    <input type="radio" formControlName="esplenomegalia" name="esplenomegalia"
+                                        class="ml-2" value="3">
+                                </td>
+                            </tr>
+
+
+                            <tr class="row">
+                                <th class="col-3">Hipertensão arterial? * </th>
+                                <th class="col-4"></th>
+                                <td class="col">
+                                    <input type="radio" formControlName="hipertensaoarterial" name="hipertensaoarterial"
+                                        class="ml-2" value="1">
+                                </td>
+                                <td class="col">
+                                    <input type="radio" formControlName="hipertensaoarterial" name="hipertensaoarterial"
+                                        class="ml-2" value="2">
+                                </td>
+                                <td class="col">
+                                    <input type="radio" formControlName="hipertensaoarterial" name="hipertensaoarterial"
+                                        class="ml-2" value="3">
+                                </td>
+                            </tr>
+
+                            <tr class="row">
+                                <th class="col-3">Alguma doença auto-imune fora do fígado? *</th>
+                                <th class="col-4">
+                                    <!-- *ngIf="transplantadofigado.value === 1" -->
+                                    <div>
+                                        <input name="descdoencaautoimune" type="text" class="form-control"
+                                            id="descdoencaautoimune" placeholder="descrição da doença" required>
+                                        <app-error-msg [control]="formulario.get('descdoencaautoimune')"
+                                            label="Descrição da doença"></app-error-msg>
+                                    </div>
+                                </th>
+                                <td class="col">
+                                    <input type="radio" formControlName="doencaautoimune" name="doencaautoimune"
+                                        class="ml-2" value="1">
+                                </td>
+                                <td class="col">
+                                    <input type="radio" formControlName="doencaautoimune" name="doencaautoimune"
+                                        class="ml-2" value="2">
+                                </td>
+                                <td class="col">
+                                    <input type="radio" formControlName="doencaautoimune" name="doencaautoimune"
+                                        class="ml-2" value="3">
+                                </td>
+                            </tr>
+
+                            <tr class="row">
+                                <th class="col-3">Uso de medicamentos? * </th>
+                                <th class="col-4">
+                                    <!-- *ngIf="transplantadofigado.value === 1" -->
+                                    <div>
+                                        <textarea name="descusamedicamento" class="form-control"
+                                            formControlName="descusamedicamento" id="descusamedicamento" cols="30"
+                                            rows="2" placeholder="Descrição dos medicamentos" required></textarea>
+                                        <!-- <app-error-msg [control]="formulario.get('datatransplante')" label="Data do tranplando, pelo menos aproximado"></app-error-msg> -->
+                                    </div>
+                                </th>
+                                <td class="col">
+                                    <input type="radio" formControlName="usamedicamento" name="usamedicamento"
+                                        class="ml-2" value="1">
+                                </td>
+                                <td class="col">
+                                    <input type="radio" formControlName="usamedicamento" name="usamedicamento"
+                                        class="ml-2" value="2">
+                                </td>
+                                <td class="col">
+                                    <input type="radio" formControlName="usamedicamento" name="usamedicamento"
+                                        class="ml-2" value="3">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
 
@@ -539,7 +554,7 @@
             <h5>Exames Complementares</h5>
             <hr>
 
-            <div class="col row">
+            <div class="col row ml-auto mr-auto">
                 <div class="col">
                     <table class="table table-striped">
                         <tbody>
@@ -644,7 +659,7 @@
             <hr>
 
             <div class="col">
-                <div class="col-11 align-self-center">
+                <div class="col ml-auto mr-auto">
                     <table class="table table-striped">
                         <thead>
                             <tr class="row">
@@ -672,11 +687,12 @@
                                 </td>
 
                                 <td class="col-3">
-                                    <!-- <input type="radio" formControlName="descvhc" name="descvhc" value="1"> Sorologia
-                                    <input type="radio" formControlName="descvhc" name="descvhc" value="2" class="ml-3"> PCR -->
+                                    <input type="radio" formControlName="descvhc" name="descvhc" value="1"> Sorologia
+                                    <input type="radio" formControlName="descvhc" name="descvhc" value="2" class="ml-3">
+                                    PCR
                                 </td>
                             </tr>
-                            
+
                             <tr class="row">
                                 <th class="col-2"> VHB </th>
                                 <td class="col-2">
@@ -691,8 +707,9 @@
                                 </td>
 
                                 <td class="col-3">
-                                    <!-- <input type="radio" formControlName="descvhc" name="descvhc" value="1"> Sorologia
-                                    <input type="radio" formControlName="descvhc" name="descvhc" value="2" class="ml-3"> PCR -->
+                                    <input type="radio" formControlName="descvhc" name="descvhc" value="1"> Sorologia
+                                    <input type="radio" formControlName="descvhc" name="descvhc" value="2" class="ml-3">
+                                    PCR
                                 </td>
                             </tr>
 
@@ -710,13 +727,14 @@
                                 </td>
 
                                 <td class="col-3">
-                                    <!-- <input type="radio" formControlName="descvhc" name="descvhc" value="1"> Sorologia
-                                    <input type="radio" formControlName="descvhc" name="descvhc" value="2" class="ml-3"> PCR -->
+                                    <input type="radio" formControlName="descvhc" name="descvhc" value="1"> Sorologia
+                                    <input type="radio" formControlName="descvhc" name="descvhc" value="2" class="ml-3">
+                                    PCR
                                 </td>
                             </tr>
                         </tbody>
                     </table>
-                </div>               
+                </div>
             </div>
 
             <div class="col-6">
@@ -749,8 +767,8 @@
     </div>
 </form>
 
-<ng-template #addInformacao>
-    <app-paciente-informacao (inserirInformacao)="incluirInfo($event)"></app-paciente-informacao>
+<ng-template #addPaciente>
+    <app-exame-paciente (inserirPaciente)="incluirPaciente($event)"></app-exame-paciente>
 </ng-template>
 
 <ng-template #historico>

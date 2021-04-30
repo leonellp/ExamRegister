@@ -1,7 +1,22 @@
-import { Component, OnInit } from '@angular/core';
-import { NgbNavConfig } from '@ng-bootstrap/ng-bootstrap';
-import { BsModalRef } from 'ngx-bootstrap/modal';
+import { Component, OnInit, TemplateRef } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { BaseFormComponent } from 'src/app/shared/base-form/base-form.component';
+import { CategoriaexameDTO } from 'src/app/shared/DTOs/categoriaexame-dto';
+import { ClinicaDTO } from 'src/app/shared/DTOs/clinica-dto';
+import { DiagnosticoDTO } from 'src/app/shared/DTOs/diagnostico-dto';
+import { ExamemedicorespdiagnosticoDTO } from 'src/app/shared/DTOs/examemedicorespdiagnostico-dto';
+import { GrupodemedicoDTO } from 'src/app/shared/DTOs/grupodemedico-dto';
+import { MedicoDTO } from 'src/app/shared/DTOs/medico-dto';
+import { OrgaoDTO } from 'src/app/shared/DTOs/orgao-dto';
+import { ExameDTO } from 'src/app/shared/DTOs/exame-dto';
+import { PecaDTO } from 'src/app/shared/DTOs/peca-dto';
+import { ReuniaoDTO } from 'src/app/shared/DTOs/reuniao-dto';
+import { AlertModalService } from 'src/app/shared/Services/alert-modal.service';
+import { ExameService } from 'src/app/shared/Services/exame.service';
+import { Location } from '@angular/common';
+import { ImagemDTO } from 'src/app/shared/DTOs/imagem-dto';
 import { PacienteDTO } from 'src/app/shared/DTOs/paciente-dto';
 
 @Component({
@@ -13,20 +28,241 @@ export class FormExameComponent extends BaseFormComponent implements OnInit {
 
   modalRef!: BsModalRef;
 
-  get paciente(): PacienteDTO {
-    return Object.assign({}, this.formulario.value).paciente;
+  get orgao(): OrgaoDTO {
+    return Object.assign({}, this.formulario.value).orgao;
   }
 
-  constructor(config: NgbNavConfig) {
-    config.destroyOnHide = false;
-    config.roles = false;
+  get peca(): PecaDTO {
+    return Object.assign({}, this.formulario.value).peca;
+  }
+
+  get medicosolic(): MedicoDTO {
+    return Object.assign({}, this.formulario.value).medicosolic;
+  }
+
+  get medicoresp(): MedicoDTO {
+    return Object.assign({}, this.formulario.value).medicoresp;
+  }
+
+  get grupodemedico(): GrupodemedicoDTO {
+    return Object.assign({}, this.formulario.value).grupodemedico;
+  }
+
+  get clinica(): ClinicaDTO {
+    return Object.assign({}, this.formulario.value).clinica;
+  }
+
+  get reuniao(): ReuniaoDTO {
+    return Object.assign({}, this.formulario.value).reuniao;
+  }
+
+  get diagnostico(): DiagnosticoDTO {
+    return Object.assign({}, this.formulario.value).diagnostico;
+  }
+
+  get examemedicorespdiagnostico(): ExamemedicorespdiagnosticoDTO {
+    return Object.assign({}, this.formulario.value).examemedicorespdiagnostico;
+  }
+
+  get categoriaexame(): CategoriaexameDTO {
+    return Object.assign({}, this.formulario.value).categoriaexame;
+  }
+
+  get imagem(): ImagemDTO {
+    return Object.assign({}, this.formulario.value).imagem;
+  }
+
+  constructor(
+    // private config: NgbNavConfig,
+    private exameService: ExameService,
+    private formBuilder: FormBuilder,
+    private alertService: AlertModalService,
+    private modalService: BsModalService,
+    private location: Location,
+    private route: ActivatedRoute
+  ) {
+    // config.destroyOnHide = false;
+    // config.roles = false;    
     super();
   }
 
   ngOnInit(): void {
+    this.formulario = this.formBuilder.group({
+      idexame: [null],
+      idexterno: [null, [Validators.required, Validators.maxLength(20)]],
+      datain: [null, Validators.required],
+      dataout: [null, Validators.required],
+      idpaciente: [null, Validators.required],
+      idorgao: [null, Validators.required],
+      idpeca: [null, Validators.required],
+      idmedicoresp: [null, Validators.required],
+      idmedicosolic: [null, Validators.required],
+      idreuniao: [null, Validators.required],
+      idclinica: [null, Validators.required],
+      diagnostico: [null, [Validators.required, Validators.maxLength(10000)]],
+      dadosclinicos: [null, [Validators.required, Validators.maxLength(300)]],
+      suspeitaclinica: [null, [Validators.required, Validators.maxLength(300)]],
+      peso: [null, Validators.required],
+      altura: [null, Validators.required],
+      ast: [null, Validators.required],
+      alt: [null, Validators.required],
+      ggt: [null, Validators.required],
+      colesterol: [null, Validators.required],
+      gamaglobulina: [null, Validators.required],
+      triglicerides: [null, Validators.required],
+      glicemia: [null, Validators.required],
+      falc: [null, Validators.required],
+      biltotal: [null, Validators.required],
+      bildireta: [null, Validators.required],
+      outros: [null, [Validators.required, Validators.maxLength(300)]],
+      inativo: [null],
+      idgrupomedico: [null, Validators.required],
+      conclusao: [null, [Validators.required, Validators.maxLength(300)]],
+      observacao: [null],
+      transplantadofigado: [null],
+      hipertensaoarterial: [null],
+      ictericia: [null],
+      ascite: [null],
+      edema: [null],
+      circulacaocolateral: [null],
+      varizesofagicas: [null],
+      hepatomegalia: [null],
+      figadoendurecido: [null],
+      figadonodular: [null],
+      esplenomegalia: [null],
+      datatransplante: [null],
+      descdoencaautoimune: [null],
+      doencaautoimune: [null],
+      usamedicamento: [null],
+      descusamedicamento: [null],
+      autoanticorpos: [null],
+      vhc: [null],
+      descvhc: [null],
+      vhb: [null],
+      descvhb: [null],
+      hiv: [null],
+      deschiv: [null],
+
+      paciente: [null],
+      orgao: [null],
+      peca: [null],
+      grupodemedico: [null],
+      medicosolic: [null],
+      clinica: [null],
+      medicoresp: [null],
+      reuniao: [null],
+      examemedicorespdiagnostico: [null],
+      categoriaexame: [null],
+      imagem: [null],
+    }, { updateOn: 'blur' });
+
+    this.route.params.subscribe(params => {
+      let idexame = params['id'];
+
+      if (idexame) {
+        this.exameService.loadByID(idexame).subscribe(exame => {
+
+          this.formulario.setValue(Object.assign({}, exame));
+        });
+      } this.formulario.setValue(Object.assign({}, JSON.parse(sessionStorage.getItem("exame") || "{}")));
+    });
+
+    this.formulario.valueChanges.subscribe(() => {
+      // this.setForm();
+    });
+  }
+  
+  openModal(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template);
   }
 
   submit() {
-    throw new Error('Method not implemented.');
+    let valueSubmit = Object.assign({}, this.formulario.value);
+
+    console.log(valueSubmit);    
+
+    if (this.formulario.valid) {
+
+      let msgSuccess = 'exame cadastrado com sucesso!';
+      let msgError = 'Erro ao cadastrar exame, tente novamente!';
+
+      if (this.formulario.value.idexame) {
+
+        msgSuccess = 'exame atualizado com sucesso!';
+        msgError = 'Erro ao atualizar exame, tente novamente!';
+      }
+      // this.exameService.save(valueSubmit).subscribe(
+      //   () => {
+      //     this.alertService.showAlertSuccess(msgSuccess);
+      //     delay(1000);
+      //     this.location.back();
+      //   },
+      //   () => this.alertService.showAlertDanger(msgError)
+      // );
+    } else this.formulario.markAllAsTouched();
+  }
+
+  incluirPaciente(paciente: PacienteDTO) {
+    let exame: ExameDTO = Object.assign({}, this.formulario.value);
+
+    exame.paciente = paciente;
+    exame.idpaciente = paciente.idpaciente;
+    
+    this.formulario.setValue(exame);
+  }
+
+  incluirOrgao(orgao: OrgaoDTO) {
+    let exame: ExameDTO = Object.assign({}, this.formulario.value);
+
+    exame.orgao = orgao;
+    exame.idorgao = orgao.idorgao;
+  }
+
+  incluirPeca(peca: PecaDTO) {
+    let exame: ExameDTO = Object.assign({}, this.formulario.value);
+
+    exame.peca = peca;
+    exame.idpeca = peca.idpeca;
+  }
+
+  incluiMedicosolic(medicosolic: MedicoDTO) {
+    let exame: ExameDTO = Object.assign({}, this.formulario.value);
+
+    exame.medicosolic = medicosolic;
+    exame.idmedicosolic = medicosolic.idmedico;
+  }
+
+  incluirMedicoresp(medicoresp: MedicoDTO) {
+    let exame: ExameDTO = Object.assign({}, this.formulario.value);
+
+    exame.medicoresp = medicoresp;
+    exame.idmedicoresp = medicoresp.idmedico;
+  }
+
+  incluirGrupo(grupo: GrupodemedicoDTO) {
+    let exame: ExameDTO = Object.assign({}, this.formulario.value);
+
+    exame.grupodemedico = grupo;
+    exame.idgrupomedico = grupo.idgrupodemedicos;
+  }
+
+  incluirClinica(clinica: ClinicaDTO) {
+    let exame: ExameDTO = Object.assign({}, this.formulario.value);
+
+    exame.clinica = clinica;
+    exame.idclinica = clinica.idclinica;
+  }
+
+  incluirReuniao(reuniao: ReuniaoDTO) {
+    let exame: ExameDTO = Object.assign({}, this.formulario.value);
+
+    exame.reuniao = reuniao;
+    exame.idreuniao = reuniao.idrenuiao;
+  }
+
+  incluiDiagnostico(diagnostico: DiagnosticoDTO) {
+    let exame: ExameDTO = Object.assign({}, this.formulario.value);
+
+    exame.diagnostico = diagnostico.nome;
   }
 }

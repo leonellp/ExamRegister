@@ -10,6 +10,15 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { SharedModule } from '../shared/shared.module';
 import { NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
+import { ExamePacienteComponent } from './exame-paciente/exame-paciente.component';
+import { ExameOrgaoComponent } from './exame-orgao/exame-orgao.component';
+import { ExamePecaComponent } from './exame-peca/exame-peca.component';
+import { ExameGrupodemedicoComponent } from './exame-grupodemedico/exame-grupodemedico.component';
+import { ExameMedicosolicComponent } from './exame-medicosolic/exame-medicosolic.component';
+import { ExameMedicorespComponent } from './exame-medicoresp/exame-medicoresp.component';
+import { ExameClinicaComponent } from './exame-clinica/exame-clinica.component';
+import { ExameReuniaoComponent } from './exame-reuniao/exame-reuniao.component';
+import { CategoriaexameComponent } from './categoriaexame/categoriaexame.component';
 
 @NgModule({
   imports: [
@@ -24,6 +33,6 @@ import { NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
     SharedModule,
     NgbTypeaheadModule,
   ],
-  declarations: [ExameMedRespDiagComponent, FormExameComponent]
+  declarations: [ExameMedRespDiagComponent, FormExameComponent, ExamePacienteComponent, ExameOrgaoComponent, ExamePecaComponent, ExameGrupodemedicoComponent, ExameMedicosolicComponent, ExameMedicorespComponent, ExameClinicaComponent, ExameReuniaoComponent, CategoriaexameComponent]
 })
 export class ExameModule { }
