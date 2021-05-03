@@ -4,6 +4,8 @@ import { ExamemedicorespdiagnosticoDTO } from "./examemedicorespdiagnostico-dto"
 import { GrupodemedicoDTO } from "./grupodemedico-dto";
 import { ImagemDTO } from "./imagem-dto";
 import { MedicoDTO } from "./medico-dto";
+import { MedicorespDTO } from "./medicoresp-dto";
+import { MedicosolicDTO } from "./medicosolic-dto";
 import { OrgaoDTO } from "./orgao-dto";
 import { PacienteDTO } from "./paciente-dto";
 import { PecaDTO } from "./peca-dto";
@@ -69,9 +71,9 @@ export interface ExameDTO {
     orgao: OrgaoDTO;
     peca: PecaDTO;
     grupodemedico: GrupodemedicoDTO;
-    medicosolic: MedicoDTO;
+    medicosolic: MedicosolicDTO;
     clinica: ClinicaDTO;
-    medicoresp: MedicoDTO;
+    medicoresp: MedicorespDTO;
     reuniao: ReuniaoDTO;
     examemedicorespdiagnostico: ExamemedicorespdiagnosticoDTO[];
     categoriaexame: CategoriaexameDTO[];

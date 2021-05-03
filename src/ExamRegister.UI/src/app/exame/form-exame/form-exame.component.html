@@ -42,16 +42,18 @@
             <div class="form-group row">
                 <div class="col-4">
                     <label for="paciente" class="form-label">Paciente *</label>
-                    <input name="paciente" type="button" class="form-control" id="paciente" placeholder="Pacientes" value="{{ this.formulario.value.paciente?.nome}}"
-                        required formControlName="paciente" [ngClass]="aplicaCssErro('paciente')" (click)="openModal(addPaciente)">
+                    <input name="paciente" type="button" class="form-control" id="paciente"
+                        value="{{ this.formulario.value.paciente?.nome}}" required formControlName="paciente"
+                        [ngClass]="aplicaCssErro('paciente')" (click)="openModal(addPaciente)">
                     <app-error-msg [control]="formulario.get('paciente')" label="Paciente"></app-error-msg>
                 </div>
 
                 <div class="col-4">
                     <label for="orgao" class="form-label">Orgão *</label>
-                    <input name="orgao" type="button" class="form-control" id="orgao" value="orgao.nome" required
-                        readonly>
-                    <!-- <app-error-msg [control]="formulario.get('orgao')" label="Orgão"></app-error-msg> -->
+                    <input name="orgao" type="button" class="form-control" id="orgao"
+                        value="{{ this.formulario.value.orgao?.nome}}" required formControlName="orgao"
+                        [ngClass]="aplicaCssErro('orgao')" (click)="openModal(addOrgao)">
+                    <app-error-msg [control]="formulario.get('orgao')" label="Orgão"></app-error-msg>
                 </div>
             </div>
         </div>
@@ -66,17 +68,20 @@
             <div class="form-group row justify-content-around">
                 <div class="col-4">
                     <label for="peca" class="form-label">Peça *</label>
-                    <input name="peca" type="button" class="form-control" id="peca" value="peca.nome" required readonly>
-                    <!-- <app-error-msg [control]="formulario.get('peca')" label="Peça"></app-error-msg> -->
+                    <input name="peca" type="button" class="form-control" id="peca"
+                        value="{{ this.formulario.value.peca?.nome}}" required formControlName="peca"
+                        [ngClass]="aplicaCssErro('peca')" (click)="openModal(addPeca)">
+                    <app-error-msg [control]="formulario.get('peca')" label="Peça"></app-error-msg>
                 </div>
 
                 <div class="col-2"></div>
 
                 <div class="col-4">
-                    <label for="grupodemedico" class="form-label">Grupo de Médico *</label>
+                    <label for="grupodemedico" class="form-label">Grupo de Médicos *</label>
                     <input name="grupodemedico" type="button" class="form-control" id="grupodemedico"
-                        value="grupodemedico.nome" required readonly>
-                    <!-- <app-error-msg [control]="formulario.get('grupodemedico')" label="Grupo de Médico"></app-error-msg> -->
+                        value="{{ this.formulario.value.grupodemedico?.nome}}" required formControlName="grupodemedico"
+                        [ngClass]="aplicaCssErro('grupodemedico')" (click)="openModal(addGrupodemedico)">
+                    <app-error-msg [control]="formulario.get('grupodemedico')" label="Grupo de Médicos"></app-error-msg>
                 </div>
             </div>
 
@@ -84,35 +89,39 @@
                 <div class="col-4">
                     <label for="medicosolic" class="form-label">Médico Solicitante *</label>
                     <input name="medicosolic" type="button" class="form-control" id="medicosolic"
-                        value="medicosolic.nome" required readonly>
-                    <!-- <app-error-msg [control]="formulario.get('medicosolic')" label="Médico Solicitante"></app-error-msg> -->
+                        value="{{ this.formulario.value.medicosolic?.nome}}" required formControlName="medicosolic"
+                        [ngClass]="aplicaCssErro('medicosolic')" (click)="openModal(addMedicosolic)">
+                    <app-error-msg [control]="formulario.get('medicosolic')" label="Médico Solicitante"></app-error-msg>
                 </div>
 
                 <div class="col-2"></div>
 
                 <div class="col-4">
                     <label for="clinica" class="form-label">Clínica *</label>
-                    <input name="clinica" type="button" class="form-control" id="clinica" value="clinica.nome" required
-                        readonly>
-                    <!-- <app-error-msg [control]="formulario.get('clinica')" label="Clínica"></app-error-msg> -->
+                    <input name="clinica" type="button" class="form-control" id="clinica"
+                        value="{{ this.formulario.value.clinica?.nome}}" required formControlName="clinica"
+                        [ngClass]="aplicaCssErro('clinica')" (click)="openModal(addClinica)">
+                    <app-error-msg [control]="formulario.get('clinica')" label="Clínica"></app-error-msg>
                 </div>
             </div>
 
             <div class="form-group row justify-content-around">
                 <div class="col-4">
                     <label for="medicoresp" class="form-label">Médico Responsável *</label>
-                    <input name="medicoresp" type="button" class="form-control" id="medicoresp" value="medicoresp.nome"
-                        required readonly>
-                    <!-- <app-error-msg [control]="formulario.get('medicoresp')" label="Médico Responsável"></app-error-msg> -->
+                    <input name="medicoresp" type="button" class="form-control" id="medicoresp"
+                        value="{{ this.formulario.value.medicoresp?.nome}}" required formControlName="medicoresp"
+                        [ngClass]="aplicaCssErro('medicoresp')" (click)="openModal(addMedicoresp)">
+                    <app-error-msg [control]="formulario.get('medicoresp')" label="Médico Responsável"></app-error-msg>
                 </div>
 
                 <div class="col-2"></div>
 
                 <div class="col-4">
                     <label for="reuniao" class="form-label">Reunião *</label>
-                    <input name="reuniao" type="button" class="form-control" id="reuniao" value="reuniao.nome" required
-                        readonly>
-                    <!-- <app-error-msg [control]="formulario.get('reuniao')" label="Reunião"></app-error-msg> -->
+                    <input name="reuniao" type="button" class="form-control" id="reuniao"
+                        value="{{ this.formulario.value.reuniao?.nome}}" required formControlName="reuniao"
+                        [ngClass]="aplicaCssErro('reuniao')" (click)="openModal(addReuniao)">
+                    <app-error-msg [control]="formulario.get('reuniao')" label="Reunião"></app-error-msg>
                 </div>
             </div>
         </div>
@@ -125,10 +134,24 @@
         <div class="card-body">
             <h5>Geral</h5>
             <hr>
+
+            <div class="col">
+                <button class="btn btn-outline-success mb-3 btn-sm" (click)="openModal(addDiagnostico)">
+                    Diagnósticos
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-plus-circle-dotted" viewBox="0 0 16 16">
+                        <path
+                            d="M8 0c-.176 0-.35.006-.523.017l.064.998a7.117 7.117 0 0 1 .918 0l.064-.998A8.113 8.113 0 0 0 8 0zM6.44.152c-.346.069-.684.16-1.012.27l.321.948c.287-.098.582-.177.884-.237L6.44.153zm4.132.271a7.946 7.946 0 0 0-1.011-.27l-.194.98c.302.06.597.14.884.237l.321-.947zm1.873.925a8 8 0 0 0-.906-.524l-.443.896c.275.136.54.29.793.459l.556-.831zM4.46.824c-.314.155-.616.33-.905.524l.556.83a7.07 7.07 0 0 1 .793-.458L4.46.824zM2.725 1.985c-.262.23-.51.478-.74.74l.752.66c.202-.23.418-.446.648-.648l-.66-.752zm11.29.74a8.058 8.058 0 0 0-.74-.74l-.66.752c.23.202.447.418.648.648l.752-.66zm1.161 1.735a7.98 7.98 0 0 0-.524-.905l-.83.556c.169.253.322.518.458.793l.896-.443zM1.348 3.555c-.194.289-.37.591-.524.906l.896.443c.136-.275.29-.54.459-.793l-.831-.556zM.423 5.428a7.945 7.945 0 0 0-.27 1.011l.98.194c.06-.302.14-.597.237-.884l-.947-.321zM15.848 6.44a7.943 7.943 0 0 0-.27-1.012l-.948.321c.098.287.177.582.237.884l.98-.194zM.017 7.477a8.113 8.113 0 0 0 0 1.046l.998-.064a7.117 7.117 0 0 1 0-.918l-.998-.064zM16 8a8.1 8.1 0 0 0-.017-.523l-.998.064a7.11 7.11 0 0 1 0 .918l.998.064A8.1 8.1 0 0 0 16 8zM.152 9.56c.069.346.16.684.27 1.012l.948-.321a6.944 6.944 0 0 1-.237-.884l-.98.194zm15.425 1.012c.112-.328.202-.666.27-1.011l-.98-.194c-.06.302-.14.597-.237.884l.947.321zM.824 11.54a8 8 0 0 0 .524.905l.83-.556a6.999 6.999 0 0 1-.458-.793l-.896.443zm13.828.905c.194-.289.37-.591.524-.906l-.896-.443c-.136.275-.29.54-.459.793l.831.556zm-12.667.83c.23.262.478.51.74.74l.66-.752a7.047 7.047 0 0 1-.648-.648l-.752.66zm11.29.74c.262-.23.51-.478.74-.74l-.752-.66c-.201.23-.418.447-.648.648l.66.752zm-1.735 1.161c.314-.155.616-.33.905-.524l-.556-.83a7.07 7.07 0 0 1-.793.458l.443.896zm-7.985-.524c.289.194.591.37.906.524l.443-.896a6.998 6.998 0 0 1-.793-.459l-.556.831zm1.873.925c.328.112.666.202 1.011.27l.194-.98a6.953 6.953 0 0 1-.884-.237l-.321.947zm4.132.271a7.944 7.944 0 0 0 1.012-.27l-.321-.948a6.954 6.954 0 0 1-.884.237l.194.98zm-2.083.135a8.1 8.1 0 0 0 1.046 0l-.064-.998a7.11 7.11 0 0 1-.918 0l-.064.998zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z" />
+                    </svg>
+                </button>
+            </div>
             <div class="col">
                 <label for="diagnostico" class="form-label">Diagnóstico *</label>
-                <textarea name="diagnostico" id="diagnostico" type="button" class="form-control" cols="30" rows="3" placeholder="Descrição do diagnóstico"></textarea>
-                <!-- <app-error-msg [control]="formulario.get('diagnostico')" label="Diagnóstico"></app-error-msg> -->
+                <textarea name="diagnostico" id="diagnostico" type="text" class="form-control" cols="30" rows="3"
+                    placeholder="Descrição do diagnóstico" required formControlName="diagnostico" [ngClass]="aplicaCssErro('diagnostico')">
+                    {{ this.formulario.value.diagnostico?.nome}}
+                </textarea>
+                <app-error-msg [control]="formulario.get('diagnostico')" label="Diagnóstico"></app-error-msg>
             </div>
         </div>
 
@@ -137,8 +160,7 @@
             <hr>
 
             <div class="col">
-                <button class="btn btn-outline-success mb-3 btn-sm">
-                    <!-- (click)="openModal(addInformacao)" -->
+                <button class="btn btn-outline-success mb-3 btn-sm" (click)="openModal(addMedicorespdiag)">                    
                     Médicos
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                         class="bi bi-plus-circle-dotted" viewBox="0 0 16 16">
@@ -158,14 +180,13 @@
                     </thead>
 
                     <tbody>
-                        <tr>
-                            <!-- *ngFor="let _medicorespdiag of medicorespdiag" -->
-                            <td></td>
-                            <!-- {{ _medicorespdiag.medico?.nome }} -->
+                        <tr *ngFor="let _medicorespdiag of examemedicorespdiagnostico">                            
+                            <td>
+                                {{ _medicorespdiag.medico?.nome }}
+                            </td>                            
                             <td>
                                 <span class="float-right">
-                                    <button class="btn btn-outline-danger mb-1 btn-sm">
-                                        <!-- (click)="onDeleteInfo(informacao2)" -->
+                                    <button class="btn btn-outline-danger mb-1 btn-sm" (click)="removerMedicorespdiag(_medicorespdiag)">                                        
                                         Remover
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red"
                                             class="bi bi-trash-fill" viewBox="0 0 16 16">
@@ -238,9 +259,10 @@
 
         <div class="card-body">
             <div class="col-6">
-                <label for="imagem.nome" class="form-label">Nome *</label>
-                <input name="imagem.nome" type="text" class="form-control" id="imagem.nome" required>
-                <!-- <app-error-msg [control]="formulario.get('imagem.nome')" label="Nome"></app-error-msg> -->
+                <label for="imagem" class="form-label">nome *</label>
+                <input name="imagem" type="text" class="form-control" id="imagem" formControlName="imagem"
+                    [ngClass]="aplicaCssErro('imagem')">
+                <app-error-msg [control]="formulario.get('imagem')" label="Nome da imagem"></app-error-msg>                
                 <input type="file" class="form-control-file mt-3" id="imagem">
             </div>
         </div>
@@ -259,25 +281,25 @@
                     <div class="col">
                         <label for="dadosclinicos" class="form-label">Dados Clínicos *</label>
                         <textarea name="dadosclinicos" id="dadosclinicos" class="form-control" cols="30"
-                            rows="4"></textarea>
-                        <!-- <app-error-msg [control]="formulario.get('diagnostico')" label="Diagnóstico"></app-error-msg> -->
+                            rows="4" formControlName="dadosclinicos" [ngClass]="aplicaCssErro('dadosclinicos')"></textarea>
+                        <app-error-msg [control]="formulario.get('dadosclinicos')" label="Dados Clínicos"></app-error-msg>
                     </div>
 
                     <div class="col">
                         <label for="suspeitaclinica" class="form-label">Suspeita Clínica *</label>
-                        <input name="suspeitaclinica" type="button" class="form-control" id="suspeitaclinica" required>
-                        <!-- <app-error-msg [control]="formulario.get('suspeitaclinica')" label="Suspeita Clínica"></app-error-msg> -->
+                        <input name="suspeitaclinica" type="text" class="form-control" id="suspeitaclinica" required formControlName="suspeitaclinica" [ngClass]="aplicaCssErro('suspeitaclinica')">
+                        <app-error-msg [control]="formulario.get('suspeitaclinica')" label="Suspeita Clínica"></app-error-msg>
                         <div class="form-group row">
                             <div class="col">
                                 <label for="peso" class="form-label">Peso (Kg)*</label>
-                                <input name="peso" type="number" class="form-control" id="peso" required>
-                                <!-- <app-error-msg [control]="formulario.get('peso')" label="Peso"></app-error-msg> -->
+                                <input name="peso" type="number" class="form-control" id="peso" required formControlName="peso" [ngClass]="aplicaCssErro('peso')">
+                                <app-error-msg [control]="formulario.get('peso')" label="Peso"></app-error-msg>
                             </div>
 
                             <div class="col">
-                                <label for="altura" class="form-label">Altura (m)*</label>
-                                <input name="altura" type="number" class="form-control" id="altura" required>
-                                <!-- <app-error-msg [control]="formulario.get('altura')" label="Altura"></app-error-msg> -->
+                                <label for="altura" class="form-label">Altura (cm)*</label>
+                                <input name="altura" type="number" class="form-control" id="altura" required formControlName="altura" [ngClass]="aplicaCssErro('altura')">
+                                <app-error-msg [control]="formulario.get('altura')" label="Altura"></app-error-msg>
                             </div>
                         </div>
                     </div>
@@ -301,11 +323,11 @@
                             <tr class="row">
                                 <th class="col-3"> É transplantado de fígado? * </th>
                                 <td class="col-4">
-                                    <div class="row">
+                                    <div *ngIf="this.formulario.value.transplantadofigado == 1" class="row">
                                         <p class="col small">* pelo menos aproximado</p>
                                         <div class="col">
                                             <input name="datatransplante" type="date" class="form-control"
-                                                id="datatransplante" placeholder="datatransplante" required>
+                                                id="datatransplante" placeholder="datatransplante" required formControlName="datatransplante" [ngClass]="aplicaCssErro('datatransplante')">
                                             <app-error-msg [control]="formulario.get('datatransplante')"
                                                 label="Data do tranplando, pelo menos aproximado"></app-error-msg>
                                         </div>
@@ -497,15 +519,14 @@
 
                             <tr class="row">
                                 <th class="col-3">Alguma doença auto-imune fora do fígado? *</th>
-                                <th class="col-4">
-                                    <!-- *ngIf="transplantadofigado.value === 1" -->
-                                    <div>
+                                <td class="col-4">                                    
+                                    <div *ngIf="this.formulario.value.doencaautoimune == 1">
                                         <input name="descdoencaautoimune" type="text" class="form-control"
-                                            id="descdoencaautoimune" placeholder="descrição da doença" required>
+                                            id="descdoencaautoimune" placeholder="descrição da doença" required formControlName="descdoencaautoimune" [ngClass]="aplicaCssErro('descdoencaautoimune')">
                                         <app-error-msg [control]="formulario.get('descdoencaautoimune')"
                                             label="Descrição da doença"></app-error-msg>
                                     </div>
-                                </th>
+                                </td>
                                 <td class="col">
                                     <input type="radio" formControlName="doencaautoimune" name="doencaautoimune"
                                         class="ml-2" value="1">
@@ -522,15 +543,14 @@
 
                             <tr class="row">
                                 <th class="col-3">Uso de medicamentos? * </th>
-                                <th class="col-4">
-                                    <!-- *ngIf="transplantadofigado.value === 1" -->
-                                    <div>
+                                <td class="col-4">
+                                    <div *ngIf="this.formulario.value.usamedicamento == 1">
                                         <textarea name="descusamedicamento" class="form-control"
                                             formControlName="descusamedicamento" id="descusamedicamento" cols="30"
-                                            rows="2" placeholder="Descrição dos medicamentos" required></textarea>
-                                        <!-- <app-error-msg [control]="formulario.get('datatransplante')" label="Data do tranplando, pelo menos aproximado"></app-error-msg> -->
+                                            rows="2" placeholder="Descrição dos medicamentos" required formControlName="descusamedicamento" [ngClass]="aplicaCssErro('descusamedicamento')"></textarea>
+                                        <app-error-msg [control]="formulario.get('descusamedicamento')" label="Descrição dos medicamentos"></app-error-msg>
                                     </div>
-                                </th>
+                                </td>
                                 <td class="col">
                                     <input type="radio" formControlName="usamedicamento" name="usamedicamento"
                                         class="ml-2" value="1">
@@ -673,7 +693,7 @@
 
                         <tbody>
                             <tr class="row">
-                                <th class="col-2"> VHC </th>
+                                <th class="col-2"> VHC *</th>
                                 <td class="col-2">
                                     <input type="radio" formControlName="vhc" name="vhc" value="1">
                                 </td>
@@ -694,7 +714,7 @@
                             </tr>
 
                             <tr class="row">
-                                <th class="col-2"> VHB </th>
+                                <th class="col-2"> VHB *</th>
                                 <td class="col-2">
                                     <input type="radio" formControlName="vhb" name="vhb" value="1">
                                 </td>
@@ -714,7 +734,7 @@
                             </tr>
 
                             <tr class="row">
-                                <th class="col-2"> HIV </th>
+                                <th class="col-2"> HIV *</th>
                                 <td class="col-2">
                                     <input type="radio" formControlName="hiv" name="hiv" value="1">
                                 </td>
@@ -771,6 +791,38 @@
     <app-exame-paciente (inserirPaciente)="incluirPaciente($event)"></app-exame-paciente>
 </ng-template>
 
-<ng-template #historico>
-    <app-historico-paciente (inserirHistorico)="incluirHistorico($event)"></app-historico-paciente>
+<ng-template #addOrgao>
+    <app-exame-orgao (inserirOrgao)="incluirOrgao($event)"></app-exame-orgao>
+</ng-template>
+
+<ng-template #addPeca>
+    <app-exame-peca (inserirPeca)="incluirPeca($event)"></app-exame-peca>
+</ng-template>
+
+<ng-template #addMedicosolic>
+    <app-exame-medicosolic (inserirMedicosolic)="incluirMedicosolic($event)"></app-exame-medicosolic>
+</ng-template>
+
+<ng-template #addMedicoresp>
+    <app-exame-medicoresp (inserirMedicoresp)="incluirMedicoresp($event)"></app-exame-medicoresp>
+</ng-template>
+
+<ng-template #addGrupodemedico>
+    <app-exame-grupodemedico (inserirGrupodemedico)="incluirGrupodemedico($event)"></app-exame-grupodemedico>
+</ng-template>
+
+<ng-template #addClinica>
+    <app-exame-clinica (inserirClinica)="incluirClinica($event)"></app-exame-clinica>
+</ng-template>
+
+<ng-template #addReuniao>
+    <app-exame-reuniao (inserirReuniao)="incluirReuniao($event)"></app-exame-reuniao>
+</ng-template>
+
+<ng-template #addDiagnostico>
+    <app-exame-diagnostico (inserirDiagnostico)="incluirDiagnostico($event)"></app-exame-diagnostico>
+</ng-template>
+
+<ng-template #addMedicorespdiag>
+    <app-exame-med-resp-diag (inserirMedicorespdiag)="incluirMedicorespdiag($event)"></app-exame-med-resp-diag>
 </ng-template>

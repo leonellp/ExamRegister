@@ -1,5 +1,9 @@
+import { MedicoDTO } from "./medico-dto";
+
 export interface ExamemedicorespdiagnosticoDTO {
-    idexmeddiag: string;
+    idexmeddiag: string | null;
     idmedico: string;
-    idexame: string;
+    idexame: string | null;
+
+    medico?: MedicoDTO;
 }

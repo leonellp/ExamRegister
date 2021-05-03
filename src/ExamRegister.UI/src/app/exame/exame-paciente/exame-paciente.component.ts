@@ -49,13 +49,13 @@ export class ExamePacienteComponent implements OnInit {
     this.modalService.hide();
   }
 
-  incluirInfo(paciente: PacienteDTO) {
+  incluirPaciente(paciente: PacienteDTO) {
     this.paciente = paciente;
     this.inserirPaciente.emit(this.paciente);
-    this.onClose()
+    this.onClose();
   }
 
-  newMedico() {
+  newPaciente() {
     this.router.navigate(['paciente/novo']);
     this.onClose();
   }

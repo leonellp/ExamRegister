@@ -18,6 +18,9 @@ import { ExameService } from 'src/app/shared/Services/exame.service';
 import { Location } from '@angular/common';
 import { ImagemDTO } from 'src/app/shared/DTOs/imagem-dto';
 import { PacienteDTO } from 'src/app/shared/DTOs/paciente-dto';
+import { MedicosolicDTO } from 'src/app/shared/DTOs/medicosolic-dto';
+import { MedicorespDTO } from 'src/app/shared/DTOs/medicoresp-dto';
+import { MedicorespdiagDTO } from 'src/app/shared/DTOs/medicorespdiag-dto';
 
 @Component({
   selector: 'app-form-exame',
@@ -171,7 +174,7 @@ export class FormExameComponent extends BaseFormComponent implements OnInit {
       // this.setForm();
     });
   }
-  
+
   openModal(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(template);
   }
@@ -179,7 +182,7 @@ export class FormExameComponent extends BaseFormComponent implements OnInit {
   submit() {
     let valueSubmit = Object.assign({}, this.formulario.value);
 
-    console.log(valueSubmit);    
+    console.log(valueSubmit);
 
     if (this.formulario.valid) {
 
@@ -207,7 +210,7 @@ export class FormExameComponent extends BaseFormComponent implements OnInit {
 
     exame.paciente = paciente;
     exame.idpaciente = paciente.idpaciente;
-    
+
     this.formulario.setValue(exame);
   }
 
@@ -216,6 +219,8 @@ export class FormExameComponent extends BaseFormComponent implements OnInit {
 
     exame.orgao = orgao;
     exame.idorgao = orgao.idorgao;
+
+    this.formulario.setValue(exame);
   }
 
   incluirPeca(peca: PecaDTO) {
@@ -223,27 +228,35 @@ export class FormExameComponent extends BaseFormComponent implements OnInit {
 
     exame.peca = peca;
     exame.idpeca = peca.idpeca;
+
+    this.formulario.setValue(exame);
   }
 
-  incluiMedicosolic(medicosolic: MedicoDTO) {
+  incluirMedicosolic(medicosolic: MedicosolicDTO) {
     let exame: ExameDTO = Object.assign({}, this.formulario.value);
 
     exame.medicosolic = medicosolic;
     exame.idmedicosolic = medicosolic.idmedico;
+
+    this.formulario.setValue(exame);
   }
 
-  incluirMedicoresp(medicoresp: MedicoDTO) {
+  incluirMedicoresp(medicoresp: MedicorespDTO) {
     let exame: ExameDTO = Object.assign({}, this.formulario.value);
 
     exame.medicoresp = medicoresp;
     exame.idmedicoresp = medicoresp.idmedico;
+
+    this.formulario.setValue(exame);
   }
 
-  incluirGrupo(grupo: GrupodemedicoDTO) {
+  incluirGrupodemedico(grupo: GrupodemedicoDTO) {
     let exame: ExameDTO = Object.assign({}, this.formulario.value);
 
     exame.grupodemedico = grupo;
     exame.idgrupomedico = grupo.idgrupodemedicos;
+
+    this.formulario.setValue(exame);
   }
 
   incluirClinica(clinica: ClinicaDTO) {
@@ -251,6 +264,8 @@ export class FormExameComponent extends BaseFormComponent implements OnInit {
 
     exame.clinica = clinica;
     exame.idclinica = clinica.idclinica;
+
+    this.formulario.setValue(exame);
   }
 
   incluirReuniao(reuniao: ReuniaoDTO) {
@@ -258,11 +273,49 @@ export class FormExameComponent extends BaseFormComponent implements OnInit {
 
     exame.reuniao = reuniao;
     exame.idreuniao = reuniao.idrenuiao;
+
+    this.formulario.setValue(exame);
   }
 
-  incluiDiagnostico(diagnostico: DiagnosticoDTO) {
+  incluirDiagnostico(diagnostico: DiagnosticoDTO) {
     let exame: ExameDTO = Object.assign({}, this.formulario.value);
 
     exame.diagnostico = diagnostico.nome;
+
+    this.formulario.setValue(exame);
+  }
+
+  incluirMedicorespdiag(medico: MedicorespdiagDTO) {
+    let exame: ExameDTO = Object.assign({}, this.formulario.value);
+
+    if (exame.examemedicorespdiagnostico == null) {
+      exame.examemedicorespdiagnostico = [];
+    }
+
+    exame.examemedicorespdiagnostico.push(
+      {
+        idexmeddiag: null,
+        idexame: exame.idexame,
+        idmedico: medico.idmedico,
+
+        medico: medico
+      });
+
+    this.formulario.setValue(exame);
+  }
+
+  removerMedicorespdiag(medico: MedicorespdiagDTO) {
+    let exame: ExameDTO = Object.assign({}, this.formulario.value);
+
+    if (exame.examemedicorespdiagnostico == null) {
+      exame.examemedicorespdiagnostico = [];
+    }
+
+    exame.examemedicorespdiagnostico.forEach((value, i) => {
+      if (value.idmedico == medico.idmedico)
+        exame.examemedicorespdiagnostico.splice(i, 1);
+    });
+
+    this.formulario.setValue(exame);
   }
 }

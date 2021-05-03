@@ -1,11 +1,11 @@
 <div class="card m-1">
     <div class="card-header">
         <div class="float-left">
-            <h4 class="card-title pull-left">Peças</h4>
+            <h4 class="card-title pull-left">Diagnósticos</h4>
         </div>
 
         <div class="float-right">
-            <button class="btn btn-outline-primary mr-3" (click)="newPeca()">
+            <button class="btn btn-outline-primary mr-3" (click)="newDiagnostico()">
                 Nova
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor"
                     class="bi bi-plus-circle-dotted" viewBox="0 0 16 16">
@@ -42,22 +42,22 @@
     </div>
 
     <div class="card-body">
-        <table class="table table-hover" *ngIf="pecas != null && pecas.values.length > 0; else loading">
+        <table class="table table-hover" *ngIf="diagnosticos != null && diagnosticos.values.length > 0; else loading">
             <thead>
                 <tr>
                     <th>Código</th>
-                    <th>peca</th>
+                    <th>Diagnostico</th>
                     <th></th>
                 </tr>
             </thead>
 
             <tbody>
-                <tr *ngFor="let peca of pecas.values ">
-                    <td>{{ peca.idexterno }}</td>
-                    <td>{{ peca.nome }}</td>
+                <tr *ngFor="let diagnostico of diagnosticos.values ">
+                    <td>{{ diagnostico.idexterno }}</td>
+                    <td>{{ diagnostico.nome }}</td>
                     <td>
                         <span class="float-right">
-                            <button class="btn btn-outline-warning mb-1 btn-sm" (click)="incluirPeca(peca)">
+                            <button class="btn btn-outline-warning mb-1 btn-sm" (click)="incluirDiagnostico(diagnostico)">
                                 incluir
                             </button>
                         </span>
@@ -68,7 +68,7 @@
     </div>
     <div class="card-footer">
         <div class="pull-center">
-            <app-paginacao [count]="pecasCount()" [(page)]="pagina" [pageSize]="pageSize"
+            <app-paginacao [count]="diagnosticosCount()" [(page)]="pagina" [pageSize]="pageSize"
                 (pageChange)="onList($event)">
             </app-paginacao>
         </div>
@@ -76,7 +76,7 @@
 </div>
 
 <ng-template class="float-center" #loading>
-    <div *ngIf="pecas == null && temPesquisa == false" class="spinner-border" role="status">
+    <div *ngIf="diagnosticos == null && temPesquisa == false" class="spinner-border" role="status">
         <span class="sr-only">carregando...</span>
     </div>
     <div *ngIf="temPesquisa == true">
