@@ -18,9 +18,6 @@ import { ExameService } from 'src/app/shared/Services/exame.service';
 import { Location } from '@angular/common';
 import { ImagemDTO } from 'src/app/shared/DTOs/imagem-dto';
 import { PacienteDTO } from 'src/app/shared/DTOs/paciente-dto';
-import { MedicosolicDTO } from 'src/app/shared/DTOs/medicosolic-dto';
-import { MedicorespDTO } from 'src/app/shared/DTOs/medicoresp-dto';
-import { MedicorespdiagDTO } from 'src/app/shared/DTOs/medicorespdiag-dto';
 
 @Component({
   selector: 'app-form-exame',
@@ -232,7 +229,7 @@ export class FormExameComponent extends BaseFormComponent implements OnInit {
     this.formulario.setValue(exame);
   }
 
-  incluirMedicosolic(medicosolic: MedicosolicDTO) {
+  incluirMedicosolic(medicosolic: MedicoDTO) {
     let exame: ExameDTO = Object.assign({}, this.formulario.value);
 
     exame.medicosolic = medicosolic;
@@ -241,7 +238,7 @@ export class FormExameComponent extends BaseFormComponent implements OnInit {
     this.formulario.setValue(exame);
   }
 
-  incluirMedicoresp(medicoresp: MedicorespDTO) {
+  incluirMedicoresp(medicoresp: MedicoDTO) {
     let exame: ExameDTO = Object.assign({}, this.formulario.value);
 
     exame.medicoresp = medicoresp;
@@ -285,7 +282,7 @@ export class FormExameComponent extends BaseFormComponent implements OnInit {
     this.formulario.setValue(exame);
   }
 
-  incluirMedicorespdiag(medico: MedicorespdiagDTO) {
+  incluirMedicorespdiag(medico: MedicoDTO) {
     let exame: ExameDTO = Object.assign({}, this.formulario.value);
 
     if (exame.examemedicorespdiagnostico == null) {
@@ -304,7 +301,7 @@ export class FormExameComponent extends BaseFormComponent implements OnInit {
     this.formulario.setValue(exame);
   }
 
-  removerMedicorespdiag(medico: MedicorespdiagDTO) {
+  removerMedicorespdiag(medico: MedicoDTO) {
     let exame: ExameDTO = Object.assign({}, this.formulario.value);
 
     if (exame.examemedicorespdiagnostico == null) {

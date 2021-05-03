@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { BsModalService } from 'ngx-bootstrap/modal';
-import { MedicorespDTO } from 'src/app/shared/DTOs/medicoresp-dto';
+import { MedicoDTO } from 'src/app/shared/DTOs/medico-dto';
 import { Paginacao } from 'src/app/shared/DTOs/Paginacao';
 import { MedicoService } from 'src/app/shared/Services/medico.service';
 
@@ -12,7 +12,7 @@ import { MedicoService } from 'src/app/shared/Services/medico.service';
 })
 export class ExameMedicorespComponent implements OnInit {
 
-  @Output() inserirMedicoresp = new EventEmitter<MedicorespDTO>();
+  @Output() inserirMedicoresp = new EventEmitter<MedicoDTO>();
   
   pagina: number = 0;
   pageSize: number = 5;
@@ -20,8 +20,8 @@ export class ExameMedicorespComponent implements OnInit {
   pesquisa: string = "";
   temPesquisa: boolean = false;
   
-  medico!: MedicorespDTO;
-  medicos?: Paginacao<MedicorespDTO>;
+  medico!: MedicoDTO;
+  medicos?: Paginacao<MedicoDTO>;
 
   constructor(
     private medicoService: MedicoService,
@@ -47,7 +47,7 @@ export class ExameMedicorespComponent implements OnInit {
     this.modalService.hide();
   }
 
-  incluirMedico(medico: MedicorespDTO) {
+  incluirMedico(medico: MedicoDTO) {
     this.medico = medico;
     this.inserirMedicoresp.emit(this.medico);
     this.onClose();

@@ -42,17 +42,18 @@
             <div class="form-group row">
                 <div class="col-4">
                     <label for="paciente" class="form-label">Paciente *</label>
-                    <input name="paciente" type="button" class="form-control" id="paciente"
-                        value="{{ this.formulario.value.paciente?.nome}}" required formControlName="paciente"
-                        [ngClass]="aplicaCssErro('paciente')" (click)="openModal(addPaciente)">
+                    <button name="paciente" type="button" class="form-control" id="paciente" required
+                        formControlName="paciente" [ngClass]="aplicaCssErro('paciente')"
+                        (click)="openModal(addPaciente)">
+                        {{ this.formulario.value.paciente?.nome}}</button>
                     <app-error-msg [control]="formulario.get('paciente')" label="Paciente"></app-error-msg>
                 </div>
 
                 <div class="col-4">
                     <label for="orgao" class="form-label">Orgão *</label>
-                    <input name="orgao" type="button" class="form-control" id="orgao"
-                        value="{{ this.formulario.value.orgao?.nome}}" required formControlName="orgao"
+                    <button name="orgao" type="button" class="form-control" id="orgao" required formControlName="orgao"
                         [ngClass]="aplicaCssErro('orgao')" (click)="openModal(addOrgao)">
+                        {{ this.formulario.value.orgao?.nome}}</button>
                     <app-error-msg [control]="formulario.get('orgao')" label="Orgão"></app-error-msg>
                 </div>
             </div>
@@ -68,9 +69,9 @@
             <div class="form-group row justify-content-around">
                 <div class="col-4">
                     <label for="peca" class="form-label">Peça *</label>
-                    <input name="peca" type="button" class="form-control" id="peca"
-                        value="{{ this.formulario.value.peca?.nome}}" required formControlName="peca"
+                    <button name="peca" type="button" class="form-control" id="peca" required formControlName="peca"
                         [ngClass]="aplicaCssErro('peca')" (click)="openModal(addPeca)">
+                        {{ this.formulario.value.peca?.nome}}</button>
                     <app-error-msg [control]="formulario.get('peca')" label="Peça"></app-error-msg>
                 </div>
 
@@ -78,9 +79,10 @@
 
                 <div class="col-4">
                     <label for="grupodemedico" class="form-label">Grupo de Médicos *</label>
-                    <input name="grupodemedico" type="button" class="form-control" id="grupodemedico"
-                        value="{{ this.formulario.value.grupodemedico?.nome}}" required formControlName="grupodemedico"
-                        [ngClass]="aplicaCssErro('grupodemedico')" (click)="openModal(addGrupodemedico)">
+                    <button name="grupodemedico" type="button" class="form-control" id="grupodemedico" required
+                        formControlName="grupodemedico" [ngClass]="aplicaCssErro('grupodemedico')"
+                        (click)="openModal(addGrupodemedico)">
+                        {{ this.formulario.value.grupodemedico?.nome}}</button>
                     <app-error-msg [control]="formulario.get('grupodemedico')" label="Grupo de Médicos"></app-error-msg>
                 </div>
             </div>
@@ -88,9 +90,10 @@
             <div class="form-group row justify-content-around">
                 <div class="col-4">
                     <label for="medicosolic" class="form-label">Médico Solicitante *</label>
-                    <input name="medicosolic" type="button" class="form-control" id="medicosolic"
-                        value="{{ this.formulario.value.medicosolic?.nome}}" required formControlName="medicosolic"
-                        [ngClass]="aplicaCssErro('medicosolic')" (click)="openModal(addMedicosolic)">
+                    <button name="medicosolic" type="button" class="form-control" id="medicosolic" required
+                        formControlName="medicosolic" [ngClass]="aplicaCssErro('medicosolic')"
+                        (click)="openModal(addMedicosolic)">
+                        {{ this.formulario.value.medicosolic?.nome}}</button>
                     <app-error-msg [control]="formulario.get('medicosolic')" label="Médico Solicitante"></app-error-msg>
                 </div>
 
@@ -98,9 +101,9 @@
 
                 <div class="col-4">
                     <label for="clinica" class="form-label">Clínica *</label>
-                    <input name="clinica" type="button" class="form-control" id="clinica"
-                        value="{{ this.formulario.value.clinica?.nome}}" required formControlName="clinica"
-                        [ngClass]="aplicaCssErro('clinica')" (click)="openModal(addClinica)">
+                    <button name="clinica" type="button" class="form-control" id="clinica" required
+                        formControlName="clinica" [ngClass]="aplicaCssErro('clinica')" (click)="openModal(addClinica)">
+                        {{ this.formulario.value.clinica?.nome}}</button>
                     <app-error-msg [control]="formulario.get('clinica')" label="Clínica"></app-error-msg>
                 </div>
             </div>
@@ -108,9 +111,10 @@
             <div class="form-group row justify-content-around">
                 <div class="col-4">
                     <label for="medicoresp" class="form-label">Médico Responsável *</label>
-                    <input name="medicoresp" type="button" class="form-control" id="medicoresp"
-                        value="{{ this.formulario.value.medicoresp?.nome}}" required formControlName="medicoresp"
-                        [ngClass]="aplicaCssErro('medicoresp')" (click)="openModal(addMedicoresp)">
+                    <button name="medicoresp" type="button" class="form-control" id="medicoresp" required
+                        formControlName="medicoresp" [ngClass]="aplicaCssErro('medicoresp')"
+                        (click)="openModal(addMedicoresp)">
+                        {{ this.formulario.value.medicoresp?.nome}}</button>
                     <app-error-msg [control]="formulario.get('medicoresp')" label="Médico Responsável"></app-error-msg>
                 </div>
 
@@ -118,9 +122,9 @@
 
                 <div class="col-4">
                     <label for="reuniao" class="form-label">Reunião *</label>
-                    <input name="reuniao" type="button" class="form-control" id="reuniao"
-                        value="{{ this.formulario.value.reuniao?.nome}}" required formControlName="reuniao"
-                        [ngClass]="aplicaCssErro('reuniao')" (click)="openModal(addReuniao)">
+                    <button name="reuniao" type="button" class="form-control" id="reuniao" required
+                        formControlName="reuniao" [ngClass]="aplicaCssErro('reuniao')"
+                        (click)="openModal(addReuniao)">{{ this.formulario.value.reuniao?.nome}}</button>
                     <app-error-msg [control]="formulario.get('reuniao')" label="Reunião"></app-error-msg>
                 </div>
             </div>
@@ -148,7 +152,8 @@
             <div class="col">
                 <label for="diagnostico" class="form-label">Diagnóstico *</label>
                 <textarea name="diagnostico" id="diagnostico" type="text" class="form-control" cols="30" rows="3"
-                    placeholder="Descrição do diagnóstico" required formControlName="diagnostico" [ngClass]="aplicaCssErro('diagnostico')">
+                    placeholder="Descrição do diagnóstico" required formControlName="diagnostico"
+                    [ngClass]="aplicaCssErro('diagnostico')">
                     {{ this.formulario.value.diagnostico?.nome}}
                 </textarea>
                 <app-error-msg [control]="formulario.get('diagnostico')" label="Diagnóstico"></app-error-msg>
@@ -160,7 +165,7 @@
             <hr>
 
             <div class="col">
-                <button class="btn btn-outline-success mb-3 btn-sm" (click)="openModal(addMedicorespdiag)">                    
+                <button class="btn btn-outline-success mb-3 btn-sm" (click)="openModal(addMedicorespdiag)">
                     Médicos
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                         class="bi bi-plus-circle-dotted" viewBox="0 0 16 16">
@@ -180,13 +185,14 @@
                     </thead>
 
                     <tbody>
-                        <tr *ngFor="let _medicorespdiag of examemedicorespdiagnostico">                            
+                        <tr *ngFor="let _medicorespdiag of examemedicorespdiagnostico">
                             <td>
                                 {{ _medicorespdiag.medico?.nome }}
-                            </td>                            
+                            </td>
                             <td>
                                 <span class="float-right">
-                                    <button class="btn btn-outline-danger mb-1 btn-sm" (click)="removerMedicorespdiag(_medicorespdiag)">                                        
+                                    <button class="btn btn-outline-danger mb-1 btn-sm"
+                                        (click)="removerMedicorespdiag(_medicorespdiag)">
                                         Remover
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red"
                                             class="bi bi-trash-fill" viewBox="0 0 16 16">
@@ -262,7 +268,7 @@
                 <label for="imagem" class="form-label">nome *</label>
                 <input name="imagem" type="text" class="form-control" id="imagem" formControlName="imagem"
                     [ngClass]="aplicaCssErro('imagem')">
-                <app-error-msg [control]="formulario.get('imagem')" label="Nome da imagem"></app-error-msg>                
+                <app-error-msg [control]="formulario.get('imagem')" label="Nome da imagem"></app-error-msg>
                 <input type="file" class="form-control-file mt-3" id="imagem">
             </div>
         </div>
@@ -280,25 +286,30 @@
                 <div class="form-group row">
                     <div class="col">
                         <label for="dadosclinicos" class="form-label">Dados Clínicos *</label>
-                        <textarea name="dadosclinicos" id="dadosclinicos" class="form-control" cols="30"
-                            rows="4" formControlName="dadosclinicos" [ngClass]="aplicaCssErro('dadosclinicos')"></textarea>
-                        <app-error-msg [control]="formulario.get('dadosclinicos')" label="Dados Clínicos"></app-error-msg>
+                        <textarea name="dadosclinicos" id="dadosclinicos" class="form-control" cols="30" rows="4"
+                            formControlName="dadosclinicos" [ngClass]="aplicaCssErro('dadosclinicos')"></textarea>
+                        <app-error-msg [control]="formulario.get('dadosclinicos')" label="Dados Clínicos">
+                        </app-error-msg>
                     </div>
 
                     <div class="col">
                         <label for="suspeitaclinica" class="form-label">Suspeita Clínica *</label>
-                        <input name="suspeitaclinica" type="text" class="form-control" id="suspeitaclinica" required formControlName="suspeitaclinica" [ngClass]="aplicaCssErro('suspeitaclinica')">
-                        <app-error-msg [control]="formulario.get('suspeitaclinica')" label="Suspeita Clínica"></app-error-msg>
+                        <input name="suspeitaclinica" type="text" class="form-control" id="suspeitaclinica" required
+                            formControlName="suspeitaclinica" [ngClass]="aplicaCssErro('suspeitaclinica')">
+                        <app-error-msg [control]="formulario.get('suspeitaclinica')" label="Suspeita Clínica">
+                        </app-error-msg>
                         <div class="form-group row">
                             <div class="col">
                                 <label for="peso" class="form-label">Peso (Kg)*</label>
-                                <input name="peso" type="number" class="form-control" id="peso" required formControlName="peso" [ngClass]="aplicaCssErro('peso')">
+                                <input name="peso" type="number" class="form-control" id="peso" required
+                                    formControlName="peso" [ngClass]="aplicaCssErro('peso')">
                                 <app-error-msg [control]="formulario.get('peso')" label="Peso"></app-error-msg>
                             </div>
 
                             <div class="col">
                                 <label for="altura" class="form-label">Altura (cm)*</label>
-                                <input name="altura" type="number" class="form-control" id="altura" required formControlName="altura" [ngClass]="aplicaCssErro('altura')">
+                                <input name="altura" type="number" class="form-control" id="altura" required
+                                    formControlName="altura" [ngClass]="aplicaCssErro('altura')">
                                 <app-error-msg [control]="formulario.get('altura')" label="Altura"></app-error-msg>
                             </div>
                         </div>
@@ -327,7 +338,9 @@
                                         <p class="col small">* pelo menos aproximado</p>
                                         <div class="col">
                                             <input name="datatransplante" type="date" class="form-control"
-                                                id="datatransplante" placeholder="datatransplante" required formControlName="datatransplante" [ngClass]="aplicaCssErro('datatransplante')">
+                                                id="datatransplante" placeholder="datatransplante" required
+                                                formControlName="datatransplante"
+                                                [ngClass]="aplicaCssErro('datatransplante')">
                                             <app-error-msg [control]="formulario.get('datatransplante')"
                                                 label="Data do tranplando, pelo menos aproximado"></app-error-msg>
                                         </div>
@@ -519,10 +532,12 @@
 
                             <tr class="row">
                                 <th class="col-3">Alguma doença auto-imune fora do fígado? *</th>
-                                <td class="col-4">                                    
+                                <td class="col-4">
                                     <div *ngIf="this.formulario.value.doencaautoimune == 1">
                                         <input name="descdoencaautoimune" type="text" class="form-control"
-                                            id="descdoencaautoimune" placeholder="descrição da doença" required formControlName="descdoencaautoimune" [ngClass]="aplicaCssErro('descdoencaautoimune')">
+                                            id="descdoencaautoimune" placeholder="descrição da doença" required
+                                            formControlName="descdoencaautoimune"
+                                            [ngClass]="aplicaCssErro('descdoencaautoimune')">
                                         <app-error-msg [control]="formulario.get('descdoencaautoimune')"
                                             label="Descrição da doença"></app-error-msg>
                                     </div>
@@ -547,8 +562,11 @@
                                     <div *ngIf="this.formulario.value.usamedicamento == 1">
                                         <textarea name="descusamedicamento" class="form-control"
                                             formControlName="descusamedicamento" id="descusamedicamento" cols="30"
-                                            rows="2" placeholder="Descrição dos medicamentos" required formControlName="descusamedicamento" [ngClass]="aplicaCssErro('descusamedicamento')"></textarea>
-                                        <app-error-msg [control]="formulario.get('descusamedicamento')" label="Descrição dos medicamentos"></app-error-msg>
+                                            rows="2" placeholder="Descrição dos medicamentos" required
+                                            formControlName="descusamedicamento"
+                                            [ngClass]="aplicaCssErro('descusamedicamento')"></textarea>
+                                        <app-error-msg [control]="formulario.get('descusamedicamento')"
+                                            label="Descrição dos medicamentos"></app-error-msg>
                                     </div>
                                 </td>
                                 <td class="col">
