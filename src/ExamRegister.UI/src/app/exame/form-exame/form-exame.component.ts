@@ -15,9 +15,10 @@ import { PecaDTO } from 'src/app/shared/DTOs/peca-dto';
 import { ReuniaoDTO } from 'src/app/shared/DTOs/reuniao-dto';
 import { AlertModalService } from 'src/app/shared/Services/alert-modal.service';
 import { ExameService } from 'src/app/shared/Services/exame.service';
-import { Location } from '@angular/common';
+import { Location, NgClass } from '@angular/common';
 import { ImagemDTO } from 'src/app/shared/DTOs/imagem-dto';
 import { PacienteDTO } from 'src/app/shared/DTOs/paciente-dto';
+import { Button } from 'selenium-webdriver';
 
 @Component({
   selector: 'app-form-exame',
@@ -25,6 +26,7 @@ import { PacienteDTO } from 'src/app/shared/DTOs/paciente-dto';
   styleUrls: ['./form-exame.component.scss']
 })
 export class FormExameComponent extends BaseFormComponent implements OnInit {
+  invalido: boolean = false;
 
   modalRef!: BsModalRef;
 
@@ -73,16 +75,13 @@ export class FormExameComponent extends BaseFormComponent implements OnInit {
   }
 
   constructor(
-    // private config: NgbNavConfig,
     private exameService: ExameService,
     private formBuilder: FormBuilder,
     private alertService: AlertModalService,
     private modalService: BsModalService,
     private location: Location,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
   ) {
-    // config.destroyOnHide = false;
-    // config.roles = false;    
     super();
   }
 
@@ -143,18 +142,18 @@ export class FormExameComponent extends BaseFormComponent implements OnInit {
       hiv: [null],
       deschiv: [null],
 
-      paciente: [null],
-      orgao: [null],
-      peca: [null],
-      grupodemedico: [null],
-      medicosolic: [null],
-      clinica: [null],
-      medicoresp: [null],
-      reuniao: [null],
-      examemedicorespdiagnostico: [null],
-      categoriaexame: [null],
-      imagem: [null],
-    }, { updateOn: 'blur' });
+      paciente: [null, Validators.required],
+      orgao: [null, Validators.required],
+      peca: [null, Validators.required],
+      grupodemedico: [null, Validators.required],
+      medicosolic: [null, Validators.required],
+      clinica: [null, Validators.required],
+      medicoresp: [null, Validators.required],
+      reuniao: [null, Validators.required],
+      examemedicorespdiagnostico: [null, Validators.required],
+      categoriaexame: [null, Validators.required],
+      imagem: [null, Validators.required],
+    }, { updateOn: '' });
 
     this.route.params.subscribe(params => {
       let idexame = params['id'];
@@ -168,7 +167,7 @@ export class FormExameComponent extends BaseFormComponent implements OnInit {
     });
 
     this.formulario.valueChanges.subscribe(() => {
-      // this.setForm();
+      this.setForm();
     });
   }
 
@@ -178,6 +177,8 @@ export class FormExameComponent extends BaseFormComponent implements OnInit {
 
   submit() {
     let valueSubmit = Object.assign({}, this.formulario.value);
+
+    this.click = true;
 
     console.log(valueSubmit);
 
@@ -199,7 +200,9 @@ export class FormExameComponent extends BaseFormComponent implements OnInit {
       //   },
       //   () => this.alertService.showAlertDanger(msgError)
       // );
-    } else this.formulario.markAllAsTouched();
+    }
+
+    if (this.formulario.invalid) this.alertService.showAlertDanger('* Confira os campos em Vermelho ou com (*)');
   }
 
   incluirPaciente(paciente: PacienteDTO) {
@@ -314,5 +317,40 @@ export class FormExameComponent extends BaseFormComponent implements OnInit {
     });
 
     this.formulario.setValue(exame);
+  }
+
+  incluirImagem(imagem: FileList) {
+    let exame: ExameDTO = Object.assign({}, this.formulario.value);
+
+    const fileImagem = imagem.item(0);
+
+    console.log("imagem:", fileImagem!.name);
+    
+    exame.imagem.push(
+      {
+        idimagem: null,
+        nome: fileImagem!.name,
+        url: null,
+        idexame: null,
+        dataupload: null,
+        inativo: null,
+      }
+    )
+
+    this.formulario.setValue(exame);
+  }
+
+  onBack() {
+    this.location.back();    
+  }
+
+  setForm() {
+    sessionStorage.setItem("exame", JSON.stringify(Object.assign({}, this.formulario.value)));
+  }
+
+  onClear() {
+    this.formulario.reset();
+    sessionStorage.removeItem("exame");
+    this.click = false;
   }
 }

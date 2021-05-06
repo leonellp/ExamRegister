@@ -76,7 +76,7 @@
 </div>
 
 <ng-template class="float-center" #loading>
-    <div *ngIf="pacientes == null && temPesquisa == false" class="spinner-border" role="status">
+    <div *ngIf="temPesquisa == false" class="spinner-border" role="status">
         <span class="sr-only">carregando...</span>
     </div>
     <div *ngIf="temPesquisa == true">

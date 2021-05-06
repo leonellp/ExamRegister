@@ -4,6 +4,8 @@ import { FormArray, FormGroup } from '@angular/forms';
 @Directive()
 export abstract class BaseFormComponent implements OnInit {
 
+  click: boolean = false;
+
   formulario!: FormGroup;
 
   constructor() { }
@@ -28,6 +30,7 @@ export abstract class BaseFormComponent implements OnInit {
       const controle = formGroup.get(campo);
       controle?.markAsDirty();
       controle?.markAsTouched();
+      this.click = true;
       if (controle instanceof FormGroup || controle instanceof FormArray) {
         this.verificaValidacoesForm(controle);
       }
@@ -47,8 +50,7 @@ export abstract class BaseFormComponent implements OnInit {
 
   verificaValidTouched(campo: string) {
     return (
-      this.formulario.get(campo)?.valid &&
-      (this.formulario.get(campo)?.touched || this.formulario.get(campo)?.dirty)
+      this.formulario.get(campo)?.valid
     )
   }
 
@@ -71,5 +73,24 @@ export abstract class BaseFormComponent implements OnInit {
       'is-invalid': this.verificaInvalidTouched(campo),
       'is-valid': this.verificaValidTouched(campo)
     };
+  }  
+
+  aplicaCssErroButton(campo: string) {
+    return {      
+      'btn-outline-danger': this.verificaBotaoInvalid(campo),
+      'btn-outline-success': this.verificaBotaoValid(campo)
+    }
+  }
+
+  verificaBotaoValid(campo: string) {
+    return (
+      this.formulario.get(campo)?.valid
+    );
+  }
+
+  verificaBotaoInvalid(campo: string) {
+    return (
+      (this.formulario.get(campo)?.invalid && this.click == true)
+    )
   }
 }
