@@ -18,7 +18,6 @@ import { ExameService } from 'src/app/shared/Services/exame.service';
 import { Location, NgClass } from '@angular/common';
 import { ImagemDTO } from 'src/app/shared/DTOs/imagem-dto';
 import { PacienteDTO } from 'src/app/shared/DTOs/paciente-dto';
-import { Button } from 'selenium-webdriver';
 
 @Component({
   selector: 'app-form-exame',
@@ -26,7 +25,8 @@ import { Button } from 'selenium-webdriver';
   styleUrls: ['./form-exame.component.scss']
 })
 export class FormExameComponent extends BaseFormComponent implements OnInit {
-  invalido: boolean = false;
+
+  files: File[] = [];
 
   modalRef!: BsModalRef;
 
@@ -319,29 +319,52 @@ export class FormExameComponent extends BaseFormComponent implements OnInit {
     this.formulario.setValue(exame);
   }
 
-  incluirImagem(imagem: FileList) {
+  incluirImagem(event: FileList) {
     let exame: ExameDTO = Object.assign({}, this.formulario.value);
 
-    const fileImagem = imagem.item(0);
+    if (exame.imagem == null) {
+      exame.imagem = [];
+    }
 
-    console.log("imagem:", fileImagem!.name);
-    
-    exame.imagem.push(
-      {
-        idimagem: null,
-        nome: fileImagem!.name,
-        url: null,
-        idexame: null,
-        dataupload: null,
-        inativo: null,
-      }
-    )
+    for (let i = 0; i < event.length; i++) {      
+      this.files.push(event[i]);
+      exame.imagem.push(
+        {
+          idimagem: null,
+          nome: event[i].name,
+          url: null,
+          idexame: null,
+          dataupload: null,
+          inativo: null,
+        }
+      );
+    }
+
+    console.log("Arquivos:", this.files);
+
+    this.formulario.setValue(exame);
+  }
+
+  removerImagem(imagem: ImagemDTO) {
+    let exame: ExameDTO = Object.assign({}, this.formulario.value);
+
+    if (exame.imagem == null) {
+      exame.imagem = [];
+    }
+
+    exame.imagem.forEach((value, i) => {
+      if (value.nome == imagem.nome)
+        exame.imagem.splice(i, 1);
+        this.files.splice(i, 1);
+    });
+
+    console.log("Arquivos:", this.files);    
 
     this.formulario.setValue(exame);
   }
 
   onBack() {
-    this.location.back();    
+    this.location.back();
   }
 
   setForm() {
