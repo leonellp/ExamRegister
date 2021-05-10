@@ -24,6 +24,7 @@ import { PecaComponent } from './peca/peca.component';
 import { UsuarioComponent } from './usuario/usuario.component';
 import { ExameComponent } from './exame/exame.component';
 import { IConfig, NgxMaskModule } from 'ngx-mask';
+import { CategoriaComponent } from './categoria/categoria.component';
 
 const maskConfig: Partial<IConfig> = {
   validation: false,
@@ -42,7 +43,8 @@ const maskConfig: Partial<IConfig> = {
     PacienteComponent,
     PecaComponent,
     UsuarioComponent,
-    ExameComponent
+    ExameComponent,
+    CategoriaComponent
   ],
   imports: [
     BrowserModule,

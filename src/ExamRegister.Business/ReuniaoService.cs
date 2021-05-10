@@ -68,6 +68,6 @@ namespace ExamRegister.Business {
 
         public void Update(Guid Idreunioes, ReuniaoDTO reuniaoNew) {
             repository.Update(Idreunioes, mapper.Map<reuniao>(reuniaoNew));
-        }
+        }        
     }
 }

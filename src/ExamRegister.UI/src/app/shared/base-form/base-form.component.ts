@@ -16,6 +16,7 @@ export abstract class BaseFormComponent implements OnInit {
   abstract submit(): any;
 
   onSubmit() {
+    console.log(this.formulario.value);
     if (this.formulario.valid) {
       this.submit();
     } else {
@@ -26,7 +27,6 @@ export abstract class BaseFormComponent implements OnInit {
 
   verificaValidacoesForm(formGroup: FormGroup | FormArray) {
     Object.keys(formGroup.controls).forEach(campo => {
-      console.log(campo);
       const controle = formGroup.get(campo);
       controle?.markAsDirty();
       controle?.markAsTouched();

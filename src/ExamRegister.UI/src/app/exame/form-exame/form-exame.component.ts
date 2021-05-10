@@ -168,7 +168,7 @@ export class FormExameComponent extends BaseFormComponent implements OnInit {
 
     this.formulario.valueChanges.subscribe(() => {
       this.setForm();
-    });
+    });   
   }
 
   openModal(template: TemplateRef<any>) {
@@ -339,8 +339,11 @@ export class FormExameComponent extends BaseFormComponent implements OnInit {
         }
       );
     }
+    
+    console.log("Arquivos file:", this.files);
+    console.log("tabela imagem do form:", this.formulario.value.imagem);
 
-    console.log("Arquivos:", this.files);
+    sessionStorage.setItem("files", JSON.stringify(this.files));
 
     this.formulario.setValue(exame);
   }
@@ -358,7 +361,10 @@ export class FormExameComponent extends BaseFormComponent implements OnInit {
         this.files.splice(i, 1);
     });
 
-    console.log("Arquivos:", this.files);    
+    sessionStorage.setItem("files", JSON.stringify(this.files));
+
+    console.log("Arquivos file:", this.files);    
+    console.log("tabela imagem :", this.formulario.value.imagem);
 
     this.formulario.setValue(exame);
   }
@@ -374,6 +380,7 @@ export class FormExameComponent extends BaseFormComponent implements OnInit {
   onClear() {
     this.formulario.reset();
     sessionStorage.removeItem("exame");
+    sessionStorage.removeItem("files");
     this.click = false;
   }
 }

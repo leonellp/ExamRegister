@@ -781,7 +781,7 @@
                                 </td>
 
                                 <td class="col-3">
-                                    <div *ngIf="this.formulario.value.vhc == 1">
+                                    <div *ngIf="this.formulario.value.vhc == 1 || this.formulario.value.vhc == 2">
                                         <input type="radio" formControlName="descvhc" name="descvhc" value="1"
                                             [ngClass]="aplicaCssErro('descvhc')" required>
                                         Sorologia
@@ -806,7 +806,7 @@
                                 </td>
 
                                 <td class="col-3">
-                                    <div *ngIf="this.formulario.value.vhb == 1">
+                                    <div *ngIf="this.formulario.value.vhb == 1 || this.formulario.value.vhb == 2">
                                         <input type="radio" formControlName="descvhb" name="descvhb" value="1">
                                         Sorologia
                                         <input type="radio" formControlName="descvhb" name="descvhb" value="2"
@@ -830,7 +830,7 @@
                                 </td>
 
                                 <td class="col-3">
-                                    <div *ngIf="this.formulario.value.hiv == 1">
+                                    <div *ngIf="this.formulario.value.hiv == 1 || this.formulario.value.hiv == 2">
                                         <input type="radio" formControlName="deschiv" name="deschiv" value="1">
                                         Sorologia
                                         <input type="radio" formControlName="deschiv" name="deschiv" value="2"
