@@ -35,7 +35,7 @@ namespace ExamRegister.DA {
         public void Update(Guid Idpeca, peca pecaNew) {
             peca peca = examregisterContext.peca.Where(a => a.idpeca == Idpeca).FirstOrDefault();
             
-            peca.nome = pecaNew.nome;
+            peca.nome_ = pecaNew.nome_;
             peca.inativo = pecaNew.inativo;
             peca.idexterno = pecaNew.idexterno;
             

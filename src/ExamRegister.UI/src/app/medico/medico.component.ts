@@ -35,10 +35,18 @@ export class MedicoComponent implements OnInit {
   }
 
   ngOnInit() {
-    sessionStorage.removeItem("medicoSalvo");
-    sessionStorage.removeItem("grupoDeMedico");
-    sessionStorage.removeItem("orgao");
+    sessionStorage.removeItem("clinica");
     sessionStorage.removeItem("diagnostico");
+    sessionStorage.removeItem("exame");
+    sessionStorage.removeItem("categoria");
+    sessionStorage.removeItem("medicoSalvo");
+    sessionStorage.removeItem("orgao");
+    sessionStorage.removeItem("paciente");
+    sessionStorage.removeItem("peca");
+    sessionStorage.removeItem("reuniao");
+    sessionStorage.removeItem("novoUsuario");
+    sessionStorage.removeItem("informacao");
+    sessionStorage.removeItem("grupo");
   }
 
   medicosCount(): number {

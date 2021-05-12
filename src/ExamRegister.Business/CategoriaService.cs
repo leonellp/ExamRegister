@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using ExamRegister.Business.Abstractions.DTO;
 using ExamRegister.DA.Abstractions.interfaces;
 using ExamRegister.DA.Abstractions.Models;
 using ExamRegister.WebApi.Abstractions.DTO;
@@ -25,20 +26,48 @@ namespace ExamRegister.Business {
         }
 
         public void Insert(CategoriaInsertDTO categoria) {
-            var r = mapper.Map<categoria>(categoria);
-            r.idcategoria = Guid.NewGuid();
-            repository.Insert(r);
+            var categoriaNew = mapper.Map<categoria>(categoria);
+            categoriaNew.idcategoria = Guid.NewGuid();
+            repository.Insert(categoriaNew);
         }
 
-        public IQueryable<CategoriaDTO> List(bool soinativos) {
+        public paginacao<CategoriaDTO> List(
+            int skip,
+            int top,
+            bool count,
+            bool? soinativos = null,
+            string pesquisa = null
+            ) {
+
+            int? nCount = null;
+
             var categorias = repository.List();
-            if (soinativos) {
+            if (soinativos == true) {
                 categorias = categorias.Where(a => a.inativo != null);
             } else {
                 categorias = categorias.Where(a => a.inativo == null);
             }
 
-            return categorias.ProjectTo<CategoriaDTO>(mapper.ConfigurationProvider);
+            if (pesquisa != null) {
+                categorias = categorias.Where(a =>
+                a.idexterno.ToUpper().Contains(pesquisa.ToUpper()) ||
+                a.nome.ToUpper().Contains(pesquisa.ToUpper()) ||
+                a.nomecompleto.ToUpper().Contains(pesquisa.ToUpper())
+                );
+            }
+
+            if (count) {
+                nCount = categorias.Count();
+            }
+
+            if (skip < 0) skip = 0;
+            categorias = categorias.OrderBy(a => a.nome);
+            categorias = categorias.Skip(skip).Take(top);
+
+            return new paginacao<CategoriaDTO>() {
+                values = categorias.ProjectTo<CategoriaDTO>(mapper.ConfigurationProvider).ToArray(),
+                count = nCount
+            };
         }
 
         public void Update(Guid IdCategoria, CategoriaDTO categoriaNew) {

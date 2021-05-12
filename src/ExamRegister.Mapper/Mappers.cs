@@ -8,8 +8,7 @@ namespace ExamRegister.Mapper {
 
             CreateMap<CategoriaExameInsertDTO, categoriaexame>().ReverseMap();
             CreateMap<CategoriaExameDTO, categoriaexame>().ReverseMap();
-            CreateMap<CategoriaInsertDTO, categoria>().ReverseMap();
-            CreateMap<CategoriaDTO, categoria>().ReverseMap();
+                        
             CreateMap<CidadeInsertDTO, cidade>().ReverseMap();
             CreateMap<CidadeDTO, cidade>().ReverseMap();
             CreateMap<DiagnosticoInsertDTO, diagnostico>().ReverseMap();
@@ -43,7 +42,7 @@ namespace ExamRegister.Mapper {
 
             // PACIENTE_INFORMACAO
             CreateMap<PacienteInformacaoDTO, pacienteinformacao>()
-                .ForMember(a => a.informacao, b => b.MapFrom(c => c.informacao))
+                .ForMember(a => a.idinformacaoNavigation, b => b.MapFrom(c => c.informacao))
                 .ReverseMap();
 
 
@@ -68,52 +67,52 @@ namespace ExamRegister.Mapper {
 
             // CLINICA
             CreateMap<ClinicaDTO, clinica>()
-                .ForMember(a => a.endereco, b => b.MapFrom(c => c.endereco))
+                .ForMember(a => a.idenderecoNavigation, b => b.MapFrom(c => c.endereco))
                 .ReverseMap()
-                .ForMember(a => a.endereco, b => b.MapFrom(c => c.endereco));
+                .ForMember(a => a.endereco, b => b.MapFrom(c => c.idenderecoNavigation));
 
             CreateMap<ClinicaInsertDTO, clinica>()
-                .ForMember(a => a.endereco, b => b.Ignore())
+                .ForMember(a => a.idenderecoNavigation, b => b.Ignore())
                 .ReverseMap();
 
             CreateMap<ClinicaUpdateDTO, clinica>()
-                .ForMember(a => a.endereco, b => b.Ignore())
+                .ForMember(a => a.idenderecoNavigation, b => b.Ignore())
                 .ReverseMap();
 
 
             // ENDERECO
             CreateMap<EnderecoDTO, endereco>()
-                .ForMember(a => a.cidade, b => b.MapFrom(c => c.cidade))
-                .ForMember(a => a.estado, b => b.MapFrom(c => c.estado))
+                .ForMember(a => a.idcidadeNavigation, b => b.MapFrom(c => c.cidade))
+                .ForMember(a => a.idestadoNavigation, b => b.MapFrom(c => c.estado))
                 .ReverseMap()
-                .ForMember(a => a.cidade, b => b.MapFrom(c => c.cidade))
-                .ForMember(a => a.estado, b => b.MapFrom(c => c.estado));
+                .ForMember(a => a.cidade, b => b.MapFrom(c => c.idcidadeNavigation))
+                .ForMember(a => a.estado, b => b.MapFrom(c => c.idestadoNavigation));
 
             CreateMap<EnderecoInsertDTO, endereco>()
-                .ForMember(a => a.estado, b => b.Ignore())
-                .ForMember(a => a.cidade, b => b.Ignore())
+                .ForMember(a => a.idestadoNavigation, b => b.Ignore())
+                .ForMember(a => a.idcidadeNavigation, b => b.Ignore())
                 .ReverseMap();
 
             CreateMap<EnderecoUpdateDTO, endereco>()
-                .ForMember(a => a.estado, b => b.Ignore())
-                .ForMember(a => a.cidade, b => b.Ignore())
+                .ForMember(a => a.idestadoNavigation, b => b.Ignore())
+                .ForMember(a => a.idcidadeNavigation, b => b.Ignore())
                 .ReverseMap();
 
 
             // MEDICO_CLINICA
             CreateMap<MedicoClinicaDTO, medicoclinica>()
-                .ForMember(a => a.clinica, b => b.MapFrom(c => c.clinica))
+                .ForMember(a => a.idclinicaNavigation, b => b.MapFrom(c => c.clinica))
                 .ReverseMap()
-                .ForMember(a => a.clinica, b => b.MapFrom(c => c.clinica));
+                .ForMember(a => a.clinica, b => b.MapFrom(c => c.idclinicaNavigation));
 
             CreateMap<MedicoClinicaInsertDTO, medicoclinica>()
-                .ForMember(a => a.medico, b => b.Ignore())
-                .ForMember(a => a.clinica, b => b.Ignore())
+                .ForMember(a => a.idmedicoNavigation, b => b.Ignore())
+                .ForMember(a => a.idclinicaNavigation, b => b.Ignore())
                 .ReverseMap();
 
             CreateMap<MedicoClinicaUpdateDTO, medicoclinica>()
-                .ForMember(a => a.medico, b => b.Ignore())
-                .ForMember(a => a.clinica, b => b.Ignore())
+                .ForMember(a => a.idmedicoNavigation, b => b.Ignore())
+                .ForMember(a => a.idclinicaNavigation, b => b.Ignore())
                 .ReverseMap();
 
 
@@ -149,18 +148,24 @@ namespace ExamRegister.Mapper {
 
             // Medico_Grupo
             CreateMap<MedicoGrupoDTO, medicogrupo>()
-                .ForMember(a => a.Medico, b => b.MapFrom(c => c.Medico))
+                .ForMember(a => a.idmedicoNavigation, b => b.MapFrom(c => c.Medico))
                 .ReverseMap()
-                .ForMember(a => a.Medico, b => b.MapFrom(c => c.Medico));
+                .ForMember(a => a.Medico, b => b.MapFrom(c => c.idmedicoNavigation));
 
             CreateMap<MedicoGrupoInsertDTO, medicogrupo>()
-                .ForMember(a => a.Medico, b => b.Ignore())
+                .ForMember(a => a.idmedicoNavigation, b => b.Ignore())
                 .ReverseMap();
 
             CreateMap<MedicoGrupoUpdateDTO, medicogrupo>()
-                .ForMember(a => a.Medico, b => b.Ignore())
+                .ForMember(a => a.idmedicoNavigation, b => b.Ignore())
                 .ReverseMap();
-            
+
+
+            // Categoria
+            CreateMap<CategoriaDTO, categoria>().ReverseMap();
+                
+            CreateMap<CategoriaInsertDTO, categoria>().ReverseMap();
+              
         }
     }
 }

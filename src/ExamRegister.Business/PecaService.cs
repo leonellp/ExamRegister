@@ -48,7 +48,7 @@ namespace ExamRegister.Business {
                 pecas = pecas.Where(a => a.inativo == null);
             }
             if (pesquisa != null) {
-                pecas = pecas.Where(a => a.idexterno.ToUpper().Contains(pesquisa.ToUpper()) || a.nome.ToUpper().Contains(pesquisa.ToUpper()));
+                pecas = pecas.Where(a => a.idexterno.ToUpper().Contains(pesquisa.ToUpper()) || a.nome_.ToUpper().Contains(pesquisa.ToUpper()));
             }
 
             if (count) {
@@ -56,7 +56,7 @@ namespace ExamRegister.Business {
             }
 
             if (skip < 0) skip = 0;
-            pecas = pecas.OrderBy(a => a.nome);
+            pecas = pecas.OrderBy(a => a.nome_);
             pecas = pecas.Skip(skip).Take(top);
 
 

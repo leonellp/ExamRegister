@@ -13,7 +13,7 @@ namespace ExamRegister.DA.Abstractions.Models
         }
 
         public Guid idpeca { get; set; }
-        public string nome { get; set; }
+        public string nome_ { get; set; }
         public DateTime? inativo { get; set; }
         public string idexterno { get; set; }
 

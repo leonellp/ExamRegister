@@ -17,7 +17,7 @@ namespace ExamRegister.DA.Abstractions.Models
         public Guid idestado { get; set; }
         public DateTime? inativo { get; set; }
 
-        public virtual estado estado { get; set; }
+        public virtual estado idestadoNavigation { get; set; }
         public virtual ICollection<endereco> endereco { get; set; }
     }
 }

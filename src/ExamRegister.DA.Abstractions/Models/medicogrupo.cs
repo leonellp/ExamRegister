@@ -11,7 +11,7 @@ namespace ExamRegister.DA.Abstractions.Models
         public Guid idgrupo { get; set; }
         public Guid idmedico { get; set; }
 
-        public virtual grupodemedico GrupodeMedico { get; set; }
-        public virtual medico Medico { get; set; }
+        public virtual grupodemedico idgrupoNavigation { get; set; }
+        public virtual medico idmedicoNavigation { get; set; }
     }
 }

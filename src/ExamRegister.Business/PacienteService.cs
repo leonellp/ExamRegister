@@ -41,7 +41,7 @@ namespace ExamRegister.Business {
 
                 historico.idhispaciente = Guid.NewGuid();
                 historico.idpaciente = _paciente.idpaciente;
-                historico.paciente = _paciente;
+                historico.idpacienteNavigation = _paciente;
 
                 historicoRepository.Insert(historico);
             }

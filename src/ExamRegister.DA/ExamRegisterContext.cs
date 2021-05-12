@@ -1,9 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 using ExamRegister.DA.Abstractions.Models;
 
 #nullable disable
 
-namespace ExamRegister.DA {
+namespace ExamRegister.DA
+{
     public partial class ExamRegisterContext : DbContext
     {
         public ExamRegisterContext()
@@ -43,6 +46,7 @@ namespace ExamRegister.DA {
         {
             if (!optionsBuilder.IsConfigured)
             {
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
                 optionsBuilder.UseNpgsql("Host = localhost; Database = examregister; Username = postgres; Password = 1234");
             }
         }
@@ -112,7 +116,7 @@ namespace ExamRegister.DA {
                     .IsRequired()
                     .HasMaxLength(50);
 
-                entity.HasOne(d => d.estado)
+                entity.HasOne(d => d.idestadoNavigation)
                     .WithMany(p => p.cidade)
                     .HasForeignKey(d => d.idestado)
                     .OnDelete(DeleteBehavior.ClientSetNull)
@@ -134,6 +138,10 @@ namespace ExamRegister.DA {
                     .IsRequired()
                     .HasMaxLength(254);
 
+                entity.Property(e => e.idexterno)
+                    .IsRequired()
+                    .HasMaxLength(20);
+
                 entity.Property(e => e.inativo).HasColumnType("date");
 
                 entity.Property(e => e.nome)
@@ -142,7 +150,7 @@ namespace ExamRegister.DA {
 
                 entity.Property(e => e.telefone).HasMaxLength(15);
 
-                entity.HasOne(d => d.endereco)
+                entity.HasOne(d => d.idenderecoNavigation)
                     .WithMany(p => p.clinica)
                     .HasForeignKey(d => d.idendereco)
                     .OnDelete(DeleteBehavior.ClientSetNull)
@@ -190,13 +198,13 @@ namespace ExamRegister.DA {
                     .IsRequired()
                     .HasMaxLength(100);
 
-                entity.HasOne(d => d.cidade)
+                entity.HasOne(d => d.idcidadeNavigation)
                     .WithMany(p => p.endereco)
                     .HasForeignKey(d => d.idcidade)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("idcidade");
 
-                entity.HasOne(d => d.estado)
+                entity.HasOne(d => d.idestadoNavigation)
                     .WithMany(p => p.endereco)
                     .HasForeignKey(d => d.idestado)
                     .OnDelete(DeleteBehavior.ClientSetNull)
@@ -269,49 +277,49 @@ namespace ExamRegister.DA {
                     .IsRequired()
                     .HasMaxLength(300);
 
-                entity.HasOne(d => d.Clinica)
+                entity.HasOne(d => d.idclinicaNavigation)
                     .WithMany(p => p.exame)
                     .HasForeignKey(d => d.idclinica)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("idclinica");
 
-                entity.HasOne(d => d.Grupodemedico)
+                entity.HasOne(d => d.idgrupomedicoNavigation)
                     .WithMany(p => p.exame)
                     .HasForeignKey(d => d.idgrupomedico)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("idgrupodemedico");
 
-                entity.HasOne(d => d.Medicoresp)
+                entity.HasOne(d => d.idmedicorespNavigation)
                     .WithMany(p => p.exameidmedicorespNavigation)
                     .HasForeignKey(d => d.idmedicoresp)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("idmedicoresp");
 
-                entity.HasOne(d => d.Medicocolic)
+                entity.HasOne(d => d.idmedicosolicNavigation)
                     .WithMany(p => p.exameidmedicosolicNavigation)
                     .HasForeignKey(d => d.idmedicosolic)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("idmedsolic");
 
-                entity.HasOne(d => d.Orgao)
+                entity.HasOne(d => d.idorgaoNavigation)
                     .WithMany(p => p.exame)
                     .HasForeignKey(d => d.idorgao)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("idorgao");
 
-                entity.HasOne(d => d.Paciente)
+                entity.HasOne(d => d.idpacienteNavigation)
                     .WithMany(p => p.exame)
                     .HasForeignKey(d => d.idpaciente)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("idpaciente");
 
-                entity.HasOne(d => d.Peca)
+                entity.HasOne(d => d.idpecaNavigation)
                     .WithMany(p => p.exame)
                     .HasForeignKey(d => d.idpeca)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("idpeca");
 
-                entity.HasOne(d => d.Reuniao)
+                entity.HasOne(d => d.idreuniaoNavigation)
                     .WithMany(p => p.exame)
                     .HasForeignKey(d => d.idreuniao)
                     .OnDelete(DeleteBehavior.ClientSetNull)
@@ -391,7 +399,7 @@ namespace ExamRegister.DA {
 
                 entity.Property(e => e.inativo).HasColumnType("date");
 
-                entity.HasOne(d => d.paciente)
+                entity.HasOne(d => d.idpacienteNavigation)
                     .WithMany(p => p.historicopaciente)
                     .HasForeignKey(d => d.idpaciente)
                     .OnDelete(DeleteBehavior.ClientSetNull)
@@ -407,13 +415,13 @@ namespace ExamRegister.DA {
 
                 entity.Property(e => e.dataupload).HasColumnType("date");
 
+                entity.Property(e => e.inativo).HasColumnType("date");
+
                 entity.Property(e => e.nome).HasMaxLength(200);
 
                 entity.Property(e => e.url)
                     .IsRequired()
                     .HasMaxLength(300);
-
-                entity.Property(e => e.inativo).HasColumnType("date");
 
                 entity.HasOne(d => d.idexameNavigation)
                     .WithMany(p => p.imagem)
@@ -437,8 +445,7 @@ namespace ExamRegister.DA {
 
                 entity.Property(e => e.nome)
                     .IsRequired()
-                    .HasMaxLength(200)
-                    .HasColumnName("nome");
+                    .HasMaxLength(200);
             });
 
             modelBuilder.Entity<medico>(entity =>
@@ -476,13 +483,13 @@ namespace ExamRegister.DA {
 
                 entity.Property(e => e.idmedcli).ValueGeneratedNever();
 
-                entity.HasOne(d => d.clinica)
+                entity.HasOne(d => d.idclinicaNavigation)
                     .WithMany(p => p.medicoclinica)
                     .HasForeignKey(d => d.idclinica)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("idclinica");
 
-                entity.HasOne(d => d.medico)
+                entity.HasOne(d => d.idmedicoNavigation)
                     .WithMany(p => p.medicoclinica)
                     .HasForeignKey(d => d.idmedico)
                     .OnDelete(DeleteBehavior.ClientSetNull)
@@ -496,13 +503,13 @@ namespace ExamRegister.DA {
 
                 entity.Property(e => e.idgrupomedico).ValueGeneratedNever();
 
-                entity.HasOne(d => d.GrupodeMedico)
+                entity.HasOne(d => d.idgrupoNavigation)
                     .WithMany(p => p.medicogrupo)
                     .HasForeignKey(d => d.idgrupo)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("idgrupo");
 
-                entity.HasOne(d => d.Medico)
+                entity.HasOne(d => d.idmedicoNavigation)
                     .WithMany(p => p.medicogrupo)
                     .HasForeignKey(d => d.idmedico)
                     .OnDelete(DeleteBehavior.ClientSetNull)
@@ -556,7 +563,7 @@ namespace ExamRegister.DA {
 
                 entity.Property(e => e.Idpacienteinformacao).ValueGeneratedNever();
 
-                entity.HasOne(d => d.informacao)
+                entity.HasOne(d => d.idinformacaoNavigation)
                     .WithMany(p => p.pacienteinformacao)
                     .HasForeignKey(d => d.idinformacao)
                     .OnDelete(DeleteBehavior.ClientSetNull)
@@ -582,7 +589,7 @@ namespace ExamRegister.DA {
 
                 entity.Property(e => e.inativo).HasColumnType("date");
 
-                entity.Property(e => e.nome)
+                entity.Property(e => e.nome_)
                     .IsRequired()
                     .HasMaxLength(200)
                     .HasColumnName("nome ");
@@ -635,8 +642,7 @@ namespace ExamRegister.DA {
 
                 entity.Property(e => e.user)
                     .IsRequired()
-                    .HasMaxLength(200)
-                    .HasColumnName("user");
+                    .HasMaxLength(200);
             });
 
             OnModelCreatingPartial(modelBuilder);

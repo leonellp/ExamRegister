@@ -17,6 +17,18 @@ export class LoginComponent implements OnInit {
     private authService: AuthService) { }
 
   ngOnInit() {
+    sessionStorage.removeItem("clinica");
+    sessionStorage.removeItem("diagnostico");
+    sessionStorage.removeItem("exame");
+    sessionStorage.removeItem("categoria");
+    sessionStorage.removeItem("medicoSalvo");
+    sessionStorage.removeItem("orgao");
+    sessionStorage.removeItem("paciente");
+    sessionStorage.removeItem("peca");
+    sessionStorage.removeItem("reuniao");
+    sessionStorage.removeItem("novoUsuario");
+    sessionStorage.removeItem("informacao");
+    sessionStorage.removeItem("grupo");
   }
 
   fazerLogin(){

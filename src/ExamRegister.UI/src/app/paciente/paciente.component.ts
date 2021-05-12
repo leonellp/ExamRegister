@@ -34,7 +34,18 @@ export class PacienteComponent implements OnInit {
   }
 
   ngOnInit() {
+    sessionStorage.removeItem("clinica");
+    sessionStorage.removeItem("diagnostico");
+    sessionStorage.removeItem("exame");
+    sessionStorage.removeItem("categoria");
     sessionStorage.removeItem("medicoSalvo");
+    sessionStorage.removeItem("orgao");
+    sessionStorage.removeItem("paciente");
+    sessionStorage.removeItem("peca");
+    sessionStorage.removeItem("reuniao");
+    sessionStorage.removeItem("novoUsuario");
+    sessionStorage.removeItem("informacao");
+    sessionStorage.removeItem("grupo");
   }
 
   PacientesCount(): number {
@@ -70,7 +81,7 @@ export class PacienteComponent implements OnInit {
   }
 
   onEdit(paciente: PacienteDTO) {
-    this.router.navigate(['editar', paciente.idpaciente], { relativeTo: this.route })
+    this.router.navigate(['editar', paciente.idpaciente], { relativeTo: this.route });
   }
 
   reload() {

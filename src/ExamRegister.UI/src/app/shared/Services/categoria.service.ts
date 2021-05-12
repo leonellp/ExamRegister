@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { CategoriaDTO } from '../DTOs/categoria-dto';
 import { take } from 'rxjs/operators';
+import { Paginacao } from '../DTOs/Paginacao';
 
 @Injectable({
   providedIn: 'root'
@@ -13,8 +14,15 @@ export class CategoriaService {
 
   constructor(private http: HttpClient) { }
 
-  list() {
-    return this.http.get<CategoriaDTO[]>(this.API).pipe(take(1));
+  list(skip: number, top: number, count: boolean, soinativo?: boolean, pesquisa?: string) {
+    return this.http.get<Paginacao<CategoriaDTO>>(
+      this.API + 
+      "?skip=" + skip +
+      "&top=" + top +
+      "&count=" + count +
+      "&soinativo=" + soinativo +
+      "&pesquisa=" + pesquisa
+    ).pipe(take(1));
   }
 
   loadByID(id: string) {

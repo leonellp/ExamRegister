@@ -13,6 +13,6 @@ namespace ExamRegister.DA.Abstractions.Models
         public DateTime data { get; set; }
         public DateTime? inativo { get; set; }
 
-        public virtual paciente paciente { get; set; }
+        public virtual paciente idpacienteNavigation { get; set; }
     }
 }

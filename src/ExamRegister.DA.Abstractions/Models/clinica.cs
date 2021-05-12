@@ -22,7 +22,7 @@ namespace ExamRegister.DA.Abstractions.Models
         public string nome { get; set; }
         public string idexterno { get; set; }
 
-        public virtual endereco endereco { get; set; }
+        public virtual endereco idenderecoNavigation { get; set; }
         public virtual ICollection<exame> exame { get; set; }
         public virtual ICollection<medicoclinica> medicoclinica { get; set; }
     }

@@ -43,7 +43,7 @@ namespace ExamRegister.Business {
 
                 clinica.idmedcli = Guid.NewGuid();
                 clinica.idmedico = _medico.idmedico;
-                clinica.clinica = ClinicaRepository.GetById(clinica.idclinica);
+                clinica.idclinicaNavigation = ClinicaRepository.GetById(clinica.idclinica);
 
                 medicoClinicaRepository.Insert(clinica);
             }
