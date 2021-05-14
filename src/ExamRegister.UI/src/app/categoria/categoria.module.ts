@@ -8,6 +8,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { SharedModule } from '../shared/shared.module';
 import { NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
 import { TabsModule } from 'ngx-bootstrap/tabs';
+import { CategoriaFilhaComponent } from './categoria-filha/categoria-filha.component';
 
 @NgModule({
   imports: [
@@ -21,6 +22,6 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
     SharedModule,
     NgbTypeaheadModule,
   ],
-  declarations: [FormCategoriaComponent]
+  declarations: [FormCategoriaComponent, CategoriaFilhaComponent]
 })
 export class CategoriaModule { }

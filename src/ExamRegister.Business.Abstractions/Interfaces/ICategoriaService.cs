@@ -10,7 +10,8 @@ namespace ExamRegister.DA.Abstractions.interfaces {
             int top,
             bool count,
             bool? soinativos = null,
-            string pesquisa = null
+            string pesquisa = null,
+            Guid? idcategoriapai = null
             );
         CategoriaDTO GetById(Guid IdCategoria);
         void Insert(CategoriaInsertDTO categoria);

@@ -67,7 +67,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let orgao of orgaos.values">
+                <tr *ngFor="let orgao of orgaos.values" class="pointer" (click)="onEdit(orgao)">
                     <td>{{ orgao.idexterno }}</td>
                     <td>{{ orgao.nome }}</td>
                     <td>

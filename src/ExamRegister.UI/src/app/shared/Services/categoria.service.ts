@@ -14,14 +14,15 @@ export class CategoriaService {
 
   constructor(private http: HttpClient) { }
 
-  list(skip: number, top: number, count: boolean, soinativo?: boolean, pesquisa?: string) {
+  list(skip: number, top: number, count: boolean, soinativo?: boolean, pesquisa?: string, idcategoriapai?: string) {
     return this.http.get<Paginacao<CategoriaDTO>>(
       this.API + 
       "?skip=" + skip +
       "&top=" + top +
       "&count=" + count +
       "&soinativo=" + soinativo +
-      "&pesquisa=" + pesquisa
+      "&pesquisa=" + pesquisa + 
+      "&idcategoriapai=" + idcategoriapai
     ).pipe(take(1));
   }
 

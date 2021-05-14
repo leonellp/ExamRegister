@@ -67,7 +67,7 @@
       </thead>
 
       <tbody>
-        <tr *ngFor="let usuario of usuarios.values">
+        <tr *ngFor="let usuario of usuarios.values" class="pointer" (click)="onEdit(usuario)">
           <td>{{ usuario.nome }}</td>
           <td>{{ usuario.user }}</td>
           <td>

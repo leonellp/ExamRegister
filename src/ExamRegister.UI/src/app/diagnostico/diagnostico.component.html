@@ -48,7 +48,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let diagnostico of diagnosticos.values">
+                <tr *ngFor="let diagnostico of diagnosticos.values" class="pointer" (click)="onEdit(diagnostico)">
                     <td>{{ diagnostico.idexterno }}</td>
                     <td>{{ diagnostico.nome }}</td>
                     <td>

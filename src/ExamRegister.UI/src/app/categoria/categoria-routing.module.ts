@@ -8,8 +8,6 @@ const routes: Routes = [
 
   { path: 'novo', component: FormCategoriaComponent},
 
-  { path: 'novo/filha', component: FormCategoriaComponent},
-
   { path: 'editar/:id', component: FormCategoriaComponent},
 ];
 

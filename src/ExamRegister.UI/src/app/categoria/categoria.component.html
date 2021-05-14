@@ -69,9 +69,9 @@
 
       <tbody>
         <tr *ngFor="let categoria of categorias.values">
-          <td>{{ categoria.idexterno }}</td>
-          <td>{{ categoria.nome }}</td>
-          <td>{{ categoria.nomecompleto }}</td>
+          <td class="pointer" (click)="onEdit(categoria)">{{ categoria.idexterno }}</td>
+          <td class="pointer" (click)="onEdit(categoria)">{{ categoria.nome }}</td>
+          <td class="pointer" (click)="onEdit(categoria)">{{ categoria.nomecompleto }}</td>
           <td>
             <span class="float-right">
               <button class="btn" (click)="onEdit(categoria)">
@@ -92,7 +92,7 @@
                 </svg>
               </button>
             </span>
-          </td>
+          </td>          
         </tr>
       </tbody>
     </table>

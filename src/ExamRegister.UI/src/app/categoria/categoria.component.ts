@@ -23,6 +23,7 @@ export class CategoriaComponent implements OnInit {
 
   categorias?: Paginacao<CategoriaDTO>;
   categoriaSelecionada!: CategoriaDTO
+  categoriasFilhas?: Paginacao<CategoriaDTO>;
 
   constructor(
     private categoriaService: CategoriaService,
@@ -54,7 +55,7 @@ export class CategoriaComponent implements OnInit {
 
   onList($event: any) {
     this.pagina = $event;
-    this.categoriaService.list((this.pagina - 1) * this.pageSize, this.pageSize, true, false, this.pesquisa).subscribe(categorias => {
+    this.categoriaService.list((this.pagina - 1) * this.pageSize, this.pageSize, true, false, this.pesquisa, "").subscribe(categorias => {
       this.categorias = categorias;
     });
   }
@@ -91,5 +92,11 @@ export class CategoriaComponent implements OnInit {
   onPesquisar() {
     this.onList(1);
     this.temPesquisa = true;
+  }
+
+  onListFilhas(categoriapai: CategoriaDTO) {
+    this.categoriaService.list(0, 0, false, false, "", categoriapai.idcategoria).subscribe(categoriasFilhas => {
+      this.categoriasFilhas = categoriasFilhas;
+    })
   }
 }

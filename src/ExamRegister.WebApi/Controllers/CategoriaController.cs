@@ -19,12 +19,13 @@ namespace ExamRegister.WebApi.Controllers {
         [Route("")]
         public paginacao<CategoriaDTO> List(
             int skip = 0,
-            int top = 10,
+            int top = 0,
             bool count = false,
             bool? soinativos = false,
-            string pesquisa = null
+            string pesquisa = null,
+            Guid? idcategoriapai = null
             ) {
-            return service.List(skip, top, count, soinativos, pesquisa);
+            return service.List(skip, top, count, soinativos, pesquisa, idcategoriapai);
         }
 
         [HttpGet]

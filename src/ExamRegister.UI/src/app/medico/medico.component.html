@@ -67,7 +67,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let medico of medicos.values">
+                <tr *ngFor="let medico of medicos.values" (click)="onEdit(medico)" class="pointer">
                     <td>{{ medico.crm }}</td>
                     <td>{{ medico.nome }}</td>
                     <td>

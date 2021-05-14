@@ -36,16 +36,28 @@ namespace ExamRegister.Business {
             int top,
             bool count,
             bool? soinativos = null,
-            string pesquisa = null
+            string pesquisa = null,
+            Guid? idcategoriapai = null
             ) {
 
             int? nCount = null;
 
             var categorias = repository.List();
             if (soinativos == true) {
-                categorias = categorias.Where(a => a.inativo != null);
+
+                if (idcategoriapai == null) {
+                    categorias = categorias.Where(a => a.inativo != null && a.idcategoriapai == null);
+                } else {
+                    categorias = categorias.Where(a => a.inativo != null && a.idcategoriapai == idcategoriapai);
+                }
+
             } else {
-                categorias = categorias.Where(a => a.inativo == null);
+
+                if (idcategoriapai == null) {
+                    categorias = categorias.Where(a => a.inativo == null && a.idcategoriapai == null);
+                } else {
+                    categorias = categorias.Where(a => a.inativo == null && a.idcategoriapai == idcategoriapai);
+                }
             }
 
             if (pesquisa != null) {
@@ -62,7 +74,9 @@ namespace ExamRegister.Business {
 
             if (skip < 0) skip = 0;
             categorias = categorias.OrderBy(a => a.nome);
-            categorias = categorias.Skip(skip).Take(top);
+
+            if (top < 0) top = 0;
+            if (top != 0) categorias = categorias.Skip(skip).Take(top);
 
             return new paginacao<CategoriaDTO>() {
                 values = categorias.ProjectTo<CategoriaDTO>(mapper.ConfigurationProvider).ToArray(),
