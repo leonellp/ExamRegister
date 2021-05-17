@@ -210,8 +210,7 @@
             <hr>
 
             <div class="col">
-                <button class="btn btn-outline-success mb-3 btn-sm">
-                    <!-- (click)="openModal(addInformacao)" -->
+                <button class="btn btn-outline-success mb-3 btn-sm" (click)="openModal(addCategoria)">                    
                     Categorias
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                         class="bi bi-plus-circle-dotted" viewBox="0 0 16 16">
@@ -225,20 +224,19 @@
                 <table class="table table-hover">
                     <thead>
                         <tr>
-                            <th>Categoria</th>
+                            <th>Nome</th>
+                            <th>Nome Completo</th>
                             <th></th>
                         </tr>
                     </thead>
 
                     <tbody>
-                        <tr>
-                            <!-- *ngFor="let _medicorespdiag of medicorespdiag" -->
-                            <td></td>
-                            <!-- {{ _medicorespdiag.medico?.nome }} -->
+                        <tr *ngFor="let _categoriaexame of categoriaexame">
+                            <td>{{ _categoriaexame.categoria.nome }}</td>                            
+                            <td>{{ _categoriaexame.categoria.nomecompleto }}</td>                            
                             <td>
                                 <span class="float-right">
-                                    <button class="btn btn-outline-danger mb-1 btn-sm">
-                                        <!-- (click)="onDeleteInfo(informacao2)" -->
+                                    <button class="btn btn-outline-danger mb-1 btn-sm" (click)="removerCategoria(_categoriaexame)">                                        
                                         Remover
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red"
                                             class="bi bi-trash-fill" viewBox="0 0 16 16">
@@ -932,4 +930,8 @@
 
 <ng-template #addMedicorespdiag>
     <app-exame-med-resp-diag (inserirMedicorespdiag)="incluirMedicorespdiag($event)"></app-exame-med-resp-diag>
+</ng-template>
+
+<ng-template #addCategoria>
+    <app-categoriaexame (inserirCategoria)="incluirCategoria($event)"></app-categoriaexame>
 </ng-template>

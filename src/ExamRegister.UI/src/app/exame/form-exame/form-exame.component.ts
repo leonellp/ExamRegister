@@ -18,6 +18,7 @@ import { ExameService } from 'src/app/shared/Services/exame.service';
 import { Location, NgClass } from '@angular/common';
 import { ImagemDTO } from 'src/app/shared/DTOs/imagem-dto';
 import { PacienteDTO } from 'src/app/shared/DTOs/paciente-dto';
+import { CategoriaDTO } from 'src/app/shared/DTOs/categoria-dto';
 
 @Component({
   selector: 'app-form-exame',
@@ -168,7 +169,7 @@ export class FormExameComponent extends BaseFormComponent implements OnInit {
 
     this.formulario.valueChanges.subscribe(() => {
       this.setForm();
-    });   
+    });
   }
 
   openModal(template: TemplateRef<any>) {
@@ -319,6 +320,36 @@ export class FormExameComponent extends BaseFormComponent implements OnInit {
     this.formulario.setValue(exame);
   }
 
+  incluirCategoria(categoria: CategoriaDTO) {
+    let exame: ExameDTO = Object.assign({}, this.formulario.value);
+
+    if (exame.categoriaexame == null) exame.categoriaexame = [];
+
+    exame.categoriaexame.push(
+      {
+        idcategoriaexame: null,
+        idcategoria: categoria.idcategoria,
+        idexame: exame.idexame,
+
+        categoria: categoria
+      });
+
+    this.formulario.setValue(exame);
+  }
+
+  removerCategoria(categoria: CategoriaDTO) {
+    let exame: ExameDTO = Object.assign({}, this.formulario.value);
+
+    if (exame.categoriaexame == null) exame.categoriaexame = [];
+
+    exame.categoriaexame.forEach((value, i) => {
+      if (value.idcategoria == categoria.idcategoria)
+        exame.categoriaexame.splice(i, 1);
+    });
+
+    this.formulario.setValue(exame);
+  }
+
   incluirImagem(event: FileList) {
     let exame: ExameDTO = Object.assign({}, this.formulario.value);
 
@@ -326,7 +357,7 @@ export class FormExameComponent extends BaseFormComponent implements OnInit {
       exame.imagem = [];
     }
 
-    for (let i = 0; i < event.length; i++) {      
+    for (let i = 0; i < event.length; i++) {
       this.files.push(event[i]);
       exame.imagem.push(
         {
@@ -339,7 +370,7 @@ export class FormExameComponent extends BaseFormComponent implements OnInit {
         }
       );
     }
-    
+
     console.log("Arquivos file:", this.files);
     console.log("tabela imagem do form:", this.formulario.value.imagem);
 
@@ -358,12 +389,12 @@ export class FormExameComponent extends BaseFormComponent implements OnInit {
     exame.imagem.forEach((value, i) => {
       if (value.nome == imagem.nome)
         exame.imagem.splice(i, 1);
-        this.files.splice(i, 1);
+      this.files.splice(i, 1);
     });
 
     sessionStorage.setItem("files", JSON.stringify(this.files));
 
-    console.log("Arquivos file:", this.files);    
+    console.log("Arquivos file:", this.files);
     console.log("tabela imagem :", this.formulario.value.imagem);
 
     this.formulario.setValue(exame);

@@ -118,8 +118,7 @@ export class FormCategoriaComponent extends BaseFormComponent implements OnInit 
     this.categoriaService.save(categoria).subscribe(
       () => {
         this.alertService.showAlertSuccess(msgSuccess);
-        delay(1000);
-        location.reload();
+        delay(1000);        
       },
       () => this.alertService.showAlertDanger(msgError)
     );
@@ -127,6 +126,7 @@ export class FormCategoriaComponent extends BaseFormComponent implements OnInit 
 
   onEditFilha(categoriaFilha: CategoriaDTO) {
     this.router.navigate(['categoria/editar', categoriaFilha.idcategoria]);
+    
   }
 
   onDeleteFilha(categoriaFilha: CategoriaDTO) {

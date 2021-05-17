@@ -20,6 +20,7 @@ import { ExameClinicaComponent } from './exame-clinica/exame-clinica.component';
 import { ExameReuniaoComponent } from './exame-reuniao/exame-reuniao.component';
 import { CategoriaexameComponent } from './categoriaexame/categoriaexame.component';
 import { ExameDiagnosticoComponent } from './exame-diagnostico/exame-diagnostico.component';
+import { ExameCategoriaComponent } from './exame-categoria/exame-categoria.component';
 
 @NgModule({
   imports: [
@@ -34,6 +35,6 @@ import { ExameDiagnosticoComponent } from './exame-diagnostico/exame-diagnostico
     SharedModule,
     NgbTypeaheadModule,
   ],
-  declarations: [ExameMedRespDiagComponent, FormExameComponent, ExamePacienteComponent, ExameOrgaoComponent, ExamePecaComponent, ExameGrupodemedicoComponent, ExameMedicosolicComponent, ExameMedicorespComponent, ExameClinicaComponent, ExameReuniaoComponent, CategoriaexameComponent, ExameDiagnosticoComponent]
+  declarations: [ExameMedRespDiagComponent, FormExameComponent, ExamePacienteComponent, ExameOrgaoComponent, ExamePecaComponent, ExameGrupodemedicoComponent, ExameMedicosolicComponent, ExameMedicorespComponent, ExameClinicaComponent, ExameReuniaoComponent, CategoriaexameComponent, ExameDiagnosticoComponent, ExameCategoriaComponent]
 })
 export class ExameModule { }
