@@ -1,6 +1,6 @@
 export interface PecaDTO {
     idpeca: string
-    nome: string
+    nome_: string
     inativo?: Date;
     idexterno: string
 }

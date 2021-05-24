@@ -5,6 +5,8 @@ using ExamRegister.DA.Abstractions.Models;
 using ExamRegister.WebApi.Abstractions.DTO;
 using System;
 using System.Linq;
+using System.IO;
+using Microsoft.AspNetCore.Http;
 
 namespace ExamRegister.Business {
     public class ImagemService : IImagemService {
@@ -24,10 +26,49 @@ namespace ExamRegister.Business {
             return mapper.Map<ImagemDTO>(repository.GetById(idimagem));
         }
 
-        public void Insert(ImagemInsertDTO imagem) {
-            var r = mapper.Map<imagem>(imagem);
-            r.idimagem = Guid.NewGuid();
-            repository.Insert(r);
+        public ImagemDTO Insert(IFormFile arquivo) {
+            Guid idimagem = Guid.NewGuid();
+
+            string imagemKeyBase = Path.Combine(
+                "imagens",
+                DateTime.Now.Year.ToString(),
+                DateTime.Now.Month.ToString()
+                );
+
+            string pastaImagens = Path.Combine(Directory.GetCurrentDirectory(), imagemKeyBase);
+
+            if (!Directory.Exists(pastaImagens)) {
+                Directory.CreateDirectory(pastaImagens);
+            }
+
+            string extensaoImagem = Path.GetExtension(arquivo.FileName);
+
+            string imagemKey = Path.Combine(
+                imagemKeyBase,
+                idimagem.ToString() +
+                extensaoImagem
+                );
+
+            string imagemKeyFull = Path.Combine(
+                Directory.GetCurrentDirectory(),
+                imagemKey
+                );
+
+            using (FileStream filestream = File.Create(imagemKeyFull)) {
+                arquivo.CopyToAsync(filestream);
+                filestream.Flush();
+            }
+
+            imagem imagem = new imagem();
+
+            imagem.idimagem = idimagem;
+            imagem.url = imagemKey;
+            imagem.dataupload = DateTime.Now;
+            imagem.nome = arquivo.FileName;
+
+            repository.Insert(imagem);
+
+            return mapper.Map<ImagemDTO>(imagem);
         }
 
         public IQueryable<ImagemDTO> List(bool soinativos) {

@@ -6,7 +6,7 @@ using System.Collections.Generic;
 namespace ExamRegister.WebApi.Abstractions.DTO
 {
     public partial class PecaInsertDTO {
-        public string nome { get; set; }
+        public string nome_ { get; set; }
         public DateTime? inativo { get; set; }
         public string idexterno { get; set; }
     }

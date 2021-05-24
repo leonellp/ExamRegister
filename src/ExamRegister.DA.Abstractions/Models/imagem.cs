@@ -10,7 +10,7 @@ namespace ExamRegister.DA.Abstractions.Models
         public Guid idimagem { get; set; }
         public string nome { get; set; }
         public string url { get; set; }
-        public Guid idexame { get; set; }
+        public Guid? idexame { get; set; }
         public DateTime dataupload { get; set; }
         public DateTime? inativo { get; set; }
 

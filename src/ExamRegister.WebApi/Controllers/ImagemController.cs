@@ -33,24 +33,9 @@ namespace ExamRegister.WebApi.Controllers {
             return service.GetById(Id);
         }
 
-        [HttpPost("upload")]
-        public async Task<string> EnviaImagem([FromForm] IFormFile arquivo) {
-            if (arquivo.Length > 0) {
-                try {
-                    if (!Directory.Exists(_environment.WebRootPath + "\\imagens\\")) {
-                        Directory.CreateDirectory(_environment.WebRootPath + "\\imagens\\");
-                    }
-                    using (FileStream filestream = System.IO.File.Create(_environment.WebRootPath + "\\imagens\\" + arquivo.FileName)) {
-                        await arquivo.CopyToAsync(filestream);
-                        filestream.Flush();
-                        return "\\imagens\\" + arquivo.FileName;
-                    }
-                } catch (Exception ex) {
-                    return ex.ToString();
-                }
-            } else {
-                return "Ocorreu uma falha no envio do arquivo...";
-            }
+        [HttpPost()]
+        public ImagemDTO Insert(IFormFile file) {
+            return service.Insert(file);
         }
 
         [HttpDelete]

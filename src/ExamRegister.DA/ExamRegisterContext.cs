@@ -426,7 +426,6 @@ namespace ExamRegister.DA
                 entity.HasOne(d => d.idexameNavigation)
                     .WithMany(p => p.imagem)
                     .HasForeignKey(d => d.idexame)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("idexame");
             });
 

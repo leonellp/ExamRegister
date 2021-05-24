@@ -19,6 +19,8 @@ import { Location, NgClass } from '@angular/common';
 import { ImagemDTO } from 'src/app/shared/DTOs/imagem-dto';
 import { PacienteDTO } from 'src/app/shared/DTOs/paciente-dto';
 import { CategoriaDTO } from 'src/app/shared/DTOs/categoria-dto';
+import { ImagemService } from 'src/app/shared/Services/imagem.service';
+import { delay } from 'rxjs/operators';
 
 @Component({
   selector: 'app-form-exame',
@@ -27,7 +29,8 @@ import { CategoriaDTO } from 'src/app/shared/DTOs/categoria-dto';
 })
 export class FormExameComponent extends BaseFormComponent implements OnInit {
 
-  files: File[] = [];
+
+  descImagem: string = "";
 
   modalRef!: BsModalRef;
 
@@ -77,6 +80,7 @@ export class FormExameComponent extends BaseFormComponent implements OnInit {
 
   constructor(
     private exameService: ExameService,
+    private imagemService: ImagemService,
     private formBuilder: FormBuilder,
     private alertService: AlertModalService,
     private modalService: BsModalService,
@@ -350,31 +354,20 @@ export class FormExameComponent extends BaseFormComponent implements OnInit {
     this.formulario.setValue(exame);
   }
 
-  incluirImagem(event: FileList) {
+  incluirImagem(idimagem: string) {
+    console.log(idimagem);
+
     let exame: ExameDTO = Object.assign({}, this.formulario.value);
 
     if (exame.imagem == null) {
       exame.imagem = [];
     }
 
-    for (let i = 0; i < event.length; i++) {
-      this.files.push(event[i]);
-      exame.imagem.push(
-        {
-          idimagem: null,
-          nome: event[i].name,
-          url: null,
-          idexame: null,
-          dataupload: null,
-          inativo: null,
-        }
-      );
-    }
+    this.imagemService.loadByID(idimagem).subscribe(imagem => {
+      exame.imagem.push(imagem);
+    });
 
-    console.log("Arquivos file:", this.files);
-    console.log("tabela imagem do form:", this.formulario.value.imagem);
-
-    sessionStorage.setItem("files", JSON.stringify(this.files));
+    console.log("Imagens do form:", this.formulario.value.imagem);
 
     this.formulario.setValue(exame);
   }
@@ -389,13 +382,9 @@ export class FormExameComponent extends BaseFormComponent implements OnInit {
     exame.imagem.forEach((value, i) => {
       if (value.nome == imagem.nome)
         exame.imagem.splice(i, 1);
-      this.files.splice(i, 1);
     });
 
-    sessionStorage.setItem("files", JSON.stringify(this.files));
-
-    console.log("Arquivos file:", this.files);
-    console.log("tabela imagem :", this.formulario.value.imagem);
+    console.log("Imagens do form:", this.formulario.value.imagem);
 
     this.formulario.setValue(exame);
   }
@@ -413,5 +402,25 @@ export class FormExameComponent extends BaseFormComponent implements OnInit {
     sessionStorage.removeItem("exame");
     sessionStorage.removeItem("files");
     this.click = false;
+  }
+
+  submitImagem(file: File) {
+    let exame: ExameDTO = Object.assign({}, this.formulario.value);
+
+    if (exame.imagem == null) exame.imagem = [];
+
+    let msgSuccess = "Imagem salva com sucesso!"
+    let msgError = "Imagem salva com sucesso!"
+
+    this.imagemService.create(file).subscribe(
+      (imagem) => {
+
+        exame.imagem.push(imagem);
+        this.formulario.setValue(exame);
+        this.alertService.showAlertSuccess(msgSuccess);
+        delay(1000);
+      },
+      () => this.alertService.showAlertDanger(msgError)
+    );
   }
 }
