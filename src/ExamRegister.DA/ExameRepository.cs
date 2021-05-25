@@ -1,10 +1,10 @@
-﻿using ExamRegister.DA.Abstractions;
-using ExamRegister.DA.Abstractions.interfaces;
+﻿using ExamRegister.DA.Abstractions.interfaces;
 using ExamRegister.DA.Abstractions.Models;
 using System;
 using System.Linq;
 
-namespace ExamRegister.DA {
+namespace ExamRegister.DA
+{
     public class ExameRepository : IExameRepository {
         private readonly ExamRegisterContext examregisterContext;
 

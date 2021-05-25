@@ -35,6 +35,20 @@ import { ExameCategoriaComponent } from './exame-categoria/exame-categoria.compo
     SharedModule,
     NgbTypeaheadModule,
   ],
-  declarations: [ExameMedRespDiagComponent, FormExameComponent, ExamePacienteComponent, ExameOrgaoComponent, ExamePecaComponent, ExameGrupodemedicoComponent, ExameMedicosolicComponent, ExameMedicorespComponent, ExameClinicaComponent, ExameReuniaoComponent, CategoriaexameComponent, ExameDiagnosticoComponent, ExameCategoriaComponent]
+  declarations: [
+    ExameMedRespDiagComponent, 
+    FormExameComponent, 
+    ExamePacienteComponent, 
+    ExameOrgaoComponent, 
+    ExamePecaComponent, 
+    ExameGrupodemedicoComponent, 
+    ExameMedicosolicComponent, 
+    ExameMedicorespComponent, 
+    ExameClinicaComponent, 
+    ExameReuniaoComponent, 
+    CategoriaexameComponent, 
+    ExameDiagnosticoComponent, 
+    ExameCategoriaComponent
+  ]
 })
 export class ExameModule { }

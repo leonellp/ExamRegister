@@ -5,8 +5,7 @@ using System.Collections.Generic;
 
 namespace ExamRegister.WebApi.Abstractions.DTO
 {
-    public partial class ExameDiagInsertDTO {
-        public Guid idexame { get; set; }
+    public partial class ExameDiagInsertDTO {        
         public Guid iddiag { get; set; }
     }
 }

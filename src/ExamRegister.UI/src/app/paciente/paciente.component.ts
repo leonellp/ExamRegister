@@ -14,7 +14,7 @@ import { PacienteService } from '../shared/Services/paciente.service';
 })
 export class PacienteComponent implements OnInit {
 
-  @Output() public paginaChage = new EventEmitter<number>();
+  @Output() public paginaChange = new EventEmitter<number>();
   pagina: number = 0;
   pageSize: number = 5;
 

@@ -118,7 +118,7 @@ export class FormExameComponent extends BaseFormComponent implements OnInit {
       falc: [null, Validators.required],
       biltotal: [null, Validators.required],
       bildireta: [null, Validators.required],
-      outros: [null, [Validators.required, Validators.maxLength(300)]],
+      outros: [null, [Validators.maxLength(300)]],
       inativo: [null],
       idgrupomedico: [null, Validators.required],
       conclusao: [null, [Validators.required, Validators.maxLength(300)]],
@@ -147,14 +147,14 @@ export class FormExameComponent extends BaseFormComponent implements OnInit {
       hiv: [null],
       deschiv: [null],
 
-      paciente: [null, Validators.required],
-      orgao: [null, Validators.required],
-      peca: [null, Validators.required],
-      grupodemedico: [null, Validators.required],
-      medicosolic: [null, Validators.required],
-      clinica: [null, Validators.required],
-      medicoresp: [null, Validators.required],
-      reuniao: [null, Validators.required],
+      Paciente: [null, Validators.required],
+      Orgao: [null, Validators.required],
+      Peca: [null, Validators.required],
+      GrupodeMedico: [null, Validators.required],
+      MedicoSolic: [null, Validators.required],
+      Clinica: [null, Validators.required],
+      MedicoResp: [null, Validators.required],
+      Reuniao: [null, Validators.required],
       examemedicorespdiagnostico: [null, Validators.required],
       categoriaexame: [null, Validators.required],
       imagem: [null, Validators.required],
@@ -167,6 +167,8 @@ export class FormExameComponent extends BaseFormComponent implements OnInit {
         this.exameService.loadByID(idexame).subscribe(exame => {
 
           this.formulario.setValue(Object.assign({}, exame));
+          console.log(exame);
+          
         });
       } this.formulario.setValue(Object.assign({}, JSON.parse(sessionStorage.getItem("exame") || "{}")));
     });
@@ -185,6 +187,26 @@ export class FormExameComponent extends BaseFormComponent implements OnInit {
 
     this.click = true;
 
+    valueSubmit.transplantadofigado = this.convertNumber(valueSubmit.transplantadofigado);
+    valueSubmit.hipertensaoarterial = this.convertNumber(valueSubmit.hipertensaoarterial);
+    valueSubmit.ictericia = this.convertNumber(valueSubmit.ictericia);
+    valueSubmit.edema = this.convertNumber(valueSubmit.edema);
+    valueSubmit.ascite = this.convertNumber(valueSubmit.ascite);
+    valueSubmit.circulacaocolateral = this.convertNumber(valueSubmit.circulacaocolateral);
+    valueSubmit.varizesofagicas = this.convertNumber(valueSubmit.varizesofagicas);
+    valueSubmit.hepatomegalia = this.convertNumber(valueSubmit.hepatomegalia);
+    valueSubmit.figadoendurecido = this.convertNumber(valueSubmit.figadoendurecido);
+    valueSubmit.figadonodular = this.convertNumber(valueSubmit.figadonodular);
+    valueSubmit.esplenomegalia = this.convertNumber(valueSubmit.esplenomegalia);
+    valueSubmit.doencaautoimune = this.convertNumber(valueSubmit.doencaautoimune);
+    valueSubmit.usamedicamento = this.convertNumber(valueSubmit.usamedicamento);
+    valueSubmit.vhc = this.convertNumber(valueSubmit.vhc);
+    valueSubmit.descvhc = this.convertNumber(valueSubmit.descvhc);
+    valueSubmit.vhb = this.convertNumber(valueSubmit.vhb);
+    valueSubmit.descvhb = this.convertNumber(valueSubmit.descvhb);
+    valueSubmit.hiv = this.convertNumber(valueSubmit.hiv);
+    valueSubmit.deschiv = this.convertNumber(valueSubmit.deschiv);
+
     console.log(valueSubmit);
 
     if (this.formulario.valid) {
@@ -197,14 +219,14 @@ export class FormExameComponent extends BaseFormComponent implements OnInit {
         msgSuccess = 'exame atualizado com sucesso!';
         msgError = 'Erro ao atualizar exame, tente novamente!';
       }
-      // this.exameService.save(valueSubmit).subscribe(
-      //   () => {
-      //     this.alertService.showAlertSuccess(msgSuccess);
-      //     delay(1000);
-      //     this.location.back();
-      //   },
-      //   () => this.alertService.showAlertDanger(msgError)
-      // );
+      this.exameService.save(valueSubmit).subscribe(
+        () => {
+          this.alertService.showAlertSuccess(msgSuccess);
+          delay(1000);
+          this.location.back();
+        },
+        () => this.alertService.showAlertDanger(msgError)
+      );
     }
 
     if (this.formulario.invalid) this.alertService.showAlertDanger('* Confira os campos em Vermelho ou com (*)');
@@ -213,7 +235,7 @@ export class FormExameComponent extends BaseFormComponent implements OnInit {
   incluirPaciente(paciente: PacienteDTO) {
     let exame: ExameDTO = Object.assign({}, this.formulario.value);
 
-    exame.paciente = paciente;
+    exame.Paciente = paciente;
     exame.idpaciente = paciente.idpaciente;
 
     this.formulario.setValue(exame);
@@ -222,7 +244,7 @@ export class FormExameComponent extends BaseFormComponent implements OnInit {
   incluirOrgao(orgao: OrgaoDTO) {
     let exame: ExameDTO = Object.assign({}, this.formulario.value);
 
-    exame.orgao = orgao;
+    exame.Orgao = orgao;
     exame.idorgao = orgao.idorgao;
 
     this.formulario.setValue(exame);
@@ -231,7 +253,7 @@ export class FormExameComponent extends BaseFormComponent implements OnInit {
   incluirPeca(peca: PecaDTO) {
     let exame: ExameDTO = Object.assign({}, this.formulario.value);
 
-    exame.peca = peca;
+    exame.Peca = peca;
     exame.idpeca = peca.idpeca;
 
     this.formulario.setValue(exame);
@@ -240,7 +262,7 @@ export class FormExameComponent extends BaseFormComponent implements OnInit {
   incluirMedicosolic(medicosolic: MedicoDTO) {
     let exame: ExameDTO = Object.assign({}, this.formulario.value);
 
-    exame.medicosolic = medicosolic;
+    exame.MedicoSolic = medicosolic;
     exame.idmedicosolic = medicosolic.idmedico;
 
     this.formulario.setValue(exame);
@@ -249,7 +271,7 @@ export class FormExameComponent extends BaseFormComponent implements OnInit {
   incluirMedicoresp(medicoresp: MedicoDTO) {
     let exame: ExameDTO = Object.assign({}, this.formulario.value);
 
-    exame.medicoresp = medicoresp;
+    exame.MedicoResp = medicoresp;
     exame.idmedicoresp = medicoresp.idmedico;
 
     this.formulario.setValue(exame);
@@ -258,7 +280,7 @@ export class FormExameComponent extends BaseFormComponent implements OnInit {
   incluirGrupodemedico(grupo: GrupodemedicoDTO) {
     let exame: ExameDTO = Object.assign({}, this.formulario.value);
 
-    exame.grupodemedico = grupo;
+    exame.GrupodeMedico = grupo;
     exame.idgrupomedico = grupo.idgrupodemedicos;
 
     this.formulario.setValue(exame);
@@ -267,7 +289,7 @@ export class FormExameComponent extends BaseFormComponent implements OnInit {
   incluirClinica(clinica: ClinicaDTO) {
     let exame: ExameDTO = Object.assign({}, this.formulario.value);
 
-    exame.clinica = clinica;
+    exame.Clinica = clinica;
     exame.idclinica = clinica.idclinica;
 
     this.formulario.setValue(exame);
@@ -276,7 +298,7 @@ export class FormExameComponent extends BaseFormComponent implements OnInit {
   incluirReuniao(reuniao: ReuniaoDTO) {
     let exame: ExameDTO = Object.assign({}, this.formulario.value);
 
-    exame.reuniao = reuniao;
+    exame.Reuniao = reuniao;
     exame.idreuniao = reuniao.idrenuiao;
 
     this.formulario.setValue(exame);
@@ -399,8 +421,7 @@ export class FormExameComponent extends BaseFormComponent implements OnInit {
 
   onClear() {
     this.formulario.reset();
-    sessionStorage.removeItem("exame");
-    sessionStorage.removeItem("files");
+    sessionStorage.removeItem("exame");    
     this.click = false;
   }
 
@@ -409,8 +430,8 @@ export class FormExameComponent extends BaseFormComponent implements OnInit {
 
     if (exame.imagem == null) exame.imagem = [];
 
-    let msgSuccess = "Imagem salva com sucesso!"
-    let msgError = "Imagem salva com sucesso!"
+    let msgSuccess = "Imagem enviada com sucesso!"
+    let msgError = "Erro ao enviar imagem!"
 
     this.imagemService.create(file).subscribe(
       (imagem) => {
@@ -422,5 +443,9 @@ export class FormExameComponent extends BaseFormComponent implements OnInit {
       },
       () => this.alertService.showAlertDanger(msgError)
     );
+  }
+
+  convertNumber(numero: string) : number {
+    return Number(numero);
   }
 }

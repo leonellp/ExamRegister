@@ -14,7 +14,7 @@ import { ClinicaService } from '../shared/Services/clinica.service';
 })
 export class ClinicaComponent implements OnInit {
 
-  @Output() public paginaChage = new EventEmitter<number>();
+  @Output() public paginaChange = new EventEmitter<number>();
   pagina: number = 0;
   pageSize: number = 5;
 
@@ -81,7 +81,7 @@ export class ClinicaComponent implements OnInit {
   }
 
   onEdit(clinica: ClinicaDTO) {
-    this.router.navigate(['editar', clinica.idclinica], { relativeTo: this.route })
+    this.router.navigate(['editar', clinica.idclinica], { relativeTo: this.route });
   }
 
   reload() {

@@ -15,8 +15,6 @@ namespace ExamRegister.Mapper {
             CreateMap<DiagnosticoDTO, diagnostico>().ReverseMap();
             CreateMap<EstadoInsertDTO, estado>().ReverseMap();
             CreateMap<EstadoDTO, estado>().ReverseMap();
-            CreateMap<ExameInsertDTO, exame>().ReverseMap();
-            CreateMap<ExameDTO, exame>().ReverseMap();
             CreateMap<ExameDiagInsertDTO, examediag>().ReverseMap();
             CreateMap<ExameDiagDTO, examediag>().ReverseMap();
             CreateMap<ExameMedicorespDiagnosticoInsertDTO, examemedicorespdiagnostico>().ReverseMap();
@@ -40,11 +38,51 @@ namespace ExamRegister.Mapper {
             CreateMap<UsuarioDTO, usuario>().ReverseMap();
             CreateMap<UsuarioInsertDTO, usuario>().ReverseMap();
 
+            // EXAME
+            CreateMap<ExameDTO, exame>()
+                .ForMember(a => a.idclinicaNavigation, b => b.MapFrom(c => c.Clinica))
+                .ForMember(a => a.idgrupomedicoNavigation, b => b.MapFrom(c => c.GrupodeMedico))
+                .ForMember(a => a.idmedicorespNavigation, b => b.MapFrom(c => c.MedicoResp))
+                .ForMember(a => a.idmedicosolicNavigation, b => b.MapFrom(c => c.MedicoSolic))
+                .ForMember(a => a.idorgaoNavigation, b => b.MapFrom(c => c.Orgao))
+                .ForMember(a => a.idpacienteNavigation, b => b.MapFrom(c => c.Paciente))
+                .ForMember(a => a.idpecaNavigation, b => b.MapFrom(c => c.Peca))
+                .ForMember(a => a.idreuniaoNavigation, b => b.MapFrom(c => c.Reuniao))
+                .ForMember(a => a.categoriaexame, b => b.MapFrom(c => c.categoriaexame))
+                .ForMember(a => a.examemedicorespdiagnostico, b => b.MapFrom(c => c.examemedicorespdiagnostico))
+                .ForMember(a => a.imagem, b => b.MapFrom(c => c.imagem))
+                .ReverseMap()
+                .ForMember(a => a.Clinica, b => b.MapFrom(c => c.idclinicaNavigation))
+                .ForMember(a => a.GrupodeMedico, b => b.MapFrom(c => c.idgrupomedicoNavigation))
+                .ForMember(a => a.MedicoResp, b => b.MapFrom(c => c.idmedicorespNavigation))
+                .ForMember(a => a.MedicoSolic, b => b.MapFrom(c => c.idmedicosolicNavigation))
+                .ForMember(a => a.Orgao, b => b.MapFrom(c => c.idorgaoNavigation))
+                .ForMember(a => a.Paciente, b => b.MapFrom(c => c.idpacienteNavigation))
+                .ForMember(a => a.Peca, b => b.MapFrom(c => c.idpecaNavigation))
+                .ForMember(a => a.Reuniao, b => b.MapFrom(c => c.idreuniaoNavigation))
+                .ForMember(a => a.categoriaexame, b => b.MapFrom(c => c.categoriaexame))
+                .ForMember(a => a.examemedicorespdiagnostico, b => b.MapFrom(c => c.examemedicorespdiagnostico))
+                .ForMember(a => a.imagem, b => b.MapFrom(c => c.imagem));
+
+            CreateMap<ExameInsertDTO, exame>()
+                .ForMember(a => a.idclinicaNavigation, b => b.Ignore())
+                .ForMember(a => a.idgrupomedicoNavigation, b => b.Ignore())
+                .ForMember(a => a.idmedicorespNavigation, b => b.Ignore())
+                .ForMember(a => a.idmedicosolicNavigation, b => b.Ignore())
+                .ForMember(a => a.idorgaoNavigation, b => b.Ignore())
+                .ForMember(a => a.idpacienteNavigation, b => b.Ignore())
+                .ForMember(a => a.idpecaNavigation, b => b.Ignore())
+                .ForMember(a => a.idreuniaoNavigation, b => b.Ignore())
+                .ForMember(a => a.categoriaexame, b => b.Ignore())
+                .ForMember(a => a.examediag, b => b.Ignore())
+                .ForMember(a => a.examemedicorespdiagnostico, b => b.Ignore())
+                .ForMember(a => a.imagem, b => b.Ignore())
+                .ReverseMap();
+
             // PACIENTE_INFORMACAO
             CreateMap<PacienteInformacaoDTO, pacienteinformacao>()
                 .ForMember(a => a.idinformacaoNavigation, b => b.MapFrom(c => c.informacao))
                 .ReverseMap();
-
 
             // PACIENTE
             CreateMap<PacienteDTO, paciente>()

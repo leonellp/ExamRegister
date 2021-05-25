@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 #nullable disable
 
@@ -10,5 +9,7 @@ namespace ExamRegister.WebApi.Abstractions.DTO
         public Guid idexamediag { get; set; }
         public Guid idexame { get; set; }
         public Guid iddiag { get; set; }
+
+        public DiagnosticoDTO diagnostico { get; set; }
     }
 }

@@ -60,5 +60,17 @@ namespace ExamRegister.WebApi.Abstractions.DTO {
         public int? descvhb { get; set; }
         public int? hiv { get; set; }
         public int? deschiv { get; set; }
+
+        public virtual ClinicaDTO Clinica { get; set; }
+        public virtual GrupodeMedicoDTO GrupodeMedico { get; set; }
+        public virtual MedicoDTO MedicoResp { get; set; }
+        public virtual MedicoDTO MedicoSolic { get; set; }
+        public virtual OrgaoDTO Orgao { get; set; }
+        public virtual PacienteDTO Paciente { get; set; }
+        public virtual PecaDTO Peca { get; set; }
+        public virtual ReuniaoDTO Reuniao { get; set; }
+        public virtual ICollection<CategoriaExameDTO> categoriaexame { get; set; }
+        public virtual ICollection<ExameMedicorespDiagnosticoDTO> examemedicorespdiagnostico { get; set; }
+        public virtual ICollection<ImagemDTO> imagem { get; set; }
     }
 }

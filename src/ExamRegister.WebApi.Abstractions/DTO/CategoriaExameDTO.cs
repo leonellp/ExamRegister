@@ -10,5 +10,7 @@ namespace ExamRegister.WebApi.Abstractions.DTO
         public Guid idcategoriaexame { get; set; }
         public Guid idcategoria { get; set; }
         public Guid idexame { get; set; }
+
+        public CategoriaDTO categoria { get; set; }
     }
 }

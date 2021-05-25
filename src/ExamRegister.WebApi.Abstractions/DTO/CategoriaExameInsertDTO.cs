@@ -6,7 +6,6 @@ using System.Collections.Generic;
 namespace ExamRegister.WebApi.Abstractions.DTO 
 {
     public partial class CategoriaExameInsertDTO {
-        public Guid idcategoria { get; set; }
-        public Guid idexame { get; set; }
+        public Guid idcategoria { get; set; }        
     }
 }

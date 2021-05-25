@@ -14,7 +14,7 @@ import { CategoriaService } from '../shared/Services/categoria.service';
 })
 export class CategoriaComponent implements OnInit {
 
-  @Output() public paginaChage = new EventEmitter<number>();
+  @Output() public paginaChange = new EventEmitter<number>();
   pagina: number = 0;
   pageSize: number = 5;
 

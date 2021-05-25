@@ -2,44 +2,58 @@
 using ExamRegister.DA.Abstractions.interfaces;
 using ExamRegister.WebApi.Abstractions.DTO;
 using System;
-using System.Collections.Generic;
+using ExamRegister.Business.Abstractions.DTO;
 
-namespace ExamRegister.WebApi.Controllers {
+namespace ExamRegister.WebApi.Controllers
+{
     [ApiController]
     [Route("/v1/[controller]")]
-    public class ExameController : ControllerBase {
+    public class ExameController : ControllerBase
+    {
 
         private readonly IExameService service;
-        public ExameController(IExameService service) {
+        public ExameController(IExameService service)
+        {
             this.service = service;
         }
 
         [HttpGet]
         [Route("")]
-        public IEnumerable<ExameDTO> List(bool excluidos = false) {
-            return service.List(excluidos);
+        public paginacao<ExameDTO> List(
+            int skip = 0,
+            int top = 5,
+            bool count = false,
+            bool? soinativos = false,
+            string pesquisa = null
+            )
+        {
+            return service.List(skip, top, count, soinativos, pesquisa);
         }
 
         [HttpGet]
         [Route("{id}")]
-        public ExameDTO Get(Guid Id) {
+        public ExameDTO Get(Guid Id)
+        {
             return service.GetById(Id);
         }
 
         [HttpPost]
-        public void Insert(ExameInsertDTO exame) {
+        public void Insert(ExameInsertDTO exame)
+        {
             service.Insert(exame);
         }
 
         [HttpDelete]
         [Route("{id}")]
-        public void Delete(Guid Id) {
+        public void Delete(Guid Id)
+        {
             service.Delete(Id);
         }
 
         [HttpPut]
         [Route("{id}")]
-        public void Update(Guid Id, ExameDTO exame) {
+        public void Update(Guid Id, ExameDTO exame)
+        {
             service.Update(Id, exame);
         }
     }
