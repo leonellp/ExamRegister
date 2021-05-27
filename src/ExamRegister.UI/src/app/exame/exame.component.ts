@@ -62,7 +62,7 @@ export class ExameComponent implements OnInit {
   onDelete(exame: ExameDTO) {
     this.exameSelecionado = exame;
 
-    const result$ = this.alertService.showConfirm('Confirmação', 'Tem cerrteza que deseja remover esse exame?');
+    const result$ = this.alertService.showConfirm('Confirmação', 'Tem certeza que deseja remover esse exame?');
     result$.asObservable()
       .pipe(
         take(1),

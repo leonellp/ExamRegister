@@ -67,14 +67,14 @@ export interface ExameDTO {
     hiv ?: number;
     deschiv ?: number;
 
-    Paciente: PacienteDTO;
-    Orgao: OrgaoDTO;
-    Peca: PecaDTO;
-    GrupodeMedico: GrupodemedicoDTO;
-    MedicoSolic: MedicosolicDTO;
-    Clinica: ClinicaDTO;
-    MedicoResp: MedicorespDTO;
-    Reuniao: ReuniaoDTO;
+    paciente: PacienteDTO;
+    orgao: OrgaoDTO;
+    peca: PecaDTO;
+    grupodeMedico: GrupodemedicoDTO;
+    medicoSolic: MedicosolicDTO;
+    clinica: ClinicaDTO;
+    medicoResp: MedicorespDTO;
+    reuniao: ReuniaoDTO;
     examemedicorespdiagnostico: ExamemedicorespdiagnosticoDTO[];
     categoriaexame: CategoriaexameDTO[];
     imagem: ImagemDTO[];

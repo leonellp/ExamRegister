@@ -6,9 +6,7 @@ namespace ExamRegister.Mapper {
     public class Mappers : Profile {
         public Mappers() {
 
-            CreateMap<CategoriaExameInsertDTO, categoriaexame>().ReverseMap();
-            CreateMap<CategoriaExameDTO, categoriaexame>().ReverseMap();
-                        
+            CreateMap<CategoriaExameInsertDTO, categoriaexame>().ReverseMap();                                   
             CreateMap<CidadeInsertDTO, cidade>().ReverseMap();
             CreateMap<CidadeDTO, cidade>().ReverseMap();
             CreateMap<DiagnosticoInsertDTO, diagnostico>().ReverseMap();
@@ -17,8 +15,7 @@ namespace ExamRegister.Mapper {
             CreateMap<EstadoDTO, estado>().ReverseMap();
             CreateMap<ExameDiagInsertDTO, examediag>().ReverseMap();
             CreateMap<ExameDiagDTO, examediag>().ReverseMap();
-            CreateMap<ExameMedicorespDiagnosticoInsertDTO, examemedicorespdiagnostico>().ReverseMap();
-            CreateMap<ExameMedicorespDiagnosticoDTO, examemedicorespdiagnostico>().ReverseMap();
+            CreateMap<ExameMedicorespDiagnosticoInsertDTO, examemedicorespdiagnostico>().ReverseMap();            
             CreateMap<HistoricoPacienteInsertDTO, historicopaciente>().ReverseMap();
             CreateMap<HistoricoPacienteUpdateDTO, historicopaciente>().ReverseMap();
             CreateMap<HistoricoPacienteDTO, historicopaciente>().ReverseMap();
@@ -30,7 +27,6 @@ namespace ExamRegister.Mapper {
             CreateMap<OrgaoDTO, orgao>().ReverseMap();
             CreateMap<PacienteInformacaoInsertDTO, pacienteinformacao>().ReverseMap();
             CreateMap<PacienteInformacaoUpdateDTO, pacienteinformacao>().ReverseMap();
-
             CreateMap<PecaInsertDTO, peca>().ReverseMap();
             CreateMap<PecaDTO, peca>().ReverseMap();
             CreateMap<ReuniaoInsertDTO, reuniao>().ReverseMap();
@@ -48,7 +44,7 @@ namespace ExamRegister.Mapper {
                 .ForMember(a => a.idpacienteNavigation, b => b.MapFrom(c => c.Paciente))
                 .ForMember(a => a.idpecaNavigation, b => b.MapFrom(c => c.Peca))
                 .ForMember(a => a.idreuniaoNavigation, b => b.MapFrom(c => c.Reuniao))
-                .ForMember(a => a.categoriaexame, b => b.MapFrom(c => c.categoriaexame))
+                .ForMember(a => a.categoriaexame, b => b.MapFrom(c => c.categoriaexame))                
                 .ForMember(a => a.examemedicorespdiagnostico, b => b.MapFrom(c => c.examemedicorespdiagnostico))
                 .ForMember(a => a.imagem, b => b.MapFrom(c => c.imagem))
                 .ReverseMap()
@@ -77,6 +73,16 @@ namespace ExamRegister.Mapper {
                 .ForMember(a => a.examediag, b => b.Ignore())
                 .ForMember(a => a.examemedicorespdiagnostico, b => b.Ignore())
                 .ForMember(a => a.imagem, b => b.Ignore())
+                .ReverseMap();
+
+            // CATEGORIA_EXAME
+            CreateMap<CategoriaExameDTO, categoriaexame>()
+                .ForMember(a => a.idcategoriaNavigation, b => b.MapFrom(c => c.categoria))
+                .ReverseMap();
+
+            // EXAME_MEDICORESPONSAVELDIAGNOSTICO
+            CreateMap<ExameMedicorespDiagnosticoDTO, examemedicorespdiagnostico>()
+                .ForMember(a => a.idmedicoNavigation, b => b.MapFrom(c => c.medico))
                 .ReverseMap();
 
             // PACIENTE_INFORMACAO

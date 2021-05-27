@@ -15,7 +15,7 @@ import { PecaDTO } from 'src/app/shared/DTOs/peca-dto';
 import { ReuniaoDTO } from 'src/app/shared/DTOs/reuniao-dto';
 import { AlertModalService } from 'src/app/shared/Services/alert-modal.service';
 import { ExameService } from 'src/app/shared/Services/exame.service';
-import { Location, NgClass } from '@angular/common';
+import { Location } from '@angular/common';
 import { ImagemDTO } from 'src/app/shared/DTOs/imagem-dto';
 import { PacienteDTO } from 'src/app/shared/DTOs/paciente-dto';
 import { CategoriaDTO } from 'src/app/shared/DTOs/categoria-dto';
@@ -34,6 +34,10 @@ export class FormExameComponent extends BaseFormComponent implements OnInit {
 
   modalRef!: BsModalRef;
 
+  get paciente(): PacienteDTO {
+    return Object.assign({}, this.formulario.value).paciente
+  }
+
   get orgao(): OrgaoDTO {
     return Object.assign({}, this.formulario.value).orgao;
   }
@@ -42,16 +46,16 @@ export class FormExameComponent extends BaseFormComponent implements OnInit {
     return Object.assign({}, this.formulario.value).peca;
   }
 
-  get medicosolic(): MedicoDTO {
-    return Object.assign({}, this.formulario.value).medicosolic;
+  get medicoSolic(): MedicoDTO {
+    return Object.assign({}, this.formulario.value).medicoSolic;
   }
 
-  get medicoresp(): MedicoDTO {
-    return Object.assign({}, this.formulario.value).medicoresp;
+  get medicoResp(): MedicoDTO {
+    return Object.assign({}, this.formulario.value).medicoResp;
   }
 
-  get grupodemedico(): GrupodemedicoDTO {
-    return Object.assign({}, this.formulario.value).grupodemedico;
+  get grupodeMedico(): GrupodemedicoDTO {
+    return Object.assign({}, this.formulario.value).grupodeMedico;
   }
 
   get clinica(): ClinicaDTO {
@@ -147,14 +151,14 @@ export class FormExameComponent extends BaseFormComponent implements OnInit {
       hiv: [null],
       deschiv: [null],
 
-      Paciente: [null, Validators.required],
-      Orgao: [null, Validators.required],
-      Peca: [null, Validators.required],
-      GrupodeMedico: [null, Validators.required],
-      MedicoSolic: [null, Validators.required],
-      Clinica: [null, Validators.required],
-      MedicoResp: [null, Validators.required],
-      Reuniao: [null, Validators.required],
+      paciente: [null, Validators.required],
+      orgao: [null, Validators.required],
+      peca: [null, Validators.required],
+      grupodeMedico: [null, Validators.required],
+      medicoSolic: [null, Validators.required],
+      clinica: [null, Validators.required],
+      medicoResp: [null, Validators.required],
+      reuniao: [null, Validators.required],
       examemedicorespdiagnostico: [null, Validators.required],
       categoriaexame: [null, Validators.required],
       imagem: [null, Validators.required],
@@ -166,12 +170,36 @@ export class FormExameComponent extends BaseFormComponent implements OnInit {
       if (idexame) {
         this.exameService.loadByID(idexame).subscribe(exame => {
 
-          this.formulario.setValue(Object.assign({}, exame));
-          console.log(exame);
+          var _exame = Object.assign({}, this.formulario.value);
+
+          _exame = exame;
+
+          _exame.transplantadofigado = this.convertString(exame.transplantadofigado);
+          _exame.hipertensaoarterial = this.convertString(exame.hipertensaoarterial);
+          _exame.ictericia = this.convertString(exame.ictericia);
+          _exame.edema = this.convertString(exame.edema);
+          _exame.ascite = this.convertString(exame.ascite);
+          _exame.circulacaocolateral = this.convertString(exame.circulacaocolateral);
+          _exame.varizesofagicas = this.convertString(exame.varizesofagicas);
+          _exame.hepatomegalia = this.convertString(exame.hepatomegalia);
+          _exame.figadoendurecido = this.convertString(exame.figadoendurecido);
+          _exame.figadonodular = this.convertString(exame.figadonodular);
+          _exame.esplenomegalia = this.convertString(exame.esplenomegalia);
+          _exame.doencaautoimune = this.convertString(exame.doencaautoimune);
+          _exame.usamedicamento = this.convertString(exame.usamedicamento);
+          _exame.vhc = this.convertString(exame.vhc);
+          _exame.descvhc = this.convertString(exame.descvhc);
+          _exame.vhb = this.convertString(exame.vhb);
+          _exame.descvhb = this.convertString(exame.descvhb);
+          _exame.hiv = this.convertString(exame.hiv);
+          _exame.deschiv = this.convertString(exame.deschiv);          
+       
+          console.log(_exame);
           
+          this.formulario.setValue(_exame);
         });
       } this.formulario.setValue(Object.assign({}, JSON.parse(sessionStorage.getItem("exame") || "{}")));
-    });
+    });    
 
     this.formulario.valueChanges.subscribe(() => {
       this.setForm();
@@ -235,7 +263,7 @@ export class FormExameComponent extends BaseFormComponent implements OnInit {
   incluirPaciente(paciente: PacienteDTO) {
     let exame: ExameDTO = Object.assign({}, this.formulario.value);
 
-    exame.Paciente = paciente;
+    exame.paciente = paciente;
     exame.idpaciente = paciente.idpaciente;
 
     this.formulario.setValue(exame);
@@ -244,7 +272,7 @@ export class FormExameComponent extends BaseFormComponent implements OnInit {
   incluirOrgao(orgao: OrgaoDTO) {
     let exame: ExameDTO = Object.assign({}, this.formulario.value);
 
-    exame.Orgao = orgao;
+    exame.orgao = orgao;
     exame.idorgao = orgao.idorgao;
 
     this.formulario.setValue(exame);
@@ -253,7 +281,7 @@ export class FormExameComponent extends BaseFormComponent implements OnInit {
   incluirPeca(peca: PecaDTO) {
     let exame: ExameDTO = Object.assign({}, this.formulario.value);
 
-    exame.Peca = peca;
+    exame.peca = peca;
     exame.idpeca = peca.idpeca;
 
     this.formulario.setValue(exame);
@@ -262,7 +290,7 @@ export class FormExameComponent extends BaseFormComponent implements OnInit {
   incluirMedicosolic(medicosolic: MedicoDTO) {
     let exame: ExameDTO = Object.assign({}, this.formulario.value);
 
-    exame.MedicoSolic = medicosolic;
+    exame.medicoSolic = medicosolic;
     exame.idmedicosolic = medicosolic.idmedico;
 
     this.formulario.setValue(exame);
@@ -271,7 +299,7 @@ export class FormExameComponent extends BaseFormComponent implements OnInit {
   incluirMedicoresp(medicoresp: MedicoDTO) {
     let exame: ExameDTO = Object.assign({}, this.formulario.value);
 
-    exame.MedicoResp = medicoresp;
+    exame.medicoResp = medicoresp;
     exame.idmedicoresp = medicoresp.idmedico;
 
     this.formulario.setValue(exame);
@@ -280,7 +308,7 @@ export class FormExameComponent extends BaseFormComponent implements OnInit {
   incluirGrupodemedico(grupo: GrupodemedicoDTO) {
     let exame: ExameDTO = Object.assign({}, this.formulario.value);
 
-    exame.GrupodeMedico = grupo;
+    exame.grupodeMedico = grupo;
     exame.idgrupomedico = grupo.idgrupodemedicos;
 
     this.formulario.setValue(exame);
@@ -289,7 +317,7 @@ export class FormExameComponent extends BaseFormComponent implements OnInit {
   incluirClinica(clinica: ClinicaDTO) {
     let exame: ExameDTO = Object.assign({}, this.formulario.value);
 
-    exame.Clinica = clinica;
+    exame.clinica = clinica;
     exame.idclinica = clinica.idclinica;
 
     this.formulario.setValue(exame);
@@ -298,7 +326,7 @@ export class FormExameComponent extends BaseFormComponent implements OnInit {
   incluirReuniao(reuniao: ReuniaoDTO) {
     let exame: ExameDTO = Object.assign({}, this.formulario.value);
 
-    exame.Reuniao = reuniao;
+    exame.reuniao = reuniao;
     exame.idreuniao = reuniao.idrenuiao;
 
     this.formulario.setValue(exame);
@@ -421,7 +449,7 @@ export class FormExameComponent extends BaseFormComponent implements OnInit {
 
   onClear() {
     this.formulario.reset();
-    sessionStorage.removeItem("exame");    
+    sessionStorage.removeItem("exame");
     this.click = false;
   }
 
@@ -445,7 +473,11 @@ export class FormExameComponent extends BaseFormComponent implements OnInit {
     );
   }
 
-  convertNumber(numero: string) : number {
+  convertNumber(numero: string): number {
     return Number(numero);
+  }
+
+  convertString(numero: number | undefined): string {
+    return String(numero);
   }
 }

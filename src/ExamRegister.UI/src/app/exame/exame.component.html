@@ -4,7 +4,7 @@
       <h4>Exames</h4>
     </div>
     <div class="float-right">
-      <button type="button" class="btn btn-primary" routerLink="nova">Nova
+      <button type="button" class="btn btn-primary" routerLink="novo">Novo
         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor"
           class="bi bi-plus-circle-dotted" viewBox="0 0 16 16">
           <path
@@ -64,9 +64,9 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let exame of exames.values" (click)="onEdit(exame)" class="pointer">
-          <td>{{ exame.idexterno }}</td>
-          <td>{{ exame.paciente.nome }}</td>
+        <tr *ngFor="let exame of exames.values">
+          <td (click)="onEdit(exame)" class="pointer">{{ exame.idexterno }}</td>
+          <td (click)="onEdit(exame)" class="pointer">{{ exame.paciente.nome }}</td>
           <td>
             <span class="float-right">
               <button class="btn" (click)="onEdit(exame)">

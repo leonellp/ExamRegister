@@ -9,6 +9,10 @@ using ExamRegister.Business;
 using ExamRegister.DA;
 using ExamRegister.DA.Abstractions.interfaces;
 using ExamRegister.Mapper;
+using Microsoft.OpenApi.Models;
+using System.Reflection;
+using System.IO;
+using System;
 
 namespace ExamRegister.WebApi {
     public class Startup {
@@ -22,6 +26,20 @@ namespace ExamRegister.WebApi {
         public IConfiguration Configuration { get; }
 
         public void ConfigureServices(IServiceCollection services) {
+            services.AddSwaggerGen(options => {
+
+                options.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Title = "API ExamRegister",
+                    Version = "v1",
+                    Description = "API em C# de cadastro de exame médico",
+                });
+
+                //var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                //var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                //options.IncludeXmlComments(xmlPath);
+            });
+
             services.AddCors(options => {
                 options.AddPolicy(name: MyAllowSpecificOrigins,
                                   builder => {
@@ -103,6 +121,14 @@ namespace ExamRegister.WebApi {
 
             app.UseEndpoints(endpoints => {
                 endpoints.MapControllers();
+            });
+
+            app.UseSwagger(c => {
+                c.SerializeAsV2 = true;
+            });
+
+            app.UseSwaggerUI(options => {
+                options.SwaggerEndpoint("/swagger/v1/swagger.json", "ExamRegister");
             });
         }
     }
