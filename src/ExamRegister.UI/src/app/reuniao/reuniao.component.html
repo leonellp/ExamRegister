@@ -68,10 +68,10 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let reuniao of reunioes.values" class="pointer" (click)="onEdit(reuniao)">
-                    <td>{{ reuniao.idexterno }}</td>
-                    <td>{{ reuniao.nome }}</td>
-                    <td>{{ reuniao.data | date: 'dd/MM/yyyy' }}</td>
+                <tr *ngFor="let reuniao of reunioes.values">
+                    <td class="pointer" (click)="onEdit(reuniao)">{{ reuniao.idexterno }}</td>
+                    <td class="pointer" (click)="onEdit(reuniao)">{{ reuniao.nome }}</td>
+                    <td class="pointer" (click)="onEdit(reuniao)">{{ reuniao.data | date: 'dd/MM/yyyy' }}</td>
                     <td>
                         <span class="float-right">
                             <button class="btn" (click)="onEdit(reuniao)">

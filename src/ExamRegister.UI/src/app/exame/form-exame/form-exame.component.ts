@@ -15,7 +15,7 @@ import { PecaDTO } from 'src/app/shared/DTOs/peca-dto';
 import { ReuniaoDTO } from 'src/app/shared/DTOs/reuniao-dto';
 import { AlertModalService } from 'src/app/shared/Services/alert-modal.service';
 import { ExameService } from 'src/app/shared/Services/exame.service';
-import { Location } from '@angular/common';
+import { DatePipe, Location } from '@angular/common';
 import { ImagemDTO } from 'src/app/shared/DTOs/imagem-dto';
 import { PacienteDTO } from 'src/app/shared/DTOs/paciente-dto';
 import { CategoriaDTO } from 'src/app/shared/DTOs/categoria-dto';
@@ -90,6 +90,7 @@ export class FormExameComponent extends BaseFormComponent implements OnInit {
     private modalService: BsModalService,
     private location: Location,
     private route: ActivatedRoute,
+    private datepipe: DatePipe
   ) {
     super();
   }
@@ -192,13 +193,15 @@ export class FormExameComponent extends BaseFormComponent implements OnInit {
           _exame.vhb = this.convertString(exame.vhb);
           _exame.descvhb = this.convertString(exame.descvhb);
           _exame.hiv = this.convertString(exame.hiv);
-          _exame.deschiv = this.convertString(exame.deschiv);          
+          _exame.deschiv = this.convertString(exame.deschiv);
+
+          _exame.datain = this.formatDate(_exame.datain);
+          _exame.dataout = this.formatDate(_exame.dataout);
+          _exame.datatransplante = this.formatDate(_exame.datatransplante);
        
-          console.log(_exame);
-          
-          this.formulario.setValue(_exame);
+          this.formulario.patchValue(_exame);
         });
-      } this.formulario.setValue(Object.assign({}, JSON.parse(sessionStorage.getItem("exame") || "{}")));
+      } this.formulario.patchValue(Object.assign({}, JSON.parse(sessionStorage.getItem("exame") || "{}")));
     });    
 
     this.formulario.valueChanges.subscribe(() => {
@@ -235,8 +238,6 @@ export class FormExameComponent extends BaseFormComponent implements OnInit {
     valueSubmit.hiv = this.convertNumber(valueSubmit.hiv);
     valueSubmit.deschiv = this.convertNumber(valueSubmit.deschiv);
 
-    console.log(valueSubmit);
-
     if (this.formulario.valid) {
 
       let msgSuccess = 'exame cadastrado com sucesso!';
@@ -266,7 +267,7 @@ export class FormExameComponent extends BaseFormComponent implements OnInit {
     exame.paciente = paciente;
     exame.idpaciente = paciente.idpaciente;
 
-    this.formulario.setValue(exame);
+    this.formulario.patchValue(exame);
   }
 
   incluirOrgao(orgao: OrgaoDTO) {
@@ -275,7 +276,7 @@ export class FormExameComponent extends BaseFormComponent implements OnInit {
     exame.orgao = orgao;
     exame.idorgao = orgao.idorgao;
 
-    this.formulario.setValue(exame);
+    this.formulario.patchValue(exame);
   }
 
   incluirPeca(peca: PecaDTO) {
@@ -284,7 +285,7 @@ export class FormExameComponent extends BaseFormComponent implements OnInit {
     exame.peca = peca;
     exame.idpeca = peca.idpeca;
 
-    this.formulario.setValue(exame);
+    this.formulario.patchValue(exame);
   }
 
   incluirMedicosolic(medicosolic: MedicoDTO) {
@@ -293,7 +294,7 @@ export class FormExameComponent extends BaseFormComponent implements OnInit {
     exame.medicoSolic = medicosolic;
     exame.idmedicosolic = medicosolic.idmedico;
 
-    this.formulario.setValue(exame);
+    this.formulario.patchValue(exame);
   }
 
   incluirMedicoresp(medicoresp: MedicoDTO) {
@@ -302,7 +303,7 @@ export class FormExameComponent extends BaseFormComponent implements OnInit {
     exame.medicoResp = medicoresp;
     exame.idmedicoresp = medicoresp.idmedico;
 
-    this.formulario.setValue(exame);
+    this.formulario.patchValue(exame);
   }
 
   incluirGrupodemedico(grupo: GrupodemedicoDTO) {
@@ -311,7 +312,7 @@ export class FormExameComponent extends BaseFormComponent implements OnInit {
     exame.grupodeMedico = grupo;
     exame.idgrupomedico = grupo.idgrupodemedicos;
 
-    this.formulario.setValue(exame);
+    this.formulario.patchValue(exame);
   }
 
   incluirClinica(clinica: ClinicaDTO) {
@@ -320,7 +321,7 @@ export class FormExameComponent extends BaseFormComponent implements OnInit {
     exame.clinica = clinica;
     exame.idclinica = clinica.idclinica;
 
-    this.formulario.setValue(exame);
+    this.formulario.patchValue(exame);
   }
 
   incluirReuniao(reuniao: ReuniaoDTO) {
@@ -329,7 +330,7 @@ export class FormExameComponent extends BaseFormComponent implements OnInit {
     exame.reuniao = reuniao;
     exame.idreuniao = reuniao.idrenuiao;
 
-    this.formulario.setValue(exame);
+    this.formulario.patchValue(exame);
   }
 
   incluirDiagnostico(diagnostico: DiagnosticoDTO) {
@@ -337,7 +338,7 @@ export class FormExameComponent extends BaseFormComponent implements OnInit {
 
     exame.diagnostico = diagnostico.nome;
 
-    this.formulario.setValue(exame);
+    this.formulario.patchValue(exame);
   }
 
   incluirMedicorespdiag(medico: MedicoDTO) {
@@ -356,7 +357,7 @@ export class FormExameComponent extends BaseFormComponent implements OnInit {
         medico: medico
       });
 
-    this.formulario.setValue(exame);
+    this.formulario.patchValue(exame);
   }
 
   removerMedicorespdiag(medico: MedicoDTO) {
@@ -371,7 +372,7 @@ export class FormExameComponent extends BaseFormComponent implements OnInit {
         exame.examemedicorespdiagnostico.splice(i, 1);
     });
 
-    this.formulario.setValue(exame);
+    this.formulario.patchValue(exame);
   }
 
   incluirCategoria(categoria: CategoriaDTO) {
@@ -388,7 +389,7 @@ export class FormExameComponent extends BaseFormComponent implements OnInit {
         categoria: categoria
       });
 
-    this.formulario.setValue(exame);
+    this.formulario.patchValue(exame);
   }
 
   removerCategoria(categoria: CategoriaDTO) {
@@ -401,7 +402,7 @@ export class FormExameComponent extends BaseFormComponent implements OnInit {
         exame.categoriaexame.splice(i, 1);
     });
 
-    this.formulario.setValue(exame);
+    this.formulario.patchValue(exame);
   }
 
   incluirImagem(idimagem: string) {
@@ -419,7 +420,7 @@ export class FormExameComponent extends BaseFormComponent implements OnInit {
 
     console.log("Imagens do form:", this.formulario.value.imagem);
 
-    this.formulario.setValue(exame);
+    this.formulario.patchValue(exame);
   }
 
   removerImagem(imagem: ImagemDTO) {
@@ -436,7 +437,7 @@ export class FormExameComponent extends BaseFormComponent implements OnInit {
 
     console.log("Imagens do form:", this.formulario.value.imagem);
 
-    this.formulario.setValue(exame);
+    this.formulario.patchValue(exame);
   }
 
   onBack() {
@@ -465,7 +466,7 @@ export class FormExameComponent extends BaseFormComponent implements OnInit {
       (imagem) => {
 
         exame.imagem.push(imagem);
-        this.formulario.setValue(exame);
+        this.formulario.patchValue(exame);
         this.alertService.showAlertSuccess(msgSuccess);
         delay(1000);
       },
@@ -479,5 +480,11 @@ export class FormExameComponent extends BaseFormComponent implements OnInit {
 
   convertString(numero: number | undefined): string {
     return String(numero);
+  }
+
+  formatDate(date: Date) {
+    var data = this.datepipe.transform(date, 'yyyy-MM-dd');
+    
+    return data;
   }
 }

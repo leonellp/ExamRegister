@@ -38,9 +38,9 @@ export class FormOrgaoComponent extends BaseFormComponent implements OnInit {
 
       if (iddiag) {
         this.service.loadByID(iddiag).subscribe(orgao => {         
-          this.formulario.setValue(Object.assign({ }, orgao));
+          this.formulario.patchValue(Object.assign({ }, orgao));
         });
-      }  this.formulario.setValue(Object.assign({}, JSON.parse(sessionStorage.getItem("orgao") || "{}")));
+      }  this.formulario.patchValue(Object.assign({}, JSON.parse(sessionStorage.getItem("orgao") || "{}")));
     });
     
     this.formulario.valueChanges.subscribe(() => {

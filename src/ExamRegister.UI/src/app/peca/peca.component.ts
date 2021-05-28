@@ -55,9 +55,7 @@ export class PecaComponent implements OnInit {
   onList($event: any) {
     this.pagina = $event;
     this.service.list((this.pagina - 1) * this.pageSize, this.pageSize, true, false, this.pesquisa).subscribe(pecas => {
-      this.pecas = pecas;
-      console.log(this.pecas);
-      
+      this.pecas = pecas;   
     });
   }
 

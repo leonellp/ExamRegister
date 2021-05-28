@@ -66,9 +66,9 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let paciente of pacientes.values" class="pointer" (click)="onEdit(paciente)">
-                    <td>{{ paciente.idexterno }}</td>
-                    <td>{{ paciente.nome }}</td>
+                <tr *ngFor="let paciente of pacientes.values">
+                    <td class="pointer" (click)="onEdit(paciente)">{{ paciente.idexterno }}</td>
+                    <td class="pointer" (click)="onEdit(paciente)">{{ paciente.nome }}</td>
                     <td>
                         <span class="float-right">
                             <button class="btn" (click)="onEdit(paciente)">

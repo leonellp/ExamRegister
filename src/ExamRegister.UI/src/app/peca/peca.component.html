@@ -69,9 +69,9 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let peca of pecas.values" class="pointer" (click)="onEdit(peca)">
-          <td>{{ peca.idexterno }}</td>
-          <td>{{ peca.nome_ }}</td>
+        <tr *ngFor="let peca of pecas.values">
+          <td class="pointer" (click)="onEdit(peca)">{{ peca.idexterno }}</td>
+          <td class="pointer" (click)="onEdit(peca)">{{ peca.nome_ }}</td>
           <td>
             <span class="float-right">
               <button class="btn" (click)="onEdit(peca)">

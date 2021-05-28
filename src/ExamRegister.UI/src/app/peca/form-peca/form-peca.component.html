@@ -27,9 +27,9 @@
                 </div>
                 <div class="col">
                     <label for="nome" class="form-label">Peça *</label>
-                    <input name="nome" formControlName="nome" type="text" class="form-control" id="nome"
-                        placeholder="Nome" required [ngClass]="aplicaCssErro('nome')">
-                    <app-error-msg [control]="formulario.get('nome')" label="Nome"></app-error-msg>
+                    <input name="nome" formControlName="nome_" type="text" class="form-control" id="nome"
+                        placeholder="Nome" required [ngClass]="aplicaCssErro('nome_')">
+                    <app-error-msg [control]="formulario.get('nome_')" label="Nome"></app-error-msg>
                 </div>
             </div>
         </div>

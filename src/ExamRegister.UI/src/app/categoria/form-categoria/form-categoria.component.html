@@ -117,9 +117,9 @@
 
                     <tbody>
                         <tr *ngFor="let categoriaFilha of this.categoriasFilhas.values">
-                            <td class="pointer" (click)="onEditFilha(categoriaFilha)">{{ categoriaFilha.idexterno }}</td>
-                            <td class="pointer" (click)="onEditFilha(categoriaFilha)">{{ categoriaFilha.nome }}</td>
-                            <td class="pointer" (click)="onEditFilha(categoriaFilha)">{{ categoriaFilha.nomecompleto }}</td>
+                            <td (click)="onEditFilha(categoriaFilha)" class="pointer">{{ categoriaFilha.idexterno }}</td>
+                            <td (click)="onEditFilha(categoriaFilha)" class="pointer">{{ categoriaFilha.nome }}</td>
+                            <td (click)="onEditFilha(categoriaFilha)" class="pointer">{{ categoriaFilha.nomecompleto }}</td>
                             <td>
                                 <span class="float-right">
                                     <button class="btn" (click)="onEditFilha(categoriaFilha)">

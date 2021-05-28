@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BaseFormComponent } from 'src/app/shared/base-form/base-form.component';
-import { Location } from '@angular/common';
+import { DatePipe, Location } from '@angular/common';
 import { AlertModalService } from 'src/app/shared/Services/alert-modal.service';
 import { ReuniaoService } from 'src/app/shared/Services/reuniao.service';
 
@@ -20,6 +20,7 @@ export class FormReuniaoComponent extends BaseFormComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private location: Location,
+    private datepipe: DatePipe
   ) {
     super();
   }
@@ -38,9 +39,14 @@ export class FormReuniaoComponent extends BaseFormComponent implements OnInit {
 
       if (id) {
         this.service.loadByID(id).subscribe(reuniaoSelecionado => {
-          this.formulario.setValue(Object.assign({ }, reuniaoSelecionado));
+          let reuniao = Object.assign({}, this.formulario.value);
+
+          reuniao = reuniaoSelecionado;
+          reuniao.data = this.formatDate(reuniao.data);
+          
+          this.formulario.patchValue(reuniao);
         });
-      } this.formulario.setValue(Object.assign({}, JSON.parse(sessionStorage.getItem("reuniao") || "{}")));
+      } this.formulario.patchValue(Object.assign({}, JSON.parse(sessionStorage.getItem("reuniao") || "{}")));
     });
 
     this.formulario.valueChanges.subscribe(() => {
@@ -83,4 +89,9 @@ export class FormReuniaoComponent extends BaseFormComponent implements OnInit {
     sessionStorage.removeItem("reuniao");
   }
 
+  formatDate(date: Date) {
+    var data = this.datepipe.transform(date, 'yyyy-MM-dd');
+    
+    return data;
+  }
 }

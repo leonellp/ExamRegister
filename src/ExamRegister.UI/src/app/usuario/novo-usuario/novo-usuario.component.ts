@@ -43,9 +43,9 @@ export class NovoUsuarioComponent extends BaseFormComponent implements OnInit {
 
       if (userid) {
         this.service.loadByID(userid).subscribe(usuarioSelecionado => {          
-          this.formulario.setValue(Object.assign({ confirmaPassword: null }, usuarioSelecionado));
+          this.formulario.patchValue(Object.assign({ confirmaPassword: null }, usuarioSelecionado));
         });
-      } this.formulario.setValue(Object.assign({}, JSON.parse(sessionStorage.getItem("novoUsuario") || "{}")));
+      } this.formulario.patchValue(Object.assign({}, JSON.parse(sessionStorage.getItem("novoUsuario") || "{}")));
     });
 
     this.formulario.valueChanges.subscribe(() => {

@@ -84,7 +84,7 @@ export class FormClinicaComponent extends BaseFormComponent implements OnInit {
         this.clinicaSevice.loadByID(idclinica).subscribe(clinica => {
           this.clinica = clinica;
 
-          this.formulario.setValue(Object.assign({}, this.clinica));
+          this.formulario.patchValue(Object.assign({}, this.clinica));
         });
       }
     });

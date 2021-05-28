@@ -9,7 +9,7 @@ import { PacienteinformacaoDTO } from 'src/app/shared/DTOs/pacienteinformacao-dt
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { HistoricopacienteDTO } from 'src/app/shared/DTOs/historicopaciente-dto';
 import { delay } from 'rxjs/operators';
-import { Location } from '@angular/common';
+import { DatePipe, Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -35,7 +35,8 @@ export class FormPacienteComponent extends BaseFormComponent implements OnInit {
     private alertService: AlertModalService,
     private modalService: BsModalService,
     private location: Location,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private datepipe: DatePipe
 
   ) {
     super();
@@ -58,12 +59,16 @@ export class FormPacienteComponent extends BaseFormComponent implements OnInit {
 
       if (idpaciente) {
         this.pacienteService.loadByID(idpaciente).subscribe(pacienteSelecionado => {
+          var paciente = Object.assign({}, this.formulario.value);
 
-          pacienteSelecionado.sexo = this.GetSexo(pacienteSelecionado.sexo);
+          paciente = pacienteSelecionado;
 
-          this.formulario.setValue(Object.assign({}, pacienteSelecionado));
+          paciente.sexo = this.GetSexo(pacienteSelecionado.sexo);
+          paciente.nascimento = this.formatDate(pacienteSelecionado.nascimento);
+
+          this.formulario.patchValue(Object.assign({}, paciente));
         });
-      } this.formulario.setValue(Object.assign({}, JSON.parse(sessionStorage.getItem("paciente") || "{}")));
+      } this.formulario.patchValue(Object.assign({}, JSON.parse(sessionStorage.getItem("paciente") || "{}")));
     });
 
     this.formulario.valueChanges.subscribe(() => {
@@ -116,7 +121,7 @@ export class FormPacienteComponent extends BaseFormComponent implements OnInit {
         informacao: informacaoInsert
       });
 
-    this.formulario.setValue(paciente);
+    this.formulario.patchValue(paciente);
   }
 
   onDeleteInfo(informacaoDelete: PacienteinformacaoDTO) {
@@ -131,7 +136,7 @@ export class FormPacienteComponent extends BaseFormComponent implements OnInit {
         this.pacienteInformacao.splice(i, 1);
     });
 
-    this.formulario.setValue(paciente);
+    this.formulario.patchValue(paciente);
   }
 
   incluirHistorico(historicoSelecionado: HistoricopacienteDTO) {
@@ -150,7 +155,7 @@ export class FormPacienteComponent extends BaseFormComponent implements OnInit {
         inativo: null
       });
 
-    this.formulario.setValue(paciente);
+    this.formulario.patchValue(paciente);
   }
 
   onDeleteHistorico(historicoSelecionado: HistoricopacienteDTO) {
@@ -164,8 +169,8 @@ export class FormPacienteComponent extends BaseFormComponent implements OnInit {
       if (value.idhispaciente == historicoSelecionado.idhispaciente)
         this.historicosInseridos.splice(i, 1);
     });
-    
-    this.formulario.setValue(paciente);
+
+    this.formulario.patchValue(paciente);
   }
 
   GetSexo(sexo: string) {
@@ -197,4 +202,9 @@ export class FormPacienteComponent extends BaseFormComponent implements OnInit {
     sessionStorage.removeItem("paciente");
   }
 
+  formatDate(date: Date) {
+    var data = this.datepipe.transform(date, 'yyyy-MM-dd');
+
+    return data;
+  }
 }

@@ -13,7 +13,8 @@ namespace ExamRegister.DA {
         }
         public void Delete(Guid Idhistoricopaciente) {
             var historicopaciente = examregisterContext.historicopaciente.Where(a => a.idhispaciente == Idhistoricopaciente).FirstOrDefault();
-            historicopaciente.inativo = DateTime.Now;
+            //historicopaciente.inativo = DateTime.Now;
+            examregisterContext.Remove(historicopaciente);
             examregisterContext.SaveChanges();
         }
 

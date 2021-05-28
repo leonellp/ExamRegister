@@ -49,7 +49,7 @@ export class FormCategoriaComponent extends BaseFormComponent implements OnInit 
 
       if (idcategoria) {
         this.categoriaService.loadByID(idcategoria).subscribe(categoria => {
-          this.formulario.setValue(Object.assign({}, categoria));
+          this.formulario.patchValue(Object.assign({}, categoria));
         });
 
 
@@ -57,7 +57,7 @@ export class FormCategoriaComponent extends BaseFormComponent implements OnInit 
           this.categoriasFilhas = categoriasfilhas;
         });
 
-      } this.formulario.setValue(Object.assign({}, JSON.parse(sessionStorage.getItem("categoria") || "{}")));
+      } this.formulario.patchValue(Object.assign({}, JSON.parse(sessionStorage.getItem("categoria") || "{}")));
     });
 
     this.formulario.valueChanges.subscribe(() => {

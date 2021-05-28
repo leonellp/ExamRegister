@@ -67,8 +67,8 @@
             </thead>
             <tbody>
                 <tr *ngFor="let informacao of informacoes.values">
-                    <td>{{ informacao.idexterno }}</td>
-                    <td>{{ informacao.nome }}</td>
+                    <td (click)="onEdit(informacao)" class="pointer">{{ informacao.idexterno }}</td>
+                    <td (click)="onEdit(informacao)" class="pointer">{{ informacao.nome }}</td>
                     <td>
                         <span class="float-right">
                             <button class="btn" (click)="onEdit(informacao)">

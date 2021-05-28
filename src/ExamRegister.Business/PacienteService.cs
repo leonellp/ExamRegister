@@ -121,7 +121,7 @@ namespace ExamRegister.Business
                 .Select(a => (Guid)a.idhispaciente)
                 .ToArray();
             var idhispacientesDell = historicoRepository.List()
-                .Where(a => a.idpaciente == Idpaciente && !idhispacientes.Contains(a.idhispaciente) && a.inativo == null)
+                .Where(a => a.idpaciente == Idpaciente && (!idhispacientes.Contains(a.idhispaciente) || a.inativo == null))
                 .Select(a => a.idhispaciente)
                 .ToArray();
             foreach (var IdDell in idhispacientesDell)
@@ -141,10 +141,6 @@ namespace ExamRegister.Business
 
                     historicoRepository.Insert(_historico);
 
-                }
-                else
-                {
-                    historicoRepository.Update(_historico.idhispaciente, _historico);
                 }
             }
 

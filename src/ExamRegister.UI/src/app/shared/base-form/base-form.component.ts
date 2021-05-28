@@ -41,8 +41,8 @@ export abstract class BaseFormComponent implements OnInit {
     this.formulario.reset();
   }
 
-  verificaInvalidTouched(campo: string) {    
-    return (      
+  verificaInvalidTouched(campo: string) {
+    return (
       this.formulario.get(campo)?.invalid &&
       (this.formulario.get(campo)?.touched || this.formulario.get(campo)?.dirty)
     );
@@ -73,10 +73,10 @@ export abstract class BaseFormComponent implements OnInit {
       'is-invalid': this.verificaInvalidTouched(campo),
       'is-valid': this.verificaValidTouched(campo)
     };
-  }  
+  }
 
   aplicaCssErroButton(campo: string) {
-    return {      
+    return {
       'btn-outline-danger': this.verificaBotaoInvalid(campo),
       'btn-outline-success': this.verificaBotaoValid(campo)
     }
@@ -92,5 +92,5 @@ export abstract class BaseFormComponent implements OnInit {
     return (
       (this.formulario.get(campo)?.invalid && this.click == true)
     )
-  }
+  }  
 }

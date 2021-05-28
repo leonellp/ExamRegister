@@ -50,9 +50,9 @@ export class FormGrupoDeMedicoComponent extends BaseFormComponent implements OnI
 
       if (idgrupodemedicos) {
         this.grupoService.loadByID(idgrupodemedicos).subscribe(grupo => {
-          this.formulario.setValue(Object.assign({}, grupo));
+          this.formulario.patchValue(Object.assign({}, grupo));
         });
-      } this.formulario.setValue(Object.assign({}, JSON.parse(sessionStorage.getItem("grupoDeMedico") || "{}")));
+      } this.formulario.patchValue(Object.assign({}, JSON.parse(sessionStorage.getItem("grupoDeMedico") || "{}")));
     });
 
     this.formulario.valueChanges.subscribe(() => {
@@ -107,7 +107,7 @@ export class FormGrupoDeMedicoComponent extends BaseFormComponent implements OnI
         medico: medico
       });
 
-    this.formulario.setValue(grupo);
+    this.formulario.patchValue(grupo);
   }
 
   onRemove(medicoDel: MedicogrupoDTO) {
@@ -122,7 +122,7 @@ export class FormGrupoDeMedicoComponent extends BaseFormComponent implements OnI
         grupo.medicoGrupo.splice(i, 1);
     });
 
-    this.formulario.setValue(grupo);
+    this.formulario.patchValue(grupo);
   }
 
   onBack() {

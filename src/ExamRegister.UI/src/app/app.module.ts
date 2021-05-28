@@ -25,6 +25,7 @@ import { UsuarioComponent } from './usuario/usuario.component';
 import { ExameComponent } from './exame/exame.component';
 import { IConfig, NgxMaskModule } from 'ngx-mask';
 import { CategoriaComponent } from './categoria/categoria.component';
+import { DatePipe } from '@angular/common';
 
 const maskConfig: Partial<IConfig> = {
   validation: false,
@@ -61,6 +62,7 @@ const maskConfig: Partial<IConfig> = {
   providers: [
     AuthService, 
     AuthGuard,
+    DatePipe
   ],
   bootstrap: [AppComponent]
 })

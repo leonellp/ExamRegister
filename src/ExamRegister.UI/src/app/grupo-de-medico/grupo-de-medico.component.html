@@ -67,9 +67,9 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let grupo of grupos.values" class="pointer" (click)="onEdit(grupo)">
-                    <td>{{ grupo.idexterno }}</td>
-                    <td>{{ grupo.nome }}</td>
+                <tr *ngFor="let grupo of grupos.values">
+                    <td (click)="onEdit(grupo)" class="pointer">{{ grupo.idexterno }}</td>
+                    <td (click)="onEdit(grupo)" class="pointer">{{ grupo.nome }}</td>
                     <td>
                         <div *ngFor="let medico of grupo.medicoGrupo">{{ medico.medico.nome }}</div>
                     </td>

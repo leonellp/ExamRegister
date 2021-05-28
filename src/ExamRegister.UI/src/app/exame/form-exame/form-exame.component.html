@@ -42,19 +42,19 @@
                 <div class="col-4">
                     <label for="paciente" class="form-label">Paciente *</label>
                     <button name="paciente" type="button" class="form-control" id="paciente"
-                        [ngClass]="aplicaCssErroButton('Paciente')" (click)="openModal(addPaciente)">
+                        [ngClass]="aplicaCssErroButton('paciente')" (click)="openModal(addPaciente)">
                         {{ paciente?.nome}}
                     </button>
-                    <app-error-msg [control]="formulario.get('Paciente')" label="Paciente"></app-error-msg>
+                    <app-error-msg [control]="formulario.get('paciente')" label="Paciente"></app-error-msg>
                 </div>
 
                 <div class="col-4">
                     <label for="orgao" class="form-label">Orgão *</label>
                     <button name="orgao" type="button" class="form-control" id="orgao"
-                        [ngClass]="aplicaCssErroButton('Orgao')" (click)="openModal(addOrgao)">
+                        [ngClass]="aplicaCssErroButton('orgao')" (click)="openModal(addOrgao)">
                         {{ orgao?.nome}}
                     </button>
-                    <app-error-msg [control]="formulario.get('Orgao')" label="Orgão"></app-error-msg>
+                    <app-error-msg [control]="formulario.get('orgao')" label="Orgão"></app-error-msg>
                 </div>
             </div>
         </div>
@@ -70,9 +70,9 @@
                 <div class="col-4 ">
                     <label for="peca" class="form-label">Peça *</label>
                     <button name="peca" type="button" class="form-control" id="peca"
-                        [ngClass]="aplicaCssErroButton('Peca')" (click)="openModal(addPeca)">
+                        [ngClass]="aplicaCssErroButton('peca')" (click)="openModal(addPeca)">
                         {{ peca?.nome_}}</button>
-                    <app-error-msg [control]="formulario.get('Peca')" label="Peça"></app-error-msg>
+                    <app-error-msg [control]="formulario.get('peca')" label="Peça"></app-error-msg>
                 </div>
 
                 <div class="col-2"></div>
@@ -80,9 +80,9 @@
                 <div class="col-4">
                     <label for="grupodemedico" class="form-label">Grupo de Médicos *</label>
                     <button name="grupodemedico" type="button" class="form-control" id="grupodemedico"
-                        [ngClass]="aplicaCssErroButton('GrupodeMedico')" (click)="openModal(addGrupodemedico)">
+                        [ngClass]="aplicaCssErroButton('grupodeMedico')" (click)="openModal(addGrupodemedico)">
                         {{ grupodeMedico?.nome}}</button>
-                    <app-error-msg [control]="formulario.get('GrupodeMedico')" label="Grupo de Médicos"></app-error-msg>
+                    <app-error-msg [control]="formulario.get('grupodeMedico')" label="Grupo de Médicos"></app-error-msg>
                 </div>
             </div>
 
@@ -90,9 +90,9 @@
                 <div class="col-4">
                     <label for="medicosolic" class="form-label">Médico Solicitante *</label>
                     <button name="medicosolic" type="button" class="form-control" id="medicosolic"
-                        [ngClass]="aplicaCssErroButton('MedicoSolic')" (click)="openModal(addMedicosolic)">
+                        [ngClass]="aplicaCssErroButton('medicoSolic')" (click)="openModal(addMedicosolic)">
                         {{ medicoSolic?.nome}}</button>
-                    <app-error-msg [control]="formulario.get('MedicoSolic')" label="Médico Solicitante"></app-error-msg>
+                    <app-error-msg [control]="formulario.get('medicoSolic')" label="Médico Solicitante"></app-error-msg>
                 </div>
 
                 <div class="col-2"></div>
@@ -100,9 +100,9 @@
                 <div class="col-4">
                     <label for="clinica" class="form-label">Clínica *</label>
                     <button name="clinica" type="button" class="form-control" id="clinica"
-                        [ngClass]="aplicaCssErroButton('Clinica')" (click)="openModal(addClinica)">
+                        [ngClass]="aplicaCssErroButton('clinica')" (click)="openModal(addClinica)">
                         {{ clinica?.nome}}</button>
-                    <app-error-msg [control]="formulario.get('Clinica')" label="Clínica"></app-error-msg>
+                    <app-error-msg [control]="formulario.get('clinica')" label="Clínica"></app-error-msg>
                 </div>
             </div>
 
@@ -110,9 +110,9 @@
                 <div class="col-4">
                     <label for="medicoresp" class="form-label">Médico Responsável *</label>
                     <button name="medicoresp" type="button" class="form-control" id="medicoresp"
-                        [ngClass]="aplicaCssErroButton('MedicoResp')" (click)="openModal(addMedicoresp)">
+                        [ngClass]="aplicaCssErroButton('medicoResp')" (click)="openModal(addMedicoresp)">
                         {{ medicoResp?.nome}}</button>
-                    <app-error-msg [control]="formulario.get('MedicoResp')" label="Médico Responsável"></app-error-msg>
+                    <app-error-msg [control]="formulario.get('medicoResp')" label="Médico Responsável"></app-error-msg>
                 </div>
 
                 <div class="col-2"></div>
@@ -120,9 +120,9 @@
                 <div class="col-4">
                     <label for="reuniao" class="form-label">Reunião *</label>
                     <button name="reuniao" type="button" class="form-control" id="reuniao"
-                        [ngClass]="aplicaCssErroButton('Reuniao')" (click)="openModal(addReuniao)">
+                        [ngClass]="aplicaCssErroButton('reuniao')" (click)="openModal(addReuniao)">
                         {{ reuniao?.nome}}</button>
-                    <app-error-msg [control]="formulario.get('Reuniao')" label="Reunião"></app-error-msg>
+                    <app-error-msg [control]="formulario.get('reuniao')" label="Reunião"></app-error-msg>
                 </div>
             </div>
         </div>

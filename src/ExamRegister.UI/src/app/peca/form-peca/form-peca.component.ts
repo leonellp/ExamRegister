@@ -29,7 +29,7 @@ export class FormPecaComponent extends BaseFormComponent implements OnInit {
   ngOnInit(): void {
     this.formulario = this.formBuilder.group({
       idpeca: [null],
-      nome: [null, [Validators.required, Validators.maxLength(200)]],
+      nome_: [null, [Validators.required, Validators.maxLength(200)]],
       idexterno: [null, [Validators.required, Validators.maxLength(20)]],
       inativo: [null]
     }, { updateOn: 'blur' });
@@ -39,9 +39,9 @@ export class FormPecaComponent extends BaseFormComponent implements OnInit {
 
       if (iddiag) {
         this.service.loadByID(iddiag).subscribe(pecaSelecionado => {
-          this.formulario.setValue(Object.assign({}, pecaSelecionado));
+          this.formulario.patchValue(Object.assign({}, pecaSelecionado));
         });
-      } this.formulario.setValue(Object.assign({}, JSON.parse(sessionStorage.getItem("peca") || "{}")));
+      } this.formulario.patchValue(Object.assign({}, JSON.parse(sessionStorage.getItem("peca") || "{}")));
     });
 
     this.formulario.valueChanges.subscribe(() => {

@@ -40,9 +40,9 @@ export class FormInformacaoComponent extends BaseFormComponent implements OnInit
 
       if (id) {
         this.service.loadByID(id).subscribe(informacao => {
-          this.formulario.setValue(Object.assign({ }, informacao));
+          this.formulario.patchValue(Object.assign({ }, informacao));
         });
-      } this.formulario.setValue(Object.assign({}, JSON.parse(sessionStorage.getItem("informacao") || "{}")));
+      } this.formulario.patchValue(Object.assign({}, JSON.parse(sessionStorage.getItem("informacao") || "{}")));
     });
 
     this.formulario.valueChanges.subscribe(() => {

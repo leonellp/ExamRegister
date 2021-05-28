@@ -51,9 +51,9 @@ export class FormMedicoComponent extends BaseFormComponent implements OnInit {
       if (idmedico) {
         this.medicoService.loadByID(idmedico).subscribe(medico => {
 
-          this.formulario.setValue(Object.assign({}, medico));
+          this.formulario.patchValue(Object.assign({}, medico));
         });
-      } this.formulario.setValue(Object.assign({}, JSON.parse(sessionStorage.getItem("medicoSalvo") || "{}")));
+      } this.formulario.patchValue(Object.assign({}, JSON.parse(sessionStorage.getItem("medicoSalvo") || "{}")));
     });
 
     this.formulario.valueChanges.subscribe(() => {
@@ -109,7 +109,7 @@ export class FormMedicoComponent extends BaseFormComponent implements OnInit {
         clinica: clinica
       });
 
-    this.formulario.setValue(medico);
+    this.formulario.patchValue(medico);
   }
 
   onRemove(clinicaDelete: MedicoclinicaDTO) {
@@ -124,7 +124,7 @@ export class FormMedicoComponent extends BaseFormComponent implements OnInit {
         medico.medicoClinica.splice(i, 1);
     });
 
-    this.formulario.setValue(medico);
+    this.formulario.patchValue(medico);
   }
 
   onBack() {

@@ -38,9 +38,9 @@ export class FormDiagnosticoComponent extends BaseFormComponent implements OnIni
 
       if (iddiag) {
         this.service.loadByID(iddiag).subscribe(diagnosticoSelecionado => {
-          this.formulario.setValue(Object.assign({ }, diagnosticoSelecionado));
+          this.formulario.patchValue(Object.assign({ }, diagnosticoSelecionado));
         });
-      }this.formulario.setValue(Object.assign({}, JSON.parse(sessionStorage.getItem("diagnostico") || "{}")));
+      }this.formulario.patchValue(Object.assign({}, JSON.parse(sessionStorage.getItem("diagnostico") || "{}")));
     });   
 
     this.formulario.valueChanges.subscribe(() => {
