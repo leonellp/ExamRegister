@@ -26,6 +26,20 @@ namespace ExamRegister.Business {
             return mapper.Map<ImagemDTO>(repository.GetById(idimagem));
         }
 
+        public ImagemDownloadDTO Download (Guid idimagem)
+        {
+            ImagemDTO imagem =  mapper.Map<ImagemDTO>(repository.GetById(idimagem));
+            string imagemPath = Path.Combine(Directory.GetCurrentDirectory(), imagem.url);            
+
+            ImagemDownloadDTO imagemDownload = new ImagemDownloadDTO();
+
+            imagemDownload.stream = (new StreamReader(imagemPath)).BaseStream;
+            imagemDownload.streamType = "image/png";
+            imagemDownload.nomeImagem = imagem.nome;
+
+            return imagemDownload;
+        }
+
         public ImagemDTO Insert(IFormFile arquivo) {
             Guid idimagem = Guid.NewGuid();
 
@@ -55,7 +69,7 @@ namespace ExamRegister.Business {
                 );
 
             using (FileStream filestream = File.Create(imagemKeyFull)) {
-                arquivo.CopyToAsync(filestream);
+                arquivo.CopyTo(filestream);
                 filestream.Flush();
             }
 

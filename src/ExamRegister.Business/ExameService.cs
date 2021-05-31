@@ -7,10 +7,8 @@ using ExamRegister.WebApi.Abstractions.DTO;
 using System;
 using System.Linq;
 
-namespace ExamRegister.Business
-{
-    public class ExameService : IExameService
-    {
+namespace ExamRegister.Business {
+    public class ExameService : IExameService {
 
         private readonly IExameRepository repository;
         private readonly ICategoriaExameRepository categoriaExameRepository;
@@ -25,33 +23,28 @@ namespace ExamRegister.Business
             IExameMedicorespDiagnosticoRepository _exameMedicorespDiagnosticoRepository,
             IImagemRepository _imagemRepository,
             IMapper _mapper
-            )
-        {
+            ) {
             this.repository = _repository;
             this.categoriaExameRepository = _categoriaExameRepository;
             this.exameMedicorespDiagnosticoRepository = _exameMedicorespDiagnosticoRepository;
             this.imagemRepository = _imagemRepository;
             mapper = _mapper;
         }
-        public void Delete(Guid Idexame)
-        {
+        public void Delete(Guid Idexame) {
             repository.Delete(Idexame);
         }
 
-        public ExameDTO GetById(Guid Idexame)
-        {
+        public ExameDTO GetById(Guid Idexame) {
             return mapper.Map<ExameDTO>(repository.GetById(Idexame));
         }
 
-        public void Insert(ExameInsertDTO Exame)
-        {
+        public void Insert(ExameInsertDTO Exame) {
             var _exame = mapper.Map<exame>(Exame);
             _exame.idexame = Guid.NewGuid();
             repository.Insert(_exame);
 
             var categoriasExame = mapper.Map<categoriaexame[]>(Exame.categoriaexame);
-            foreach (var categoriaExame in categoriasExame)
-            {
+            foreach (var categoriaExame in categoriasExame) {
                 categoriaExame.idcategoriaexame = Guid.NewGuid();
                 categoriaExame.idexame = _exame.idexame;
 
@@ -59,8 +52,7 @@ namespace ExamRegister.Business
             }
 
             var exameMedicosRespsDiagnostico = mapper.Map<examemedicorespdiagnostico[]>(Exame.examemedicorespdiagnostico);
-            foreach (var exameMedicoRespDiag in exameMedicosRespsDiagnostico)
-            {
+            foreach (var exameMedicoRespDiag in exameMedicosRespsDiagnostico) {
                 exameMedicoRespDiag.idexmeddiag = Guid.NewGuid();
                 exameMedicoRespDiag.idexame = _exame.idexame;
 
@@ -68,8 +60,7 @@ namespace ExamRegister.Business
             }
 
             var imagens = mapper.Map<imagem[]>(Exame.imagem);
-            foreach (var imagem in imagens)
-            {
+            foreach (var imagem in imagens) {
                 imagem.idexame = _exame.idexame;
 
                 imagemRepository.Update(imagem.idimagem, imagem);
@@ -82,46 +73,41 @@ namespace ExamRegister.Business
             bool count,
             bool? soinativos = null,
             string pesquisa = null
-            )
-        {
+            ) {
             int? nCount = null;
 
             var exames = repository.List();
-            if (soinativos == true)
-            {
+            if (soinativos == true) {
                 exames = exames.Where(a => a.inativo != null);
-            }
-            else
-            {
+            } else {
                 exames = exames.Where(a => a.inativo == null);
             }
 
-            if (pesquisa != null)
-            {
+            if (pesquisa != null) {
                 exames = exames.Where(a => a.idexterno.ToUpper().Contains(pesquisa.ToUpper()) || a.idpacienteNavigation.nome.ToUpper().Contains(pesquisa.ToUpper()));
             }
 
-            if (count) nCount = exames.Count();
+            if (count)
+                nCount = exames.Count();
 
-            if (skip < 0) skip = 0;
+            if (skip < 0)
+                skip = 0;
             exames = exames.OrderBy(a => a.idexterno);
             exames = exames.Skip(skip).Take(top);
 
 
-            return new paginacao<ExameDTO>()
-            {
+            return new paginacao<ExameDTO>() {
                 values = exames.ProjectTo<ExameDTO>(mapper.ConfigurationProvider).ToArray(),
                 count = nCount
             };
         }
 
-        public void Update(Guid Idexame, ExameDTO exameNew)
-        {
+        public void Update(Guid Idexame, ExameDTO exameNew) {
             var _exameNew = mapper.Map<exame>(exameNew);
             repository.Update(Idexame, _exameNew);
 
             var idcategoriasExame = exameNew.categoriaexame.Where(a => a.idcategoriaexame != null)
-                .Select(a => (Guid)a.idcategoriaexame)
+                .Select(a => (Guid) a.idcategoriaexame)
                 .ToArray();
 
             var idcategoriasExameDell = categoriaExameRepository.List()
@@ -129,30 +115,25 @@ namespace ExamRegister.Business
                 .Select(a => a.idcategoriaexame)
                 .ToArray();
 
-            foreach (var iddell in idcategoriasExameDell)
-            {
+            foreach (var iddell in idcategoriasExameDell) {
                 categoriaExameRepository.Delete(iddell);
             }
 
-            foreach (var categoriaExame in exameNew.categoriaexame)
-            {
+            foreach (var categoriaExame in exameNew.categoriaexame) {
                 var _categoriaExame = mapper.Map<categoriaexame>(categoriaExame);
 
-                if (categoriaExame.idcategoriaexame == null)
-                {
+                if (categoriaExame.idcategoriaexame == null) {
                     _categoriaExame.idcategoriaexame = Guid.NewGuid();
                     _categoriaExame.idexame = _exameNew.idexame;
 
                     categoriaExameRepository.Insert(_categoriaExame);
-                }
-                else
-                {
+                } else {
                     categoriaExameRepository.Update(_categoriaExame.idcategoriaexame, _categoriaExame);
                 }
             }
 
             var idexameRespsDiag = exameNew.examemedicorespdiagnostico.Where(a => a.idexmeddiag != null)
-                .Select(a => (Guid)a.idexmeddiag)
+                .Select(a => (Guid) a.idexmeddiag)
                 .ToArray();
 
             var idexameRespsDiagDell = exameMedicorespDiagnosticoRepository.List()
@@ -160,30 +141,25 @@ namespace ExamRegister.Business
                 .Select(a => a.idexmeddiag)
                 .ToArray();
 
-            foreach (var iddell in idexameRespsDiagDell)
-            {
+            foreach (var iddell in idexameRespsDiagDell) {
                 exameMedicorespDiagnosticoRepository.Delete(iddell);
             }
 
-            foreach (var exameMedRespDiag in exameNew.examemedicorespdiagnostico)
-            {
+            foreach (var exameMedRespDiag in exameNew.examemedicorespdiagnostico) {
                 var _exameMedRespDiag = mapper.Map<examemedicorespdiagnostico>(exameMedRespDiag);
 
-                if (exameMedRespDiag.idexmeddiag == null)
-                {
+                if (exameMedRespDiag.idexmeddiag == null) {
                     _exameMedRespDiag.idexmeddiag = Guid.NewGuid();
                     _exameMedRespDiag.idexame = _exameNew.idexame;
 
                     exameMedicorespDiagnosticoRepository.Insert(_exameMedRespDiag);
-                }
-                else
-                {
+                } else {
                     exameMedicorespDiagnosticoRepository.Update(_exameMedRespDiag.idexmeddiag, _exameMedRespDiag);
                 }
             }
 
-            var idimagens = exameNew.imagem.Where(a => a.idimagem != null)
-                .Select(a => (Guid)a.idimagem)
+            var idimagens = exameNew.imagem.Where(a => a.idexame != null)
+                .Select(a => (Guid) a.idimagem)
                 .ToArray();
 
             var idimagensDell = imagemRepository.List()
@@ -191,21 +167,17 @@ namespace ExamRegister.Business
                 .Select(a => a.idimagem)
                 .ToArray();
 
-            foreach (var iddell in idimagensDell)
-            {
+            foreach (var iddell in idimagensDell) {
                 imagemRepository.Delete(iddell);
             }
 
-            foreach (var imagem in exameNew.imagem)
-            {
+            foreach (var imagem in exameNew.imagem) {
                 var _imagem = mapper.Map<imagem>(imagem);
 
-                if (imagem.idexame == null)
-                {
-                    _imagem.idexame = _exameNew.idexame;
+                _imagem.idexame = _exameNew.idexame;
 
-                    imagemRepository.Update(imagem.idimagem, _imagem);
-                }
+                imagemRepository.Update(imagem.idimagem, _imagem);
+
             }
         }
     }

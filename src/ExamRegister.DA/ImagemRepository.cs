@@ -13,7 +13,7 @@ namespace ExamRegister.DA {
         }
         public void Delete(Guid idimagem) {
             var imagem = examregisterContext.imagem.Where(a => a.idimagem == idimagem).FirstOrDefault();
-            imagem.inativo = DateTime.Now;
+            examregisterContext.Remove(imagem);
             examregisterContext.SaveChanges();
         }
 

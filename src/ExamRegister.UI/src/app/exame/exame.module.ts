@@ -21,6 +21,8 @@ import { ExameReuniaoComponent } from './exame-reuniao/exame-reuniao.component';
 import { CategoriaexameComponent } from './categoriaexame/categoriaexame.component';
 import { ExameDiagnosticoComponent } from './exame-diagnostico/exame-diagnostico.component';
 import { ExameCategoriaComponent } from './exame-categoria/exame-categoria.component';
+import { ImagemComponent } from './imagem/imagem.component';
+import { NgxImageZoomModule } from 'ngx-image-zoom';
 
 @NgModule({
   imports: [
@@ -34,6 +36,7 @@ import { ExameCategoriaComponent } from './exame-categoria/exame-categoria.compo
     AccordionModule.forRoot(),
     SharedModule,
     NgbTypeaheadModule,
+    NgxImageZoomModule
   ],
   declarations: [
     ExameMedRespDiagComponent, 
@@ -48,7 +51,7 @@ import { ExameCategoriaComponent } from './exame-categoria/exame-categoria.compo
     ExameReuniaoComponent, 
     CategoriaexameComponent, 
     ExameDiagnosticoComponent, 
-    ExameCategoriaComponent
+    ExameCategoriaComponent, ImagemComponent
   ],
 
 })

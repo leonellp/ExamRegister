@@ -25,6 +25,8 @@
     "bootstrap-icons": "^1.4.1",
     "material-design-icons": "^3.0.1",
     "ngx-bootstrap": "^6.2.0",
+    "ngx-image-zoom": "^0.6.0",
+    "ngx-img-zoom": "^4.1.2",
     "ngx-mask": "^11.1.5",
     "primeicons": "^4.1.0",
     "primeng": "^11.2.3",

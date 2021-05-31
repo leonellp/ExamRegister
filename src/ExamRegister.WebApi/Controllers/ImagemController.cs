@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Hosting;
-using System.IO;
 
 namespace ExamRegister.WebApi.Controllers {
     [ApiController]
@@ -31,6 +30,15 @@ namespace ExamRegister.WebApi.Controllers {
         [Route("{id}")]
         public ImagemDTO Get(Guid Id) {
             return service.GetById(Id);
+        }
+
+        [HttpGet]
+        [Route("{id}/download")]
+        public IActionResult Download(Guid Id)
+        {
+            var imagem = service.Download(Id);
+            
+            return File(imagem.stream, imagem.streamType, imagem.nomeImagem);
         }
 
         [HttpPost()]

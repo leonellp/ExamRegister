@@ -8,6 +8,7 @@ namespace ExamRegister.DA.Abstractions.interfaces {
     public interface IImagemService {
         IQueryable<ImagemDTO> List(bool soinativos);
         ImagemDTO GetById(Guid idimagem);
+        ImagemDownloadDTO Download(Guid idimagem);
         ImagemDTO Insert(IFormFile arquivo);
         void Delete(Guid idimagem);
         void Update(Guid idimagem, ImagemDTO imagemNew);

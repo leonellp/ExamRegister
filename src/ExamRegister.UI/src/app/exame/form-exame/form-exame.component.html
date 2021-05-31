@@ -262,46 +262,35 @@
         <div class="card-body">
             <div class="col">
 
-                <div class="custom-file mb-3">
-                    <input type="file" class="custom-file-input" id="imagem"
-                        accept="image/jpg,image/jpeg,image/png,image/gif,image/bmp,image/tiff"
+                <div class="custom-file mb-3 col-md col-sm">
+                    <input type="file" class="custom-file-input pointer" id="imagem" accept="image/png"
                         (change)="submitImagem($event.srcElement.files[0])">
                     <label class="custom-file-label" for="imagem" id="customFileLabel">Selecionar Imagem</label>
                 </div>
 
-                <table class="table table-hover" *ngIf="imagem != null">
-                    <thead>
-                        <tr>
-                            <th>Imagem</th>
-                            <th>
-                                Descrição da imagem
-                            </th>
-                            <th></th>
-                        </tr>
-                    </thead>
+                <div *ngFor="let _imagem of imagem" class="row align-items-center card-body">
+                    <div class="col-md-4 col-sm m-1 pointer" (click)="visualizarImagem(_imagem?.idimagem)">
+                        <img class="img img-thumbnail" [src]="_imagem?.src">
+                    </div>
 
-                    <tbody>
-                        <tr *ngFor="let _imagem of imagem">
-                            <td>{{ _imagem?.nome }}</td>
-                            <td>
-                                <textarea name="descImagem" id="descImagem" cols="30" rows="2" class="form-control"
-                                    placeholder="Descrição da imagem">{{ _imagem?.nome }}</textarea>
-                            </td>
-                            <td>
-                                <span class="float-right">
-                                    <button class="btn">
-                                        <svg type="button" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                            fill="red" class="bi bi-trash-fill" viewBox="0 0 16 16"
-                                            (click)="removerImagem(_imagem)">
-                                            <path
-                                                d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
-                                        </svg>
-                                    </button>
-                                </span>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                    <div class="col-md-6 col-sm m-1">
+                        <textarea name="descImagem" id="descImagem" cols="30" rows="3" class="form-control"
+                            placeholder="Descrição da imagem">{{ _imagem?.nome }}</textarea>
+                    </div>
+
+                    <div class="col-auto m-1">
+                        <span class="float-right">
+                            <button class="btn btn-outline-danger btn-sm" (click)="removerImagem(_imagem)">
+                                remover
+                                <svg type="button" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-trash-fill" viewBox="0 0 16 16">
+                                    <path
+                                        d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
+                                </svg>
+                            </button>
+                        </span>
+                    </div>
+                </div>
             </div>
         </div>
 

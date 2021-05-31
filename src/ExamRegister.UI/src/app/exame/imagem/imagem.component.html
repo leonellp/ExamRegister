@@ -1,0 +1,38 @@
+<div class="card m-3">
+    <div class="card-header">
+        <div class="float-left">
+            <h6>
+                * Aumente ou diminua o zoom girando o scroll
+            </h6>
+        </div>
+        <div class="float-right row">
+            <button class="btn btn-outline-primary col-auto">
+                <a [href]="this.src" target="_blank">
+                    Baixar imagem
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-download" viewBox="0 0 16 16">
+                        <path
+                            d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z" />
+                        <path
+                            d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z" />
+                    </svg>
+                </a>
+            </button>
+
+            <button class="btn col-auto" (click)="onBack()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                    class="bi bi-reply-fill" viewBox="0 0 16 16">
+                    <path
+                        d="M5.921 11.9 1.353 8.62a.719.719 0 0 1 0-1.238L5.921 4.1A.716.716 0 0 1 7 4.719V6c1.5 0 6 0 7 8-2.5-4.5-7-4-7-4v1.281c0 .56-.606.898-1.079.62z" />
+                </svg>
+            </button>
+        </div>
+    </div>
+    <div class="card-body row">
+        <figure class="figure-img">
+            <lib-ngx-image-zoom [thumbImage]=this.src [magnification]="1" [enableScrollZoom]="true" [enableLens]="true"
+                [lensWidth]="400" [lensHeight]="300" [circularLens]="false" [scrollStepSize]="0.5" [maxZoomRatio]="10">
+            </lib-ngx-image-zoom>
+        </figure>
+    </div>
+</div>

@@ -1,6 +1,6 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { BaseFormComponent } from 'src/app/shared/base-form/base-form.component';
 import { CategoriaexameDTO } from 'src/app/shared/DTOs/categoriaexame-dto';
@@ -28,8 +28,8 @@ import { delay } from 'rxjs/operators';
   styleUrls: ['./form-exame.component.scss']
 })
 export class FormExameComponent extends BaseFormComponent implements OnInit {
-
-
+  
+  exame!: ExameDTO;
   descImagem: string = "";
 
   modalRef!: BsModalRef;
@@ -90,7 +90,8 @@ export class FormExameComponent extends BaseFormComponent implements OnInit {
     private modalService: BsModalService,
     private location: Location,
     private route: ActivatedRoute,
-    private datepipe: DatePipe
+    private datepipe: DatePipe,
+    private router: Router,
   ) {
     super();
   }
@@ -162,7 +163,7 @@ export class FormExameComponent extends BaseFormComponent implements OnInit {
       reuniao: [null, Validators.required],
       examemedicorespdiagnostico: [null, Validators.required],
       categoriaexame: [null, Validators.required],
-      imagem: [null, Validators.required],
+      imagem: [null],
     }, { updateOn: '' });
 
     this.route.params.subscribe(params => {
@@ -198,11 +199,16 @@ export class FormExameComponent extends BaseFormComponent implements OnInit {
           _exame.datain = this.formatDate(_exame.datain);
           _exame.dataout = this.formatDate(_exame.dataout);
           _exame.datatransplante = this.formatDate(_exame.datatransplante);
-       
+
+
+          _exame.imagem.forEach((imagem: ImagemDTO) => {
+            imagem.src = `https://localhost:5001/v1/Imagem/${imagem.idimagem}/download`
+          });
+
           this.formulario.patchValue(_exame);
         });
       } this.formulario.patchValue(Object.assign({}, JSON.parse(sessionStorage.getItem("exame") || "{}")));
-    });    
+    });
 
     this.formulario.valueChanges.subscribe(() => {
       this.setForm();
@@ -420,6 +426,7 @@ export class FormExameComponent extends BaseFormComponent implements OnInit {
 
     console.log("Imagens do form:", this.formulario.value.imagem);
 
+    this.setForm();
     this.formulario.patchValue(exame);
   }
 
@@ -433,9 +440,7 @@ export class FormExameComponent extends BaseFormComponent implements OnInit {
     exame.imagem.forEach((value, i) => {
       if (value.nome == imagem.nome)
         exame.imagem.splice(i, 1);
-    });
-
-    console.log("Imagens do form:", this.formulario.value.imagem);
+    });   
 
     this.formulario.patchValue(exame);
   }
@@ -465,13 +470,19 @@ export class FormExameComponent extends BaseFormComponent implements OnInit {
     this.imagemService.create(file).subscribe(
       (imagem) => {
 
+        imagem.src = `https://localhost:5001/v1/Imagem/${imagem.idimagem}/download`
         exame.imagem.push(imagem);
         this.formulario.patchValue(exame);
+        this.setForm();
         this.alertService.showAlertSuccess(msgSuccess);
         delay(1000);
       },
       () => this.alertService.showAlertDanger(msgError)
     );
+  }
+
+  visualizarImagem(idimagem: string) {
+    this.router.navigate(['exame/visualizar', idimagem]);
   }
 
   convertNumber(numero: string): number {
@@ -484,7 +495,7 @@ export class FormExameComponent extends BaseFormComponent implements OnInit {
 
   formatDate(date: Date) {
     var data = this.datepipe.transform(date, 'yyyy-MM-dd');
-    
     return data;
   }
+
 }

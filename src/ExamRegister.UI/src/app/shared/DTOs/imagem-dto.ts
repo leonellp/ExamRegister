@@ -5,4 +5,5 @@ export interface ImagemDTO {
     idexame: string | null;
     dataupload: Date | null;
     inativo?: Date | null;
+    src: string
 }
