@@ -1,3 +1,8 @@
 .pointer {
     cursor: pointer;
 }
+
+.loading {
+    left: 50px;
+    right: auto;
+}

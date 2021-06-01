@@ -17,20 +17,20 @@
 
         <div class="card-body">
             <div class="form-group row">
-                <div class="col">
+                <div class="col-md col-sm-12">
                     <label for="idexterno" class="form-label">Registro *</label>
                     <input name="idexterno" type="text" class="form-control" id="idexterno"
                         placeholder="Registro do exame" required formControlName="idexterno"
                         [ngClass]="aplicaCssErro('idexterno')">
                     <app-error-msg [control]="formulario.get('idexterno')" label="Código"></app-error-msg>
                 </div>
-                <div class="col">
+                <div class="col-md col-sm-12">
                     <label for="datain" class="form-label">Data de entrada *</label>
                     <input name="datain" type="date" class="form-control" id="datain" placeholder="datain" required
                         formControlName="datain" [ngClass]="aplicaCssErro('datain')">
                     <app-error-msg [control]="formulario.get('datain')" label="Data de entrada"></app-error-msg>
                 </div>
-                <div class="col">
+                <div class="col-md col-sm-12">
                     <label for="dataout" class="form-label">Data de saída *</label>
                     <input name="dataout" type="date" class="form-control" id="dataout" placeholder="dataout" required
                         formControlName="dataout" [ngClass]="aplicaCssErro('dataout')">
@@ -39,7 +39,7 @@
             </div>
 
             <div class="form-group row">
-                <div class="col-4">
+                <div class="col-md-4 col-sm-12">
                     <label for="paciente" class="form-label">Paciente *</label>
                     <button name="paciente" type="button" class="form-control" id="paciente"
                         [ngClass]="aplicaCssErroButton('paciente')" (click)="openModal(addPaciente)">
@@ -48,7 +48,7 @@
                     <app-error-msg [control]="formulario.get('paciente')" label="Paciente"></app-error-msg>
                 </div>
 
-                <div class="col-4">
+                <div class="col-md-4 col-sm-12">
                     <label for="orgao" class="form-label">Orgão *</label>
                     <button name="orgao" type="button" class="form-control" id="orgao"
                         [ngClass]="aplicaCssErroButton('orgao')" (click)="openModal(addOrgao)">
@@ -67,17 +67,15 @@
 
         <div class="card-body col ">
             <div class="form-group row justify-content-around">
-                <div class="col-4 ">
+                <div class="col-md-4 col-sm-12">
                     <label for="peca" class="form-label">Peça *</label>
                     <button name="peca" type="button" class="form-control" id="peca"
                         [ngClass]="aplicaCssErroButton('peca')" (click)="openModal(addPeca)">
                         {{ peca?.nome_}}</button>
                     <app-error-msg [control]="formulario.get('peca')" label="Peça"></app-error-msg>
-                </div>
+                </div>                
 
-                <div class="col-2"></div>
-
-                <div class="col-4">
+                <div class="col-md-4 col-sm-12">
                     <label for="grupodemedico" class="form-label">Grupo de Médicos *</label>
                     <button name="grupodemedico" type="button" class="form-control" id="grupodemedico"
                         [ngClass]="aplicaCssErroButton('grupodeMedico')" (click)="openModal(addGrupodemedico)">
@@ -87,17 +85,15 @@
             </div>
 
             <div class="form-group row justify-content-around">
-                <div class="col-4">
+                <div class="col-md-4 col-sm-12">
                     <label for="medicosolic" class="form-label">Médico Solicitante *</label>
                     <button name="medicosolic" type="button" class="form-control" id="medicosolic"
                         [ngClass]="aplicaCssErroButton('medicoSolic')" (click)="openModal(addMedicosolic)">
                         {{ medicoSolic?.nome}}</button>
                     <app-error-msg [control]="formulario.get('medicoSolic')" label="Médico Solicitante"></app-error-msg>
-                </div>
+                </div>                
 
-                <div class="col-2"></div>
-
-                <div class="col-4">
+                <div class="col-md-4 col-sm-12">
                     <label for="clinica" class="form-label">Clínica *</label>
                     <button name="clinica" type="button" class="form-control" id="clinica"
                         [ngClass]="aplicaCssErroButton('clinica')" (click)="openModal(addClinica)">
@@ -107,17 +103,15 @@
             </div>
 
             <div class="form-group row justify-content-around">
-                <div class="col-4">
+                <div class="col-md-4 col-sm-12">
                     <label for="medicoresp" class="form-label">Médico Responsável *</label>
                     <button name="medicoresp" type="button" class="form-control" id="medicoresp"
                         [ngClass]="aplicaCssErroButton('medicoResp')" (click)="openModal(addMedicoresp)">
                         {{ medicoResp?.nome}}</button>
                     <app-error-msg [control]="formulario.get('medicoResp')" label="Médico Responsável"></app-error-msg>
-                </div>
+                </div>                
 
-                <div class="col-2"></div>
-
-                <div class="col-4">
+                <div class="col-md-4 col-sm-12">
                     <label for="reuniao" class="form-label">Reunião *</label>
                     <button name="reuniao" type="button" class="form-control" id="reuniao"
                         [ngClass]="aplicaCssErroButton('reuniao')" (click)="openModal(addReuniao)">
@@ -224,16 +218,14 @@
                 <table class="table table-hover">
                     <thead>
                         <tr>
-                            <th>Nome</th>
-                            <th>Nome Completo</th>
+                            <th>Nome</th>                            
                             <th></th>
                         </tr>
                     </thead>
 
                     <tbody>
                         <tr *ngFor="let _categoriaexame of categoriaexame">
-                            <td>{{ _categoriaexame.categoria.nome }}</td>
-                            <td>{{ _categoriaexame.categoria.nomecompleto }}</td>
+                            <td>{{ _categoriaexame.categoria.nome }}</td>                            
                             <td>
                                 <span class="float-right">
                                     <button class="btn btn-outline-danger mb-1 btn-sm"
@@ -262,20 +254,20 @@
         <div class="card-body">
             <div class="col">
 
-                <div class="custom-file mb-3 col-md col-sm">
+                <div class="custom-file mb-3 col-md col-sm-12">
                     <input type="file" class="custom-file-input pointer" id="imagem" accept="image/png"
                         (change)="submitImagem($event.srcElement.files[0])">
-                    <label class="custom-file-label" for="imagem" id="customFileLabel">Selecionar Imagem</label>
+                    <label class="custom-file-label" for="imagem" id="customFileLabel" data-browse="Procurar">Selecionar Imagem</label>
                 </div>
 
                 <div *ngFor="let _imagem of imagem" class="row align-items-center card-body">
-                    <div class="col-md-4 col-sm m-1 pointer" (click)="visualizarImagem(_imagem?.idimagem)">
+                    <div class="col-md-4 col-sm-12 m-1 pointer" (click)="visualizarImagem(_imagem?.idimagem)">
                         <img class="img img-thumbnail" [src]="_imagem?.src">
                     </div>
 
-                    <div class="col-md-6 col-sm m-1">
+                    <div class="col-md-6 col-sm-12 m-1">
                         <textarea name="descImagem" id="descImagem" cols="30" rows="3" class="form-control"
-                            placeholder="Descrição da imagem">{{ _imagem?.nome }}</textarea>
+                            placeholder="Descrição da imagem" [value]="_imagem?.nome">{{ _imagem?.nome }}</textarea>
                     </div>
 
                     <div class="col-auto m-1">

@@ -1,5 +1,5 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { BaseFormComponent } from 'src/app/shared/base-form/base-form.component';
@@ -29,9 +29,10 @@ import { delay } from 'rxjs/operators';
 })
 export class FormExameComponent extends BaseFormComponent implements OnInit {
   
+  imagemForm!: FormGroup;
+
   exame!: ExameDTO;
   descImagem: string = "";
-
   modalRef!: BsModalRef;
 
   get paciente(): PacienteDTO {
@@ -212,7 +213,7 @@ export class FormExameComponent extends BaseFormComponent implements OnInit {
 
     this.formulario.valueChanges.subscribe(() => {
       this.setForm();
-    });
+    });    
   }
 
   openModal(template: TemplateRef<any>) {

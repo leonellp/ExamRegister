@@ -2,12 +2,12 @@
     <div class="card-header">
         <div class="float-left">
             <h6>
-                * Aumente ou diminua o zoom girando o scroll
+                * Aumente ou diminua o zoom girando o scroll do mouse
             </h6>
         </div>
         <div class="float-right row">
-            <button class="btn btn-outline-primary col-auto">
-                <a [href]="this.src" target="_blank">
+            <a [href]="this.src">
+                <button class="btn btn-outline-primary col-auto">
                     Baixar imagem
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                         class="bi bi-download" viewBox="0 0 16 16">
@@ -16,8 +16,8 @@
                         <path
                             d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z" />
                     </svg>
-                </a>
-            </button>
+                </button>
+            </a>
 
             <button class="btn col-auto" (click)="onBack()">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
@@ -29,10 +29,10 @@
         </div>
     </div>
     <div class="card-body row">
-        <figure class="figure-img">
-            <lib-ngx-image-zoom [thumbImage]=this.src [magnification]="1" [enableScrollZoom]="true" [enableLens]="true"
+        <div class="modal-photo-details__photo">
+            <lib-ngx-image-zoom [thumbImage]=this.src [magnification]="" [enableScrollZoom]="true" [enableLens]="true"
                 [lensWidth]="400" [lensHeight]="300" [circularLens]="false" [scrollStepSize]="0.5" [maxZoomRatio]="10">
             </lib-ngx-image-zoom>
-        </figure>
+        </div>
     </div>
 </div>
