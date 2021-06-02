@@ -1,11 +1,54 @@
 .red {
-    color: red;
+  color: red;
 }
 
 .img {
-    max-width: 200px;
+  max-width: 100%;
+  border-radius: 5px;
 }
 
 .pointer {
-    cursor: pointer;
+  cursor: pointer;
+}
+
+.cruz {
+  cursor: crosshair;
+}
+
+.desktop {
+  display: block;
+}
+
+.mobile {
+  display: none;
+}
+
+@media (max-width: 480px) {
+  .desktop {
+    display: none;
+  }
+  .mobile {
+    display: block;
+  }
+}
+
+.modal-photo-details {
+  &__photo {
+    ::ng-deep {
+      .ngxImageZoomFullContainer {
+        border-radius: 5px !important;
+      }
+
+      .ngxImageZoomContainer {
+        width: 100% !important;
+        height: 100% !important;
+
+        > img {
+          max-width: 100% !important;
+          max-height: 100% !important;
+          border-radius: 10px;
+        }
+      }
+    }
+  }
 }

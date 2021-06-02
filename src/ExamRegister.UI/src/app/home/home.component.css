@@ -4,3 +4,20 @@
     right: 0px;
     top: 40%;
 }
+
+.desktop {
+    display: block;   
+  }
+  
+  .mobile {
+    display: none;
+  }
+  
+  @media(max-width: 480px) {
+    .desktop {
+      display: none;
+    }
+    .mobile {
+      display: block;
+    }
+}

@@ -1,898 +1,1676 @@
 <form class="container-fluid" [formGroup]="formulario">
-    <div class="card mt-3 mb-3">
-        <div class="card-header">
-            <div class="float-left">
-                <h3>Cadastro de Exame</h3>
-            </div>
-            <div class="float-right">
-                <button class="btn" (click)="onBack()">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
-                        class="bi bi-reply-fill" viewBox="0 0 16 16">
-                        <path
-                            d="M5.921 11.9 1.353 8.62a.719.719 0 0 1 0-1.238L5.921 4.1A.716.716 0 0 1 7 4.719V6c1.5 0 6 0 7 8-2.5-4.5-7-4-7-4v1.281c0 .56-.606.898-1.079.62z" />
-                    </svg>
-                </button>
-            </div>
-        </div>
-
-        <div class="card-body">
-            <div class="form-group row">
-                <div class="col-md col-sm-12">
-                    <label for="idexterno" class="form-label">Registro *</label>
-                    <input name="idexterno" type="text" class="form-control" id="idexterno"
-                        placeholder="Registro do exame" required formControlName="idexterno"
-                        [ngClass]="aplicaCssErro('idexterno')">
-                    <app-error-msg [control]="formulario.get('idexterno')" label="Código"></app-error-msg>
-                </div>
-                <div class="col-md col-sm-12">
-                    <label for="datain" class="form-label">Data de entrada *</label>
-                    <input name="datain" type="date" class="form-control" id="datain" placeholder="datain" required
-                        formControlName="datain" [ngClass]="aplicaCssErro('datain')">
-                    <app-error-msg [control]="formulario.get('datain')" label="Data de entrada"></app-error-msg>
-                </div>
-                <div class="col-md col-sm-12">
-                    <label for="dataout" class="form-label">Data de saída *</label>
-                    <input name="dataout" type="date" class="form-control" id="dataout" placeholder="dataout" required
-                        formControlName="dataout" [ngClass]="aplicaCssErro('dataout')">
-                    <app-error-msg [control]="formulario.get('dataout')" label="Data de saída"></app-error-msg>
-                </div>
-            </div>
-
-            <div class="form-group row">
-                <div class="col-md-4 col-sm-12">
-                    <label for="paciente" class="form-label">Paciente *</label>
-                    <button name="paciente" type="button" class="form-control" id="paciente"
-                        [ngClass]="aplicaCssErroButton('paciente')" (click)="openModal(addPaciente)">
-                        {{ paciente?.nome}}
-                    </button>
-                    <app-error-msg [control]="formulario.get('paciente')" label="Paciente"></app-error-msg>
-                </div>
-
-                <div class="col-md-4 col-sm-12">
-                    <label for="orgao" class="form-label">Orgão *</label>
-                    <button name="orgao" type="button" class="form-control" id="orgao"
-                        [ngClass]="aplicaCssErroButton('orgao')" (click)="openModal(addOrgao)">
-                        {{ orgao?.nome}}
-                    </button>
-                    <app-error-msg [control]="formulario.get('orgao')" label="Orgão"></app-error-msg>
-                </div>
-            </div>
-        </div>
-
-        <div class="card-header">
-            <div class="card-title">
-                <h4>Geral</h4>
-            </div>
-        </div>
-
-        <div class="card-body col ">
-            <div class="form-group row justify-content-around">
-                <div class="col-md-4 col-sm-12">
-                    <label for="peca" class="form-label">Peça *</label>
-                    <button name="peca" type="button" class="form-control" id="peca"
-                        [ngClass]="aplicaCssErroButton('peca')" (click)="openModal(addPeca)">
-                        {{ peca?.nome_}}</button>
-                    <app-error-msg [control]="formulario.get('peca')" label="Peça"></app-error-msg>
-                </div>                
-
-                <div class="col-md-4 col-sm-12">
-                    <label for="grupodemedico" class="form-label">Grupo de Médicos *</label>
-                    <button name="grupodemedico" type="button" class="form-control" id="grupodemedico"
-                        [ngClass]="aplicaCssErroButton('grupodeMedico')" (click)="openModal(addGrupodemedico)">
-                        {{ grupodeMedico?.nome}}</button>
-                    <app-error-msg [control]="formulario.get('grupodeMedico')" label="Grupo de Médicos"></app-error-msg>
-                </div>
-            </div>
-
-            <div class="form-group row justify-content-around">
-                <div class="col-md-4 col-sm-12">
-                    <label for="medicosolic" class="form-label">Médico Solicitante *</label>
-                    <button name="medicosolic" type="button" class="form-control" id="medicosolic"
-                        [ngClass]="aplicaCssErroButton('medicoSolic')" (click)="openModal(addMedicosolic)">
-                        {{ medicoSolic?.nome}}</button>
-                    <app-error-msg [control]="formulario.get('medicoSolic')" label="Médico Solicitante"></app-error-msg>
-                </div>                
-
-                <div class="col-md-4 col-sm-12">
-                    <label for="clinica" class="form-label">Clínica *</label>
-                    <button name="clinica" type="button" class="form-control" id="clinica"
-                        [ngClass]="aplicaCssErroButton('clinica')" (click)="openModal(addClinica)">
-                        {{ clinica?.nome}}</button>
-                    <app-error-msg [control]="formulario.get('clinica')" label="Clínica"></app-error-msg>
-                </div>
-            </div>
-
-            <div class="form-group row justify-content-around">
-                <div class="col-md-4 col-sm-12">
-                    <label for="medicoresp" class="form-label">Médico Responsável *</label>
-                    <button name="medicoresp" type="button" class="form-control" id="medicoresp"
-                        [ngClass]="aplicaCssErroButton('medicoResp')" (click)="openModal(addMedicoresp)">
-                        {{ medicoResp?.nome}}</button>
-                    <app-error-msg [control]="formulario.get('medicoResp')" label="Médico Responsável"></app-error-msg>
-                </div>                
-
-                <div class="col-md-4 col-sm-12">
-                    <label for="reuniao" class="form-label">Reunião *</label>
-                    <button name="reuniao" type="button" class="form-control" id="reuniao"
-                        [ngClass]="aplicaCssErroButton('reuniao')" (click)="openModal(addReuniao)">
-                        {{ reuniao?.nome}}</button>
-                    <app-error-msg [control]="formulario.get('reuniao')" label="Reunião"></app-error-msg>
-                </div>
-            </div>
-        </div>
-
-        <div class="card-header">
-            <div class="card-title">
-                <h4>Diagnóstico</h4>
-            </div>
-        </div>
-        <div class="card-body">
-            <h5>Geral</h5>
-            <hr>
-
-            <div class="col">
-                <button class="btn btn-outline-success mb-3 btn-sm" (click)="openModal(addDiagnostico)">
-                    Diagnósticos
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                        class="bi bi-plus-circle-dotted" viewBox="0 0 16 16">
-                        <path
-                            d="M8 0c-.176 0-.35.006-.523.017l.064.998a7.117 7.117 0 0 1 .918 0l.064-.998A8.113 8.113 0 0 0 8 0zM6.44.152c-.346.069-.684.16-1.012.27l.321.948c.287-.098.582-.177.884-.237L6.44.153zm4.132.271a7.946 7.946 0 0 0-1.011-.27l-.194.98c.302.06.597.14.884.237l.321-.947zm1.873.925a8 8 0 0 0-.906-.524l-.443.896c.275.136.54.29.793.459l.556-.831zM4.46.824c-.314.155-.616.33-.905.524l.556.83a7.07 7.07 0 0 1 .793-.458L4.46.824zM2.725 1.985c-.262.23-.51.478-.74.74l.752.66c.202-.23.418-.446.648-.648l-.66-.752zm11.29.74a8.058 8.058 0 0 0-.74-.74l-.66.752c.23.202.447.418.648.648l.752-.66zm1.161 1.735a7.98 7.98 0 0 0-.524-.905l-.83.556c.169.253.322.518.458.793l.896-.443zM1.348 3.555c-.194.289-.37.591-.524.906l.896.443c.136-.275.29-.54.459-.793l-.831-.556zM.423 5.428a7.945 7.945 0 0 0-.27 1.011l.98.194c.06-.302.14-.597.237-.884l-.947-.321zM15.848 6.44a7.943 7.943 0 0 0-.27-1.012l-.948.321c.098.287.177.582.237.884l.98-.194zM.017 7.477a8.113 8.113 0 0 0 0 1.046l.998-.064a7.117 7.117 0 0 1 0-.918l-.998-.064zM16 8a8.1 8.1 0 0 0-.017-.523l-.998.064a7.11 7.11 0 0 1 0 .918l.998.064A8.1 8.1 0 0 0 16 8zM.152 9.56c.069.346.16.684.27 1.012l.948-.321a6.944 6.944 0 0 1-.237-.884l-.98.194zm15.425 1.012c.112-.328.202-.666.27-1.011l-.98-.194c-.06.302-.14.597-.237.884l.947.321zM.824 11.54a8 8 0 0 0 .524.905l.83-.556a6.999 6.999 0 0 1-.458-.793l-.896.443zm13.828.905c.194-.289.37-.591.524-.906l-.896-.443c-.136.275-.29.54-.459.793l.831.556zm-12.667.83c.23.262.478.51.74.74l.66-.752a7.047 7.047 0 0 1-.648-.648l-.752.66zm11.29.74c.262-.23.51-.478.74-.74l-.752-.66c-.201.23-.418.447-.648.648l.66.752zm-1.735 1.161c.314-.155.616-.33.905-.524l-.556-.83a7.07 7.07 0 0 1-.793.458l.443.896zm-7.985-.524c.289.194.591.37.906.524l.443-.896a6.998 6.998 0 0 1-.793-.459l-.556.831zm1.873.925c.328.112.666.202 1.011.27l.194-.98a6.953 6.953 0 0 1-.884-.237l-.321.947zm4.132.271a7.944 7.944 0 0 0 1.012-.27l-.321-.948a6.954 6.954 0 0 1-.884.237l.194.98zm-2.083.135a8.1 8.1 0 0 0 1.046 0l-.064-.998a7.11 7.11 0 0 1-.918 0l-.064.998zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z" />
-                    </svg>
-                </button>
-            </div>
-            <div class="col">
-                <label for="diagnostico" class="form-label">Diagnóstico *</label>
-                <textarea name="diagnostico" id="diagnostico" type="text" class="form-control" cols="30" rows="3"
-                    placeholder="Descrição do diagnóstico" required formControlName="diagnostico"
-                    [ngClass]="aplicaCssErro('diagnostico')">
-                    {{ this.formulario.value.diagnostico?.nome}}
-                </textarea>
-                <app-error-msg [control]="formulario.get('diagnostico')" label="Diagnóstico"></app-error-msg>
-            </div>
-        </div>
-
-        <div class="card-body">
-            <h5>Médicos Responsáveis</h5>
-            <hr>
-
-            <div class="col">
-                <button class="btn btn-outline-success mb-3 btn-sm" (click)="openModal(addMedicorespdiag)">
-                    Médicos
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                        class="bi bi-plus-circle-dotted" viewBox="0 0 16 16">
-                        <path
-                            d="M8 0c-.176 0-.35.006-.523.017l.064.998a7.117 7.117 0 0 1 .918 0l.064-.998A8.113 8.113 0 0 0 8 0zM6.44.152c-.346.069-.684.16-1.012.27l.321.948c.287-.098.582-.177.884-.237L6.44.153zm4.132.271a7.946 7.946 0 0 0-1.011-.27l-.194.98c.302.06.597.14.884.237l.321-.947zm1.873.925a8 8 0 0 0-.906-.524l-.443.896c.275.136.54.29.793.459l.556-.831zM4.46.824c-.314.155-.616.33-.905.524l.556.83a7.07 7.07 0 0 1 .793-.458L4.46.824zM2.725 1.985c-.262.23-.51.478-.74.74l.752.66c.202-.23.418-.446.648-.648l-.66-.752zm11.29.74a8.058 8.058 0 0 0-.74-.74l-.66.752c.23.202.447.418.648.648l.752-.66zm1.161 1.735a7.98 7.98 0 0 0-.524-.905l-.83.556c.169.253.322.518.458.793l.896-.443zM1.348 3.555c-.194.289-.37.591-.524.906l.896.443c.136-.275.29-.54.459-.793l-.831-.556zM.423 5.428a7.945 7.945 0 0 0-.27 1.011l.98.194c.06-.302.14-.597.237-.884l-.947-.321zM15.848 6.44a7.943 7.943 0 0 0-.27-1.012l-.948.321c.098.287.177.582.237.884l.98-.194zM.017 7.477a8.113 8.113 0 0 0 0 1.046l.998-.064a7.117 7.117 0 0 1 0-.918l-.998-.064zM16 8a8.1 8.1 0 0 0-.017-.523l-.998.064a7.11 7.11 0 0 1 0 .918l.998.064A8.1 8.1 0 0 0 16 8zM.152 9.56c.069.346.16.684.27 1.012l.948-.321a6.944 6.944 0 0 1-.237-.884l-.98.194zm15.425 1.012c.112-.328.202-.666.27-1.011l-.98-.194c-.06.302-.14.597-.237.884l.947.321zM.824 11.54a8 8 0 0 0 .524.905l.83-.556a6.999 6.999 0 0 1-.458-.793l-.896.443zm13.828.905c.194-.289.37-.591.524-.906l-.896-.443c-.136.275-.29.54-.459.793l.831.556zm-12.667.83c.23.262.478.51.74.74l.66-.752a7.047 7.047 0 0 1-.648-.648l-.752.66zm11.29.74c.262-.23.51-.478.74-.74l-.752-.66c-.201.23-.418.447-.648.648l.66.752zm-1.735 1.161c.314-.155.616-.33.905-.524l-.556-.83a7.07 7.07 0 0 1-.793.458l.443.896zm-7.985-.524c.289.194.591.37.906.524l.443-.896a6.998 6.998 0 0 1-.793-.459l-.556.831zm1.873.925c.328.112.666.202 1.011.27l.194-.98a6.953 6.953 0 0 1-.884-.237l-.321.947zm4.132.271a7.944 7.944 0 0 0 1.012-.27l-.321-.948a6.954 6.954 0 0 1-.884.237l.194.98zm-2.083.135a8.1 8.1 0 0 0 1.046 0l-.064-.998a7.11 7.11 0 0 1-.918 0l-.064.998zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z" />
-                    </svg>
-                </button>
-            </div>
-
-            <div class="col">
-                <table class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th>Médico</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        <tr *ngFor="let _medicorespdiag of examemedicorespdiagnostico">
-                            <td>
-                                {{ _medicorespdiag.medico?.nome }}
-                            </td>
-                            <td>
-                                <span class="float-right">
-                                    <button class="btn btn-outline-danger mb-1 btn-sm"
-                                        (click)="removerMedicorespdiag(_medicorespdiag)">
-                                        Remover
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red"
-                                            class="bi bi-trash-fill" viewBox="0 0 16 16">
-                                            <path
-                                                d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
-                                        </svg>
-                                    </button>
-                                </span>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <div class="card-body">
-            <h5>Categorizações</h5>
-            <hr>
-
-            <div class="col">
-                <button class="btn btn-outline-success mb-3 btn-sm" (click)="openModal(addCategoria)">
-                    Categorias
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                        class="bi bi-plus-circle-dotted" viewBox="0 0 16 16">
-                        <path
-                            d="M8 0c-.176 0-.35.006-.523.017l.064.998a7.117 7.117 0 0 1 .918 0l.064-.998A8.113 8.113 0 0 0 8 0zM6.44.152c-.346.069-.684.16-1.012.27l.321.948c.287-.098.582-.177.884-.237L6.44.153zm4.132.271a7.946 7.946 0 0 0-1.011-.27l-.194.98c.302.06.597.14.884.237l.321-.947zm1.873.925a8 8 0 0 0-.906-.524l-.443.896c.275.136.54.29.793.459l.556-.831zM4.46.824c-.314.155-.616.33-.905.524l.556.83a7.07 7.07 0 0 1 .793-.458L4.46.824zM2.725 1.985c-.262.23-.51.478-.74.74l.752.66c.202-.23.418-.446.648-.648l-.66-.752zm11.29.74a8.058 8.058 0 0 0-.74-.74l-.66.752c.23.202.447.418.648.648l.752-.66zm1.161 1.735a7.98 7.98 0 0 0-.524-.905l-.83.556c.169.253.322.518.458.793l.896-.443zM1.348 3.555c-.194.289-.37.591-.524.906l.896.443c.136-.275.29-.54.459-.793l-.831-.556zM.423 5.428a7.945 7.945 0 0 0-.27 1.011l.98.194c.06-.302.14-.597.237-.884l-.947-.321zM15.848 6.44a7.943 7.943 0 0 0-.27-1.012l-.948.321c.098.287.177.582.237.884l.98-.194zM.017 7.477a8.113 8.113 0 0 0 0 1.046l.998-.064a7.117 7.117 0 0 1 0-.918l-.998-.064zM16 8a8.1 8.1 0 0 0-.017-.523l-.998.064a7.11 7.11 0 0 1 0 .918l.998.064A8.1 8.1 0 0 0 16 8zM.152 9.56c.069.346.16.684.27 1.012l.948-.321a6.944 6.944 0 0 1-.237-.884l-.98.194zm15.425 1.012c.112-.328.202-.666.27-1.011l-.98-.194c-.06.302-.14.597-.237.884l.947.321zM.824 11.54a8 8 0 0 0 .524.905l.83-.556a6.999 6.999 0 0 1-.458-.793l-.896.443zm13.828.905c.194-.289.37-.591.524-.906l-.896-.443c-.136.275-.29.54-.459.793l.831.556zm-12.667.83c.23.262.478.51.74.74l.66-.752a7.047 7.047 0 0 1-.648-.648l-.752.66zm11.29.74c.262-.23.51-.478.74-.74l-.752-.66c-.201.23-.418.447-.648.648l.66.752zm-1.735 1.161c.314-.155.616-.33.905-.524l-.556-.83a7.07 7.07 0 0 1-.793.458l.443.896zm-7.985-.524c.289.194.591.37.906.524l.443-.896a6.998 6.998 0 0 1-.793-.459l-.556.831zm1.873.925c.328.112.666.202 1.011.27l.194-.98a6.953 6.953 0 0 1-.884-.237l-.321.947zm4.132.271a7.944 7.944 0 0 0 1.012-.27l-.321-.948a6.954 6.954 0 0 1-.884.237l.194.98zm-2.083.135a8.1 8.1 0 0 0 1.046 0l-.064-.998a7.11 7.11 0 0 1-.918 0l-.064.998zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z" />
-                    </svg>
-                </button>
-            </div>
-
-            <div class="col">
-                <table class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th>Nome</th>                            
-                            <th></th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        <tr *ngFor="let _categoriaexame of categoriaexame">
-                            <td>{{ _categoriaexame.categoria.nome }}</td>                            
-                            <td>
-                                <span class="float-right">
-                                    <button class="btn btn-outline-danger mb-1 btn-sm"
-                                        (click)="removerCategoria(_categoriaexame)">
-                                        Remover
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red"
-                                            class="bi bi-trash-fill" viewBox="0 0 16 16">
-                                            <path
-                                                d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
-                                        </svg>
-                                    </button>
-                                </span>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <div class="card-header">
-            <div class="card-title">
-                <h4>Imagem</h4>
-            </div>
-        </div>
-
-        <div class="card-body">
-            <div class="col">
-
-                <div class="custom-file mb-3 col-md col-sm-12">
-                    <input type="file" class="custom-file-input pointer" id="imagem" accept="image/png"
-                        (change)="submitImagem($event.srcElement.files[0])">
-                    <label class="custom-file-label" for="imagem" id="customFileLabel" data-browse="Procurar">Selecionar Imagem</label>
-                </div>
-
-                <div *ngFor="let _imagem of imagem" class="row align-items-center card-body">
-                    <div class="col-md-4 col-sm-12 m-1 pointer" (click)="visualizarImagem(_imagem?.idimagem)">
-                        <img class="img img-thumbnail" [src]="_imagem?.src">
-                    </div>
-
-                    <div class="col-md-6 col-sm-12 m-1">
-                        <textarea name="descImagem" id="descImagem" cols="30" rows="3" class="form-control"
-                            placeholder="Descrição da imagem" [value]="_imagem?.nome">{{ _imagem?.nome }}</textarea>
-                    </div>
-
-                    <div class="col-auto m-1">
-                        <span class="float-right">
-                            <button class="btn btn-outline-danger btn-sm" (click)="removerImagem(_imagem)">
-                                remover
-                                <svg type="button" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                    class="bi bi-trash-fill" viewBox="0 0 16 16">
-                                    <path
-                                        d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
-                                </svg>
-                            </button>
-                        </span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="card-header">
-            <div class="card-title">
-                <h4>Anátomo-Patológico</h4>
-            </div>
-        </div>
-
-        <div class="card-body">
-            <h5>Dados Clínicos</h5>
-            <hr>
-            <div class="col">
-                <div class="form-group row">
-                    <div class="col">
-                        <label for="dadosclinicos" class="form-label">Dados Clínicos *</label>
-                        <textarea name="dadosclinicos" id="dadosclinicos" class="form-control" cols="30" rows="4"
-                            formControlName="dadosclinicos" [ngClass]="aplicaCssErro('dadosclinicos')"></textarea>
-                        <app-error-msg [control]="formulario.get('dadosclinicos')" label="Dados Clínicos">
-                        </app-error-msg>
-                    </div>
-
-                    <div class="col">
-                        <label for="suspeitaclinica" class="form-label">Suspeita Clínica *</label>
-                        <input name="suspeitaclinica" type="text" class="form-control" id="suspeitaclinica" required
-                            formControlName="suspeitaclinica" [ngClass]="aplicaCssErro('suspeitaclinica')">
-                        <app-error-msg [control]="formulario.get('suspeitaclinica')" label="Suspeita Clínica">
-                        </app-error-msg>
-                        <div class="form-group row">
-                            <div class="col">
-                                <label for="peso" class="form-label">Peso (Kg)*</label>
-                                <input name="peso" type="number" class="form-control" id="peso" required
-                                    formControlName="peso" [ngClass]="aplicaCssErro('peso')">
-                                <app-error-msg [control]="formulario.get('peso')" label="Peso"></app-error-msg>
-                            </div>
-
-                            <div class="col">
-                                <label for="altura" class="form-label">Altura (cm)*</label>
-                                <input name="altura" type="number" class="form-control" id="altura" required
-                                    formControlName="altura" [ngClass]="aplicaCssErro('altura')">
-                                <app-error-msg [control]="formulario.get('altura')" label="Altura"></app-error-msg>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col">
-                <div class="col ml-auto mr-auto">
-                    <table class="table table-striped">
-                        <thead>
-                            <tr class="row">
-                                <th class="col-3"></th>
-                                <th class="col-4"></th>
-                                <th class="col">Sim</th>
-                                <th class="col">Não</th>
-                                <th class="col">Não sei</th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            <tr class="row">
-                                <th class="col-3"> É transplantado de fígado? * </th>
-                                <td class="col-4">
-                                    <div *ngIf="this.formulario.value.transplantadofigado == 1" class="row">
-                                        <p class="col small">* pelo menos aproximado</p>
-                                        <div class="col">
-                                            <input name="datatransplante" type="date" class="form-control"
-                                                id="datatransplante" placeholder="datatransplante" required
-                                                formControlName="datatransplante"
-                                                [ngClass]="aplicaCssErro('datatransplante')">
-                                            <app-error-msg [control]="formulario.get('datatransplante')"
-                                                label="Data do tranplando, pelo menos aproximado"></app-error-msg>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="col">
-                                    <input type="radio" formControlName="transplantadofigado" name="transplantadofigado"
-                                        class="ml-2" value=1>
-                                </td>
-                                <td class="col">
-                                    <input type="radio" formControlName="transplantadofigado" name="transplantadofigado"
-                                        class="ml-2" value=2>
-                                </td>
-
-                                <td class="col">
-                                    <input type="radio" formControlName="transplantadofigado" name="transplantadofigado"
-                                        class="ml-2" value=3>
-                                </td>
-                            </tr>
-
-
-                            <tr class="row">
-                                <th class="col-3">Icterícia *</th>
-                                <th class="col-4"></th>
-                                <td class="col">
-                                    <input type="radio" formControlName="ictericia" name="ictericia" class="ml-2"
-                                        value="1">
-                                </td>
-
-                                <td class="col">
-                                    <input type="radio" formControlName="ictericia" name="ictericia" class="ml-2"
-                                        value="2">
-                                </td>
-
-                                <td class="col">
-                                    <input type="radio" formControlName="ictericia" name="ictericia" class="ml-2"
-                                        value="3">
-                                </td>
-                            </tr>
-
-                            <tr class="row">
-                                <th class="col-3">Ascite *</th>
-                                <th class="col-4"></th>
-                                <td class="col">
-                                    <input type="radio" formControlName="ascite" name="ascite" class="ml-2" value="1">
-                                </td>
-                                <td class="col">
-                                    <input type="radio" formControlName="ascite" name="ascite" class="ml-2" value="2">
-                                </td>
-                                <td class="col">
-                                    <input type="radio" formControlName="ascite" name="ascite" class="ml-2" value="3">
-                                </td>
-                            </tr>
-
-                            <tr class="row">
-                                <th class="col-3">Edema MMII? * </th>
-                                <th class="col-4"></th>
-                                <td class="col">
-                                    <input type="radio" formControlName="edema" name="edema" class="ml-2" value="1">
-                                </td>
-                                <td class="col">
-                                    <input type="radio" formControlName="edema" name="edema" class="ml-2" value="2">
-                                </td>
-                                <td class="col">
-                                    <input type="radio" formControlName="edema" name="edema" class="ml-2" value="3">
-                                </td>
-                            </tr>
-
-                            <tr class="row">
-                                <th class="col-3">Circulação colateral? * </th>
-                                <th class="col-4"></th>
-                                <td class="col">
-                                    <input type="radio" formControlName="circulacaocolateral" name="circulacaocolateral"
-                                        class="ml-2" value="1">
-                                </td>
-                                <td class="col">
-                                    <input type="radio" formControlName="circulacaocolateral" name="circulacaocolateral"
-                                        class="ml-2" value="2">
-                                </td>
-                                <td class="col">
-                                    <input type="radio" formControlName="circulacaocolateral" name="circulacaocolateral"
-                                        class="ml-2" value="3">
-                                </td>
-                            </tr>
-
-                            <tr class="row">
-                                <th class="col-3">Varizes esofágicas? * </th>
-                                <th class="col-4"></th>
-                                <td class="col">
-                                    <input type="radio" formControlName="varizesofagicas" name="varizesofagicas"
-                                        class="ml-2" value="1">
-                                </td>
-
-                                <td class="col">
-                                    <input type="radio" formControlName="varizesofagicas" name="varizesofagicas"
-                                        class="ml-2" value="2">
-                                </td>
-                                <td class="col">
-                                    <input type="radio" formControlName="varizesofagicas" name="varizesofagicas"
-                                        class="ml-2" value="3">
-                                </td>
-                            </tr>
-
-                            <tr class="row">
-                                <th class="col-3">Hepatomegalia? * </th>
-                                <th class="col-4"></th>
-                                <td class="col">
-                                    <input type="radio" formControlName="hepatomegalia" name="hepatomegalia"
-                                        class="ml-2" value="1">
-                                </td>
-                                <td class="col">
-                                    <input type="radio" formControlName="hepatomegalia" name="hepatomegalia"
-                                        class="ml-2" value="2">
-                                </td>
-                                <td class="col">
-                                    <input type="radio" formControlName="hepatomegalia" name="hepatomegalia"
-                                        class="ml-2" value="3">
-                                </td>
-                            </tr>
-
-                            <tr class="row">
-                                <th class="col-3">Fígado endurecido? * </th>
-                                <th class="col-4"></th>
-                                <td class="col">
-                                    <input type="radio" formControlName="figadoendurecido" name="figadoendurecido"
-                                        class="ml-2" value="1">
-                                </td>
-                                <td class="col">
-                                    <input type="radio" formControlName="figadoendurecido" name="figadoendurecido"
-                                        class="ml-2" value="2">
-                                </td>
-                                <td class="col">
-                                    <input type="radio" formControlName="figadoendurecido" name="figadoendurecido"
-                                        class="ml-2" value="3">
-                                </td>
-                            </tr>
-
-                            <tr class="row">
-                                <th class="col-3">Fígado nodular? * </th>
-                                <th class="col-4"></th>
-                                <td class="col">
-                                    <input type="radio" formControlName="figadonodular" name="figadonodular"
-                                        class="ml-2" value="1">
-                                </td>
-                                <td class="col">
-                                    <input type="radio" formControlName="figadonodular" name="figadonodular"
-                                        class="ml-2" value="2">
-                                </td>
-                                <td class="col">
-                                    <input type="radio" formControlName="figadonodular" name="figadonodular"
-                                        class="ml-2" value="3">
-                                </td>
-                            </tr>
-
-                            <tr class="row">
-                                <th class="col-3">Esplenomegalia? * </th>
-                                <th class="col-4"></th>
-                                <td class="col">
-                                    <input type="radio" formControlName="esplenomegalia" name="esplenomegalia"
-                                        class="ml-2" value="1">
-                                </td>
-                                <td class="col">
-                                    <input type="radio" formControlName="esplenomegalia" name="esplenomegalia"
-                                        class="ml-2" value="2">
-                                </td>
-                                <td class="col">
-                                    <input type="radio" formControlName="esplenomegalia" name="esplenomegalia"
-                                        class="ml-2" value="3">
-                                </td>
-                            </tr>
-
-
-                            <tr class="row">
-                                <th class="col-3">Hipertensão arterial? * </th>
-                                <th class="col-4"></th>
-                                <td class="col">
-                                    <input type="radio" formControlName="hipertensaoarterial" name="hipertensaoarterial"
-                                        class="ml-2" value="1">
-                                </td>
-                                <td class="col">
-                                    <input type="radio" formControlName="hipertensaoarterial" name="hipertensaoarterial"
-                                        class="ml-2" value="2">
-                                </td>
-                                <td class="col">
-                                    <input type="radio" formControlName="hipertensaoarterial" name="hipertensaoarterial"
-                                        class="ml-2" value="3">
-                                </td>
-                            </tr>
-
-                            <tr class="row">
-                                <th class="col-3">Alguma doença auto-imune fora do fígado? *</th>
-                                <td class="col-4">
-                                    <div *ngIf="this.formulario.value.doencaautoimune == 1">
-                                        <input name="descdoencaautoimune" type="text" class="form-control"
-                                            id="descdoencaautoimune" placeholder="descrição da doença" required
-                                            formControlName="descdoencaautoimune"
-                                            [ngClass]="aplicaCssErro('descdoencaautoimune')">
-                                        <app-error-msg [control]="formulario.get('descdoencaautoimune')"
-                                            label="Descrição da doença"></app-error-msg>
-                                    </div>
-                                </td>
-                                <td class="col">
-                                    <input type="radio" formControlName="doencaautoimune" name="doencaautoimune"
-                                        class="ml-2" value="1">
-                                </td>
-                                <td class="col">
-                                    <input type="radio" formControlName="doencaautoimune" name="doencaautoimune"
-                                        class="ml-2" value="2">
-                                </td>
-                                <td class="col">
-                                    <input type="radio" formControlName="doencaautoimune" name="doencaautoimune"
-                                        class="ml-2" value="3">
-                                </td>
-                            </tr>
-
-                            <tr class="row">
-                                <th class="col-3">Uso de medicamentos? * </th>
-                                <td class="col-4">
-                                    <div *ngIf="this.formulario.value.usamedicamento == 1">
-                                        <textarea name="descusamedicamento" class="form-control"
-                                            formControlName="descusamedicamento" id="descusamedicamento" cols="30"
-                                            rows="2" placeholder="Descrição dos medicamentos" required
-                                            formControlName="descusamedicamento"
-                                            [ngClass]="aplicaCssErro('descusamedicamento')"></textarea>
-                                        <app-error-msg [control]="formulario.get('descusamedicamento')"
-                                            label="Descrição dos medicamentos"></app-error-msg>
-                                    </div>
-                                </td>
-                                <td class="col">
-                                    <input type="radio" formControlName="usamedicamento" name="usamedicamento"
-                                        class="ml-2" value="1">
-                                </td>
-                                <td class="col">
-                                    <input type="radio" formControlName="usamedicamento" name="usamedicamento"
-                                        class="ml-2" value="2">
-                                </td>
-                                <td class="col">
-                                    <input type="radio" formControlName="usamedicamento" name="usamedicamento"
-                                        class="ml-2" value="3">
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-
-        <div class="card-body">
-            <h5>Exames Complementares</h5>
-            <hr>
-
-            <div class="col row ml-auto mr-auto">
-                <div class="col">
-                    <table class="table table-striped">
-                        <tbody>
-                            <tr>
-                                <th scope="row">AST</th>
-                                <td>
-                                    <input type="number" name="ast" id="ast" class="form-control" formControlName="ast">
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <th scope="row">ALT</th>
-                                <td>
-                                    <input type="number" name="alt" id="alt" class="form-control" formControlName="alt">
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <th scope="row">GGT</th>
-                                <td>
-                                    <input type="number" name="ggt" id="ggt" class="form-control" formControlName="ggt">
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <th scope="row">Colesterol</th>
-                                <td>
-                                    <input type="number" name="colesterol" id="colesterol" class="form-control"
-                                        formControlName="colesterol">
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <th scope="row">Gama-globulina</th>
-                                <td>
-                                    <input type="number" name="gamaglobulina" id="gamaglobulina" class="form-control"
-                                        formControlName="gamaglobulina">
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <th scope="row">Triglicérides</th>
-                                <td>
-                                    <input type="number" name="triglicerides" id="triglicerides" class="form-control"
-                                        formControlName="triglicerides">
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <div class="col">
-                    <table class="table table-striped">
-                        <tbody>
-                            <tr>
-                                <th scope="row">Auto-anticorpos</th>
-                                <td>
-                                    <input type="text" name="autoanticorpos" id="autoanticorpos" class="form-control"
-                                        formControlName="autoanticorpos">
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <th scope="row">Glicemia</th>
-                                <td>
-                                    <input type="number" name="glicemia" id="glicemia" class="form-control"
-                                        formControlName="glicemia">
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <th scope="row">F.Alc.</th>
-                                <td>
-                                    <input type="number" name="falc" id="falc" class="form-control"
-                                        formControlName="falc">
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <th scope="row">Bil. Total</th>
-                                <td>
-                                    <input type="number" name="biltotal" id="biltotal" class="form-control"
-                                        formControlName="biltotal">
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <th scope="row">Bil. Direta</th>
-                                <td>
-                                    <input type="number" name="bildireta" id="bildireta" class="form-control"
-                                        formControlName="bildireta">
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-
-        <div class="card-body">
-            <h5>Marcadore Virais</h5>
-            <hr>
-
-            <div class="col">
-                <div class="col ml-auto mr-auto">
-                    <table class="table table-striped">
-                        <thead>
-                            <tr class="row">
-                                <th class="col-2"></th>
-                                <th class="col-2">+</th>
-                                <th class="col-2">-</th>
-                                <th class="col-3">Não realizado</th>
-                                <th class="col-3"></th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            <tr class="row">
-                                <th class="col-2"> VHC *</th>
-                                <td class="col-2">
-                                    <input type="radio" formControlName="vhc" name="vhc" value="1"
-                                        [ngClass]="aplicaCssErro('vhc')" required>
-                                </td>
-                                <td class="col-2">
-                                    <input type="radio" formControlName="vhc" name="vhc" value="2"
-                                        [ngClass]="aplicaCssErro('vhc')" required>
-                                </td>
-
-                                <td class="col-3">
-                                    <input type="radio" formControlName="vhc" name="vhc" class="ml-4" value="3"
-                                        [ngClass]="aplicaCssErro('vhc')" required>
-                                </td>
-
-                                <td class="col-3">
-                                    <div *ngIf="this.formulario.value.vhc == 1 || this.formulario.value.vhc == 2">
-                                        <input type="radio" formControlName="descvhc" name="descvhc" value="1"
-                                            [ngClass]="aplicaCssErro('descvhc')" required>
-                                        Sorologia
-                                        <input type="radio" formControlName="descvhc" name="descvhc" value="2"
-                                            class="ml-3" [ngClass]="aplicaCssErro('descvhc')" required>
-                                        PCR
-                                    </div>
-                                </td>
-                            </tr>
-
-                            <tr class="row">
-                                <th class="col-2"> VHB *</th>
-                                <td class="col-2">
-                                    <input type="radio" formControlName="vhb" name="vhb" value="1">
-                                </td>
-                                <td class="col-2">
-                                    <input type="radio" formControlName="vhb" name="vhb" value="2">
-                                </td>
-
-                                <td class="col-3">
-                                    <input type="radio" formControlName="vhb" name="vhb" class="ml-4" value="3">
-                                </td>
-
-                                <td class="col-3">
-                                    <div *ngIf="this.formulario.value.vhb == 1 || this.formulario.value.vhb == 2">
-                                        <input type="radio" formControlName="descvhb" name="descvhb" value="1">
-                                        Sorologia
-                                        <input type="radio" formControlName="descvhb" name="descvhb" value="2"
-                                            class="ml-3">
-                                        PCR
-                                    </div>
-                                </td>
-                            </tr>
-
-                            <tr class="row">
-                                <th class="col-2"> HIV *</th>
-                                <td class="col-2">
-                                    <input type="radio" formControlName="hiv" name="hiv" value="1">
-                                </td>
-                                <td class="col-2">
-                                    <input type="radio" formControlName="hiv" name="hiv" value="2">
-                                </td>
-
-                                <td class="col-3">
-                                    <input type="radio" formControlName="hiv" name="hiv" class="ml-4" value="3">
-                                </td>
-
-                                <td class="col-3">
-                                    <div *ngIf="this.formulario.value.hiv == 1 || this.formulario.value.hiv == 2">
-                                        <input type="radio" formControlName="deschiv" name="deschiv" value="1">
-                                        Sorologia
-                                        <input type="radio" formControlName="deschiv" name="deschiv" value="2"
-                                            class="ml-3">
-                                        PCR
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <div class="col-6">
-                <label for="outros"> Outros</label>
-                <input type="text" name="outros" id="outros" class="form-control" formControlName="outros">
-            </div>
-        </div>
-
-        <div class="card-header">
-            <div class="card-title">
-                <h4>Conclusão</h4>
-            </div>
-        </div>
-
-        <div class="card-body">
-            <div class="col">
-                <textarea name="conclusao" id="conclusao" cols="120" rows="3" formControlName="conclusao"
-                    class="form-control" required [ngClass]="aplicaCssErro('conclusao')"
-                    placeholder="Conclusão"></textarea>
-                <app-error-msg [control]="formulario.get('conclusao')" label="Conclusão"></app-error-msg>
-            </div>
-
-            <div class="col">
-                <label for="observacao">Observação</label>
-                <input type="text" name="observacao" id="observacao" class="form-control" placeholder="Observação"
-                    formControlName="observacao">
-            </div>
-        </div>
-
-        <div class="card-footer">
-            <button type="submit" class="btn btn-primary" (click)="onSubmit()">
-                Salvar
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-save"
-                    viewBox="0 0 16 16">
-                    <path
-                        d="M2 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H9.5a1 1 0 0 0-1 1v7.293l2.646-2.647a.5.5 0 0 1 .708.708l-3.5 3.5a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L7.5 9.293V2a2 2 0 0 1 2-2H14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h2.5a.5.5 0 0 1 0 1H2z" />
-                </svg>
-            </button>
-
-            <button class="btn float-right" *ngIf="this.formulario.value.idexame == null" (click)="onClear()">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="Red" class="bi bi-eraser-fill"
-                    viewBox="0 0 16 16">
-                    <path
-                        d="M8.086 2.207a2 2 0 0 1 2.828 0l3.879 3.879a2 2 0 0 1 0 2.828l-5.5 5.5A2 2 0 0 1 7.879 15H5.12a2 2 0 0 1-1.414-.586l-2.5-2.5a2 2 0 0 1 0-2.828l6.879-6.879zm.66 11.34L3.453 8.254 1.914 9.793a1 1 0 0 0 0 1.414l2.5 2.5a1 1 0 0 0 .707.293H7.88a1 1 0 0 0 .707-.293l.16-.16z" />
-                </svg>
-                limpar
-            </button>
-        </div>
-
+  <div class="card mt-3 mb-3">
+    <div class="card-header">
+      <div class="float-left">
+        <h3>Cadastro de Exame</h3>
+      </div>
+      <div class="float-right">
+        <button class="btn" (click)="onBack()">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            fill="currentColor"
+            class="bi bi-reply-fill"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M5.921 11.9 1.353 8.62a.719.719 0 0 1 0-1.238L5.921 4.1A.716.716 0 0 1 7 4.719V6c1.5 0 6 0 7 8-2.5-4.5-7-4-7-4v1.281c0 .56-.606.898-1.079.62z"
+            />
+          </svg>
+        </button>
+      </div>
     </div>
+
+    <div class="card-body">
+      <div class="form-group row">
+        <div class="col-md col-sm-12">
+          <label for="idexterno" class="form-label">Registro *</label>
+          <input
+            name="idexterno"
+            type="text"
+            class="form-control"
+            id="idexterno"
+            placeholder="Registro do exame"
+            required
+            formControlName="idexterno"
+            [ngClass]="aplicaCssErro('idexterno')"
+          />
+          <app-error-msg
+            [control]="formulario.get('idexterno')"
+            label="Código"
+          ></app-error-msg>
+        </div>
+        <div class="col-md col-sm-12">
+          <label for="datain" class="form-label">Data de entrada *</label>
+          <input
+            name="datain"
+            type="date"
+            class="form-control"
+            id="datain"
+            placeholder="datain"
+            required
+            formControlName="datain"
+            [ngClass]="aplicaCssErro('datain')"
+          />
+          <app-error-msg
+            [control]="formulario.get('datain')"
+            label="Data de entrada"
+          ></app-error-msg>
+        </div>
+        <div class="col-md col-sm-12">
+          <label for="dataout" class="form-label">Data de saída *</label>
+          <input
+            name="dataout"
+            type="date"
+            class="form-control"
+            id="dataout"
+            placeholder="dataout"
+            required
+            formControlName="dataout"
+            [ngClass]="aplicaCssErro('dataout')"
+          />
+          <app-error-msg
+            [control]="formulario.get('dataout')"
+            label="Data de saída"
+          ></app-error-msg>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <div class="col-md-4 col-sm-12">
+          <label for="paciente" class="form-label">Paciente *</label>
+          <button
+            name="paciente"
+            type="button"
+            class="form-control"
+            id="paciente"
+            [ngClass]="aplicaCssErroButton('paciente')"
+            (click)="openModal(addPaciente)"
+          >
+            {{ paciente?.nome }}
+          </button>
+          <app-error-msg
+            [control]="formulario.get('paciente')"
+            label="Paciente"
+          ></app-error-msg>
+        </div>
+
+        <div class="col-md-4 col-sm-12">
+          <label for="orgao" class="form-label">Orgão *</label>
+          <button
+            name="orgao"
+            type="button"
+            class="form-control"
+            id="orgao"
+            [ngClass]="aplicaCssErroButton('orgao')"
+            (click)="openModal(addOrgao)"
+          >
+            {{ orgao?.nome }}
+          </button>
+          <app-error-msg
+            [control]="formulario.get('orgao')"
+            label="Orgão"
+          ></app-error-msg>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-header">
+      <div class="card-title">
+        <h4>Geral</h4>
+      </div>
+    </div>
+
+    <div class="card-body col">
+      <div class="form-group row justify-content-around">
+        <div class="col-md-4 col-sm-12">
+          <label for="peca" class="form-label">Peça *</label>
+          <button
+            name="peca"
+            type="button"
+            class="form-control"
+            id="peca"
+            [ngClass]="aplicaCssErroButton('peca')"
+            (click)="openModal(addPeca)"
+          >
+            {{ peca?.nome_ }}
+          </button>
+          <app-error-msg
+            [control]="formulario.get('peca')"
+            label="Peça"
+          ></app-error-msg>
+        </div>
+
+        <div class="col-md-4 col-sm-12">
+          <label for="grupodemedico" class="form-label"
+            >Grupo de Médicos *</label
+          >
+          <button
+            name="grupodemedico"
+            type="button"
+            class="form-control"
+            id="grupodemedico"
+            [ngClass]="aplicaCssErroButton('grupodeMedico')"
+            (click)="openModal(addGrupodemedico)"
+          >
+            {{ grupodeMedico?.nome }}
+          </button>
+          <app-error-msg
+            [control]="formulario.get('grupodeMedico')"
+            label="Grupo de Médicos"
+          ></app-error-msg>
+        </div>
+      </div>
+
+      <div class="form-group row justify-content-around">
+        <div class="col-md-4 col-sm-12">
+          <label for="medicosolic" class="form-label"
+            >Médico Solicitante *</label
+          >
+          <button
+            name="medicosolic"
+            type="button"
+            class="form-control"
+            id="medicosolic"
+            [ngClass]="aplicaCssErroButton('medicoSolic')"
+            (click)="openModal(addMedicosolic)"
+          >
+            {{ medicoSolic?.nome }}
+          </button>
+          <app-error-msg
+            [control]="formulario.get('medicoSolic')"
+            label="Médico Solicitante"
+          ></app-error-msg>
+        </div>
+
+        <div class="col-md-4 col-sm-12">
+          <label for="clinica" class="form-label">Clínica *</label>
+          <button
+            name="clinica"
+            type="button"
+            class="form-control"
+            id="clinica"
+            [ngClass]="aplicaCssErroButton('clinica')"
+            (click)="openModal(addClinica)"
+          >
+            {{ clinica?.nome }}
+          </button>
+          <app-error-msg
+            [control]="formulario.get('clinica')"
+            label="Clínica"
+          ></app-error-msg>
+        </div>
+      </div>
+
+      <div class="form-group row justify-content-around">
+        <div class="col-md-4 col-sm-12">
+          <label for="medicoresp" class="form-label"
+            >Médico Responsável *</label
+          >
+          <button
+            name="medicoresp"
+            type="button"
+            class="form-control"
+            id="medicoresp"
+            [ngClass]="aplicaCssErroButton('medicoResp')"
+            (click)="openModal(addMedicoresp)"
+          >
+            {{ medicoResp?.nome }}
+          </button>
+          <app-error-msg
+            [control]="formulario.get('medicoResp')"
+            label="Médico Responsável"
+          ></app-error-msg>
+        </div>
+
+        <div class="col-md-4 col-sm-12">
+          <label for="reuniao" class="form-label">Reunião *</label>
+          <button
+            name="reuniao"
+            type="button"
+            class="form-control"
+            id="reuniao"
+            [ngClass]="aplicaCssErroButton('reuniao')"
+            (click)="openModal(addReuniao)"
+          >
+            {{ reuniao?.nome }}
+          </button>
+          <app-error-msg
+            [control]="formulario.get('reuniao')"
+            label="Reunião"
+          ></app-error-msg>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-header">
+      <div class="card-title">
+        <h4>Diagnóstico</h4>
+      </div>
+    </div>
+    <div class="card-body">
+      <h5>Geral</h5>
+      <hr />
+
+      <div class="col">
+        <button
+          class="btn btn-outline-success mb-3 btn-sm"
+          (click)="openModal(addDiagnostico)"
+        >
+          Diagnósticos
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            class="bi bi-plus-circle-dotted"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M8 0c-.176 0-.35.006-.523.017l.064.998a7.117 7.117 0 0 1 .918 0l.064-.998A8.113 8.113 0 0 0 8 0zM6.44.152c-.346.069-.684.16-1.012.27l.321.948c.287-.098.582-.177.884-.237L6.44.153zm4.132.271a7.946 7.946 0 0 0-1.011-.27l-.194.98c.302.06.597.14.884.237l.321-.947zm1.873.925a8 8 0 0 0-.906-.524l-.443.896c.275.136.54.29.793.459l.556-.831zM4.46.824c-.314.155-.616.33-.905.524l.556.83a7.07 7.07 0 0 1 .793-.458L4.46.824zM2.725 1.985c-.262.23-.51.478-.74.74l.752.66c.202-.23.418-.446.648-.648l-.66-.752zm11.29.74a8.058 8.058 0 0 0-.74-.74l-.66.752c.23.202.447.418.648.648l.752-.66zm1.161 1.735a7.98 7.98 0 0 0-.524-.905l-.83.556c.169.253.322.518.458.793l.896-.443zM1.348 3.555c-.194.289-.37.591-.524.906l.896.443c.136-.275.29-.54.459-.793l-.831-.556zM.423 5.428a7.945 7.945 0 0 0-.27 1.011l.98.194c.06-.302.14-.597.237-.884l-.947-.321zM15.848 6.44a7.943 7.943 0 0 0-.27-1.012l-.948.321c.098.287.177.582.237.884l.98-.194zM.017 7.477a8.113 8.113 0 0 0 0 1.046l.998-.064a7.117 7.117 0 0 1 0-.918l-.998-.064zM16 8a8.1 8.1 0 0 0-.017-.523l-.998.064a7.11 7.11 0 0 1 0 .918l.998.064A8.1 8.1 0 0 0 16 8zM.152 9.56c.069.346.16.684.27 1.012l.948-.321a6.944 6.944 0 0 1-.237-.884l-.98.194zm15.425 1.012c.112-.328.202-.666.27-1.011l-.98-.194c-.06.302-.14.597-.237.884l.947.321zM.824 11.54a8 8 0 0 0 .524.905l.83-.556a6.999 6.999 0 0 1-.458-.793l-.896.443zm13.828.905c.194-.289.37-.591.524-.906l-.896-.443c-.136.275-.29.54-.459.793l.831.556zm-12.667.83c.23.262.478.51.74.74l.66-.752a7.047 7.047 0 0 1-.648-.648l-.752.66zm11.29.74c.262-.23.51-.478.74-.74l-.752-.66c-.201.23-.418.447-.648.648l.66.752zm-1.735 1.161c.314-.155.616-.33.905-.524l-.556-.83a7.07 7.07 0 0 1-.793.458l.443.896zm-7.985-.524c.289.194.591.37.906.524l.443-.896a6.998 6.998 0 0 1-.793-.459l-.556.831zm1.873.925c.328.112.666.202 1.011.27l.194-.98a6.953 6.953 0 0 1-.884-.237l-.321.947zm4.132.271a7.944 7.944 0 0 0 1.012-.27l-.321-.948a6.954 6.954 0 0 1-.884.237l.194.98zm-2.083.135a8.1 8.1 0 0 0 1.046 0l-.064-.998a7.11 7.11 0 0 1-.918 0l-.064.998zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"
+            />
+          </svg>
+        </button>
+      </div>
+      <div class="col">
+        <label for="diagnostico" class="form-label">Diagnóstico *</label>
+        <textarea
+          name="diagnostico"
+          id="diagnostico"
+          type="text"
+          class="form-control"
+          cols="30"
+          rows="3"
+          placeholder="Descrição do diagnóstico"
+          required
+          formControlName="diagnostico"
+          [ngClass]="aplicaCssErro('diagnostico')"
+        >
+                    {{ this.formulario.value.diagnostico?.nome }}
+                </textarea
+        >
+        <app-error-msg
+          [control]="formulario.get('diagnostico')"
+          label="Diagnóstico"
+        ></app-error-msg>
+      </div>
+    </div>
+
+    <div class="card-body">
+      <h5>Médicos Responsáveis</h5>
+      <hr />
+
+      <div class="col">
+        <button
+          class="btn btn-outline-success mb-3 btn-sm"
+          (click)="openModal(addMedicorespdiag)"
+        >
+          Médicos
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            class="bi bi-plus-circle-dotted"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M8 0c-.176 0-.35.006-.523.017l.064.998a7.117 7.117 0 0 1 .918 0l.064-.998A8.113 8.113 0 0 0 8 0zM6.44.152c-.346.069-.684.16-1.012.27l.321.948c.287-.098.582-.177.884-.237L6.44.153zm4.132.271a7.946 7.946 0 0 0-1.011-.27l-.194.98c.302.06.597.14.884.237l.321-.947zm1.873.925a8 8 0 0 0-.906-.524l-.443.896c.275.136.54.29.793.459l.556-.831zM4.46.824c-.314.155-.616.33-.905.524l.556.83a7.07 7.07 0 0 1 .793-.458L4.46.824zM2.725 1.985c-.262.23-.51.478-.74.74l.752.66c.202-.23.418-.446.648-.648l-.66-.752zm11.29.74a8.058 8.058 0 0 0-.74-.74l-.66.752c.23.202.447.418.648.648l.752-.66zm1.161 1.735a7.98 7.98 0 0 0-.524-.905l-.83.556c.169.253.322.518.458.793l.896-.443zM1.348 3.555c-.194.289-.37.591-.524.906l.896.443c.136-.275.29-.54.459-.793l-.831-.556zM.423 5.428a7.945 7.945 0 0 0-.27 1.011l.98.194c.06-.302.14-.597.237-.884l-.947-.321zM15.848 6.44a7.943 7.943 0 0 0-.27-1.012l-.948.321c.098.287.177.582.237.884l.98-.194zM.017 7.477a8.113 8.113 0 0 0 0 1.046l.998-.064a7.117 7.117 0 0 1 0-.918l-.998-.064zM16 8a8.1 8.1 0 0 0-.017-.523l-.998.064a7.11 7.11 0 0 1 0 .918l.998.064A8.1 8.1 0 0 0 16 8zM.152 9.56c.069.346.16.684.27 1.012l.948-.321a6.944 6.944 0 0 1-.237-.884l-.98.194zm15.425 1.012c.112-.328.202-.666.27-1.011l-.98-.194c-.06.302-.14.597-.237.884l.947.321zM.824 11.54a8 8 0 0 0 .524.905l.83-.556a6.999 6.999 0 0 1-.458-.793l-.896.443zm13.828.905c.194-.289.37-.591.524-.906l-.896-.443c-.136.275-.29.54-.459.793l.831.556zm-12.667.83c.23.262.478.51.74.74l.66-.752a7.047 7.047 0 0 1-.648-.648l-.752.66zm11.29.74c.262-.23.51-.478.74-.74l-.752-.66c-.201.23-.418.447-.648.648l.66.752zm-1.735 1.161c.314-.155.616-.33.905-.524l-.556-.83a7.07 7.07 0 0 1-.793.458l.443.896zm-7.985-.524c.289.194.591.37.906.524l.443-.896a6.998 6.998 0 0 1-.793-.459l-.556.831zm1.873.925c.328.112.666.202 1.011.27l.194-.98a6.953 6.953 0 0 1-.884-.237l-.321.947zm4.132.271a7.944 7.944 0 0 0 1.012-.27l-.321-.948a6.954 6.954 0 0 1-.884.237l.194.98zm-2.083.135a8.1 8.1 0 0 0 1.046 0l-.064-.998a7.11 7.11 0 0 1-.918 0l-.064.998zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"
+            />
+          </svg>
+        </button>
+      </div>
+
+      <div class="col">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Médico</th>
+              <th></th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr *ngFor="let _medicorespdiag of examemedicorespdiagnostico">
+              <td>
+                {{ _medicorespdiag.medico?.nome }}
+              </td>
+              <td>
+                <span class="float-right">
+                  <button
+                    class="btn btn-outline-danger mb-1 btn-sm"
+                    (click)="removerMedicorespdiag(_medicorespdiag)"
+                  >
+                    Remover
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      fill="red"
+                      class="bi bi-trash-fill"
+                      viewBox="0 0 16 16"
+                    >
+                      <path
+                        d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"
+                      />
+                    </svg>
+                  </button>
+                </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card-body">
+      <h5>Categorizações</h5>
+      <hr />
+
+      <div class="col">
+        <button
+          class="btn btn-outline-success mb-3 btn-sm"
+          (click)="openModal(addCategoria)"
+        >
+          Categorias
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            class="bi bi-plus-circle-dotted"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M8 0c-.176 0-.35.006-.523.017l.064.998a7.117 7.117 0 0 1 .918 0l.064-.998A8.113 8.113 0 0 0 8 0zM6.44.152c-.346.069-.684.16-1.012.27l.321.948c.287-.098.582-.177.884-.237L6.44.153zm4.132.271a7.946 7.946 0 0 0-1.011-.27l-.194.98c.302.06.597.14.884.237l.321-.947zm1.873.925a8 8 0 0 0-.906-.524l-.443.896c.275.136.54.29.793.459l.556-.831zM4.46.824c-.314.155-.616.33-.905.524l.556.83a7.07 7.07 0 0 1 .793-.458L4.46.824zM2.725 1.985c-.262.23-.51.478-.74.74l.752.66c.202-.23.418-.446.648-.648l-.66-.752zm11.29.74a8.058 8.058 0 0 0-.74-.74l-.66.752c.23.202.447.418.648.648l.752-.66zm1.161 1.735a7.98 7.98 0 0 0-.524-.905l-.83.556c.169.253.322.518.458.793l.896-.443zM1.348 3.555c-.194.289-.37.591-.524.906l.896.443c.136-.275.29-.54.459-.793l-.831-.556zM.423 5.428a7.945 7.945 0 0 0-.27 1.011l.98.194c.06-.302.14-.597.237-.884l-.947-.321zM15.848 6.44a7.943 7.943 0 0 0-.27-1.012l-.948.321c.098.287.177.582.237.884l.98-.194zM.017 7.477a8.113 8.113 0 0 0 0 1.046l.998-.064a7.117 7.117 0 0 1 0-.918l-.998-.064zM16 8a8.1 8.1 0 0 0-.017-.523l-.998.064a7.11 7.11 0 0 1 0 .918l.998.064A8.1 8.1 0 0 0 16 8zM.152 9.56c.069.346.16.684.27 1.012l.948-.321a6.944 6.944 0 0 1-.237-.884l-.98.194zm15.425 1.012c.112-.328.202-.666.27-1.011l-.98-.194c-.06.302-.14.597-.237.884l.947.321zM.824 11.54a8 8 0 0 0 .524.905l.83-.556a6.999 6.999 0 0 1-.458-.793l-.896.443zm13.828.905c.194-.289.37-.591.524-.906l-.896-.443c-.136.275-.29.54-.459.793l.831.556zm-12.667.83c.23.262.478.51.74.74l.66-.752a7.047 7.047 0 0 1-.648-.648l-.752.66zm11.29.74c.262-.23.51-.478.74-.74l-.752-.66c-.201.23-.418.447-.648.648l.66.752zm-1.735 1.161c.314-.155.616-.33.905-.524l-.556-.83a7.07 7.07 0 0 1-.793.458l.443.896zm-7.985-.524c.289.194.591.37.906.524l.443-.896a6.998 6.998 0 0 1-.793-.459l-.556.831zm1.873.925c.328.112.666.202 1.011.27l.194-.98a6.953 6.953 0 0 1-.884-.237l-.321.947zm4.132.271a7.944 7.944 0 0 0 1.012-.27l-.321-.948a6.954 6.954 0 0 1-.884.237l.194.98zm-2.083.135a8.1 8.1 0 0 0 1.046 0l-.064-.998a7.11 7.11 0 0 1-.918 0l-.064.998zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"
+            />
+          </svg>
+        </button>
+      </div>
+
+      <div class="col">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th></th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr *ngFor="let _categoriaexame of categoriaexame">
+              <td>{{ _categoriaexame.categoria.nome }}</td>
+              <td>
+                <span class="float-right">
+                  <button
+                    class="btn btn-outline-danger mb-1 btn-sm"
+                    (click)="removerCategoria(_categoriaexame)"
+                  >
+                    Remover
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      fill="red"
+                      class="bi bi-trash-fill"
+                      viewBox="0 0 16 16"
+                    >
+                      <path
+                        d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"
+                      />
+                    </svg>
+                  </button>
+                </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card-header">
+      <div class="card-title">
+        <h4>Imagem</h4>
+      </div>
+    </div>
+
+    <div class="card-body">
+      <div class="custom-file col-md-12 col-sm-12">
+        <input
+          type="file"
+          class="custom-file-input pointer"
+          id="imagem"
+          accept="image/png"
+          (change)="submitImagem($event.srcElement.files[0])"
+        />
+        <label
+          class="custom-file-label"
+          for="imagem"
+          id="customFileLabel"
+          data-browse="Procurar"
+        ></label>
+      </div>
+
+      <h6 class="desktop">
+        * Aumente ou diminua o zoom girando o scroll do mouse
+      </h6>
+
+      <div class="row">
+        <div *ngFor="let _imagem of imagem" class="col-md-4 col-sm-12">
+          <div class="float-right" (click)="removerImagem(_imagem)">
+            <svg
+              type="button"
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="red"
+              class="bi bi-trash-fill"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"
+              />
+            </svg>
+          </div>
+          <div
+            class="modal-photo-details__photo pointer"
+            (click)="visualizarImagem(_imagem?.idimagem)"
+          >
+            <lib-ngx-image-zoom
+              [thumbImage]="_imagem.src"
+              [magnification]="0"
+              [enableScrollZoom]="true"
+              [enableLens]="true"
+              [lensWidth]="150"
+              [lensHeight]="100"
+              [circularLens]="false"
+              [scrollStepSize]="0.2"
+              [maxZoomRatio]="10"
+            >
+            </lib-ngx-image-zoom>
+          </div>
+
+          <input
+            type="text"
+            name="descImagem"
+            id="descImagem"
+            class="form-control mt-2"
+            placeholder="Descrição da imagem"
+            [value]="_imagem?.nome"
+            (blur)="setNomeImagem(_imagem, $event)"
+          />
+        </div>
+      </div>
+    </div>
+
+    <div class="card-header">
+      <div class="card-title">
+        <h4>Anátomo-Patológico</h4>
+      </div>
+    </div>
+
+    <div class="card-body">
+      <h5>Dados Clínicos</h5>
+      <hr />
+      <div class="col">
+        <div class="form-group row">
+          <div class="col-sm-12 col-md">
+            <label for="dadosclinicos" class="form-label"
+              >Dados Clínicos *</label
+            >
+            <textarea
+              name="dadosclinicos"
+              id="dadosclinicos"
+              class="form-control"
+              cols="30"
+              rows="4"
+              formControlName="dadosclinicos"
+              [ngClass]="aplicaCssErro('dadosclinicos')"
+            ></textarea>
+            <app-error-msg
+              [control]="formulario.get('dadosclinicos')"
+              label="Dados Clínicos"
+            >
+            </app-error-msg>
+          </div>
+
+          <div class="col-sm-12 col-md">
+            <label for="suspeitaclinica" class="form-label"
+              >Suspeita Clínica *</label
+            >
+            <input
+              name="suspeitaclinica"
+              type="text"
+              class="form-control"
+              id="suspeitaclinica"
+              required
+              formControlName="suspeitaclinica"
+              [ngClass]="aplicaCssErro('suspeitaclinica')"
+            />
+            <app-error-msg
+              [control]="formulario.get('suspeitaclinica')"
+              label="Suspeita Clínica"
+            >
+            </app-error-msg>
+            <div class="form-group row">
+              <div class="col-sm-12 col-md">
+                <label for="peso" class="form-label">Peso (Kg)*</label>
+                <input
+                  name="peso"
+                  type="number"
+                  class="form-control"
+                  id="peso"
+                  required
+                  formControlName="peso"
+                  [ngClass]="aplicaCssErro('peso')"
+                />
+                <app-error-msg
+                  [control]="formulario.get('peso')"
+                  label="Peso"
+                ></app-error-msg>
+              </div>
+
+              <div class="col-sm-12 col-md">
+                <label for="altura" class="form-label">Altura (cm)*</label>
+                <input
+                  name="altura"
+                  type="number"
+                  class="form-control"
+                  id="altura"
+                  required
+                  formControlName="altura"
+                  [ngClass]="aplicaCssErro('altura')"
+                />
+                <app-error-msg
+                  [control]="formulario.get('altura')"
+                  label="Altura"
+                ></app-error-msg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <h6 class="col-md col-sm-12">É transplantado de fígado? *</h6>
+        <div class="col-md col-sm-12">
+          <div class="row justify-content-around">
+            <div class="mr-3">
+              <input
+                type="radio"
+                formControlName="transplantadofigado"
+                name="transplantadofigado"
+                value="1"
+              />
+              sim
+            </div>
+            <div class="mr-3">
+              <input
+                type="radio"
+                formControlName="transplantadofigado"
+                name="transplantadofigado"
+                value="2"
+              />
+              não
+            </div>
+            <div class="mr-3">
+              <input
+                type="radio"
+                formControlName="transplantadofigado"
+                name="transplantadofigado"
+                value="3"
+              />
+              não sei
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="col-md-4 col-sm-12 mb-3"
+        *ngIf="this.formulario.value.transplantadofigado == 1"
+      >
+        <label for="datatrasplante">
+          data do transplante pelo menos aproximada *</label
+        >
+        <input
+          name="datatransplante"
+          type="date"
+          class="form-control"
+          id="datatransplante"
+          placeholder="datatransplante"
+          formControlName="datatransplante"
+          [ngClass]="aplicaCssErro('datatransplante')"
+        />
+        <app-error-msg
+          [control]="formulario.get('datatransplante')"
+          label="Data do tranplando, pelo menos aproximado"
+        ></app-error-msg>
+      </div>
+
+      <div class="row mb-3">
+        <h6 class="col-md col-sm-12">Icteríca *</h6>
+        <div class="col-md col-sm-12">
+          <div class="row justify-content-around">
+            <div class="mr-3">
+              <input
+                type="radio"
+                formControlName="ictericia"
+                name="ictericia"
+                value="1"
+              />
+              sim
+            </div>
+            <div class="mr-3">
+              <input
+                type="radio"
+                formControlName="ictericia"
+                name="ictericia"
+                value="2"
+              />
+              não
+            </div>
+            <div class="mr-3">
+              <input
+                type="radio"
+                formControlName="ictericia"
+                name="ictericia"
+                value="3"
+              />
+              não sei
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <h6 class="col-md col-sm-12">Ascite *</h6>
+        <div class="col-md col-sm-12">
+          <div class="row justify-content-around">
+            <div class="mr-3">
+              <input
+                type="radio"
+                formControlName="ascite"
+                name="ascite"
+                value="1"
+              />
+              sim
+            </div>
+            <div class="mr-3">
+              <input
+                type="radio"
+                formControlName="ascite"
+                name="ascite"
+                value="2"
+              />
+              não
+            </div>
+            <div class="mr-3">
+              <input
+                type="radio"
+                formControlName="ascite"
+                name="ascite"
+                value="3"
+              />
+              não sei
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <h6 class="col-md col-sm-12">Edema MMII *</h6>
+        <div class="col-md col-sm-12">
+          <div class="row justify-content-around">
+            <div class="mr-3">
+              <input
+                type="radio"
+                formControlName="edema"
+                name="edema"
+                value="1"
+              />
+              sim
+            </div>
+            <div class="mr-3">
+              <input
+                type="radio"
+                formControlName="edema"
+                name="edema"
+                value="2"
+              />
+              não
+            </div>
+            <div class="mr-3">
+              <input
+                type="radio"
+                formControlName="edema"
+                name="edema"
+                value="3"
+              />
+              não sei
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <h6 class="col-md col-sm-12">Circulação Colateral *</h6>
+        <div class="col-md col-sm-12">
+          <div class="row justify-content-around">
+            <div class="mr-3">
+              <input
+                type="radio"
+                formControlName="circulacaocolateral"
+                name="circulacaocolateral"
+                value="1"
+              />
+              sim
+            </div>
+            <div class="mr-3">
+              <input
+                type="radio"
+                formControlName="circulacaocolateral"
+                name="circulacaocolateral"
+                value="2"
+              />
+              não
+            </div>
+            <div class="mr-3">
+              <input
+                type="radio"
+                formControlName="circulacaocolateral"
+                name="circulacaocolateral"
+                value="3"
+              />
+              não sei
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <h6 class="col-md col-sm-12">Varizes esofágicas *</h6>
+        <div class="col-md col-sm-12">
+          <div class="row justify-content-around">
+            <div class="mr-3">
+              <input
+                type="radio"
+                formControlName="varizesofagicas"
+                name="varizesofagicas"
+                value="1"
+              />
+              sim
+            </div>
+            <div class="mr-3">
+              <input
+                type="radio"
+                formControlName="varizesofagicas"
+                name="varizesofagicas"
+                value="2"
+              />
+              não
+            </div>
+            <div class="mr-3">
+              <input
+                type="radio"
+                formControlName="varizesofagicas"
+                name="varizesofagicas"
+                value="3"
+              />
+              não sei
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <h6 class="col-md col-sm-12">Hepatomegalia *</h6>
+        <div class="col-md col-sm-12">
+          <div class="row justify-content-around">
+            <div class="mr-3">
+              <input
+                type="radio"
+                formControlName="hepatomegalia"
+                name="hepatomegalia"
+                value="1"
+              />
+              sim
+            </div>
+            <div class="mr-3">
+              <input
+                type="radio"
+                formControlName="hepatomegalia"
+                name="hepatomegalia"
+                value="2"
+              />
+              não
+            </div>
+            <div class="mr-3">
+              <input
+                type="radio"
+                formControlName="hepatomegalia"
+                name="hepatomegalia"
+                value="3"
+              />
+              não sei
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <h6 class="col-md col-sm-12">Fígado Endurecido *</h6>
+        <div class="col-md col-sm-12">
+          <div class="row justify-content-around">
+            <div class="mr-3">
+              <input
+                type="radio"
+                formControlName="figadoendurecido"
+                name="figadoendurecido"
+                value="1"
+              />
+              sim
+            </div>
+            <div class="mr-3">
+              <input
+                type="radio"
+                formControlName="figadoendurecido"
+                name="figadoendurecido"
+                value="2"
+              />
+              não
+            </div>
+            <div class="mr-3">
+              <input
+                type="radio"
+                formControlName="figadoendurecido"
+                name="figadoendurecido"
+                value="3"
+              />
+              não sei
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <h6 class="col-md col-sm-12">Fígado Nodular *</h6>
+        <div class="col-md col-sm-12">
+          <div class="row justify-content-around">
+            <div class="mr-3">
+              <input
+                type="radio"
+                formControlName="figadonodular"
+                name="figadonodular"
+                value="1"
+              />
+              sim
+            </div>
+            <div class="mr-3">
+              <input
+                type="radio"
+                formControlName="figadonodular"
+                name="figadonodular"
+                value="2"
+              />
+              não
+            </div>
+            <div class="mr-3">
+              <input
+                type="radio"
+                formControlName="figadonodular"
+                name="figadonodular"
+                value="3"
+              />
+              não sei
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <h6 class="col-md col-sm-12">Esplenomegalia *</h6>
+        <div class="col-md col-sm-12">
+          <div class="row justify-content-around">
+            <div class="mr-3">
+              <input
+                type="radio"
+                formControlName="esplenomegalia"
+                name="esplenomegalia"
+                value="1"
+              />
+              sim
+            </div>
+            <div class="mr-3">
+              <input
+                type="radio"
+                formControlName="esplenomegalia"
+                name="esplenomegalia"
+                value="2"
+              />
+              não
+            </div>
+            <div class="mr-3">
+              <input
+                type="radio"
+                formControlName="esplenomegalia"
+                name="esplenomegalia"
+                value="3"
+              />
+              não sei
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <h6 class="col-md col-sm-12">Hipertensão Arterial *</h6>
+        <div class="col-md col-sm-12">
+          <div class="row justify-content-around">
+            <div class="mr-3">
+              <input
+                type="radio"
+                formControlName="hipertensaoarterial"
+                name="hipertensaoarterial"
+                value="1"
+              />
+              sim
+            </div>
+            <div class="mr-3">
+              <input
+                type="radio"
+                formControlName="hipertensaoarterial"
+                name="hipertensaoarterial"
+                value="2"
+              />
+              não
+            </div>
+            <div class="mr-3">
+              <input
+                type="radio"
+                formControlName="hipertensaoarterial"
+                name="hipertensaoarterial"
+                value="3"
+              />
+              não sei
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <h6 class="col-md col-sm-12">
+          Alguma doença auto-imune fora do fígado *
+        </h6>
+        <div class="col-md col-sm-12">
+          <div class="row justify-content-around">
+            <div class="mr-3">
+              <input
+                type="radio"
+                formControlName="doencaautoimune"
+                name="doencaautoimune"
+                value="1"
+              />
+              sim
+            </div>
+            <div class="mr-3">
+              <input
+                type="radio"
+                formControlName="doencaautoimune"
+                name="doencaautoimune"
+                value="2"
+              />
+              não
+            </div>
+            <div class="mr-3">
+              <input
+                type="radio"
+                formControlName="doencaautoimune"
+                name="doencaautoimune"
+                value="3"
+              />
+              não sei
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="col-md-4 col-sm-12 mb-3"
+        *ngIf="this.formulario.value.doencaautoimune == 1"
+      >
+        <label for="descdoencaautoimune">Descrição da(s) doença(s)</label>
+        <input
+          name="descdoencaautoimune"
+          type="text"
+          class="form-control"
+          id="descdoencaautoimune"
+          placeholder="descrição da doença"
+          required
+          formControlName="descdoencaautoimune"
+          [ngClass]="aplicaCssErro('descdoencaautoimune')"
+        />
+        <app-error-msg
+          [control]="formulario.get('descdoencaautoimune')"
+          label="Descrição da doença"
+        ></app-error-msg>
+      </div>
+
+      <div class="row mb-3">
+        <h6 class="col-md col-sm-12">Uso de medicamentos *</h6>
+        <div class="col-md col-sm-12">
+          <div class="row justify-content-around">
+            <div class="mr-3">
+              <label for="usamedicamento"></label>
+              <input
+                type="radio"
+                formControlName="usamedicamento"
+                name="usamedicamento"
+                value="1"
+              />
+              sim
+            </div>
+            <div class="mr-3">
+              <input
+                type="radio"
+                formControlName="usamedicamento"
+                name="usamedicamento"
+                value="2"
+              />
+              não
+            </div>
+            <div class="mr-3">
+              <input
+                type="radio"
+                formControlName="usamedicamento"
+                name="usamedicamento"
+                value="3"
+              />
+              não sei
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="col-md-4 col-sm-12 mb-3"
+        *ngIf="this.formulario.value.usamedicamento == 1"
+      >
+        <textarea
+          name="descusamedicamento"
+          class="form-control"
+          formControlName="descusamedicamento"
+          id="descusamedicamento"
+          cols="30"
+          rows="3"
+          placeholder="Descrição dos medicamentos"
+          required
+          formControlName="descusamedicamento"
+          [ngClass]="aplicaCssErro('descusamedicamento')"
+        ></textarea>
+        <app-error-msg
+          [control]="formulario.get('descusamedicamento')"
+          label="Descrição dos medicamentos"
+        ></app-error-msg>
+      </div>
+    </div>
+
+    <div class="card-body">
+      <h5>Exames Complementares</h5>
+      <hr />
+
+      <div class="row">
+        <div class="col-md col-sm-12">
+          <table class="table table-striped">
+            <tbody>
+              <tr>
+                <th scope="row">AST</th>
+                <td>
+                  <input
+                    type="number"
+                    name="ast"
+                    id="ast"
+                    class="form-control"
+                    formControlName="ast"
+                    [ngClass]="aplicaCssErro('ast')"
+                  />
+                  <app-error-msg [control]="formulario.get('ast')" label="AST">
+                  </app-error-msg>
+                </td>
+              </tr>
+
+              <tr>
+                <th scope="row">ALT</th>
+                <td>
+                  <input
+                    type="number"
+                    name="alt"
+                    id="alt"
+                    class="form-control"
+                    formControlName="alt"
+                    [ngClass]="aplicaCssErro('alt')"
+                  />
+                  <app-error-msg [control]="formulario.get('alt')" label="ALT">
+                  </app-error-msg>
+                </td>
+              </tr>
+
+              <tr>
+                <th scope="row">GGT</th>
+                <td>
+                  <input
+                    type="number"
+                    name="ggt"
+                    id="ggt"
+                    class="form-control"
+                    formControlName="ggt"
+                    [ngClass]="aplicaCssErro('ggt')"
+                  />
+                  <app-error-msg [control]="formulario.get('ggt')" label="GGT">
+                  </app-error-msg>
+                </td>
+              </tr>
+
+              <tr>
+                <th scope="row">Colesterol</th>
+                <td>
+                  <input
+                    type="number"
+                    name="colesterol"
+                    id="colesterol"
+                    class="form-control"
+                    formControlName="colesterol"
+                    [ngClass]="aplicaCssErro('colesterol')"
+                  />
+                  <app-error-msg
+                    [control]="formulario.get('colesterol')"
+                    label="Colesterol"
+                  >
+                  </app-error-msg>
+                </td>
+              </tr>
+
+              <tr>
+                <th scope="row">Gama-globulina</th>
+                <td>
+                  <input
+                    type="number"
+                    name="gamaglobulina"
+                    id="gamaglobulina"
+                    class="form-control"
+                    formControlName="gamaglobulina"
+                    [ngClass]="aplicaCssErro('gamaglobulina')"
+                  />
+                  <app-error-msg
+                    [control]="formulario.get('gamaglobulina')"
+                    label="Gama-globulina"
+                  >
+                  </app-error-msg>
+                </td>
+              </tr>
+
+              <tr>
+                <th scope="row">Triglicérides</th>
+                <td>
+                  <input
+                    type="number"
+                    name="triglicerides"
+                    id="triglicerides"
+                    class="form-control"
+                    formControlName="triglicerides"
+                    [ngClass]="aplicaCssErro('triglicerides')"
+                  />
+                  <app-error-msg
+                    [control]="formulario.get('triglicerides')"
+                    label="Triglicérides"
+                  >
+                  </app-error-msg>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="col-md col-sm-12">
+          <table class="table table-striped">
+            <tbody>
+              <tr>
+                <th scope="row">Auto-anticorpos</th>
+                <td>
+                  <input
+                    type="text"
+                    name="autoanticorpos"
+                    id="autoanticorpos"
+                    class="form-control"
+                    formControlName="autoanticorpos"
+                    [ngClass]="aplicaCssErro('autoanticorpos')"
+                  />
+                  <app-error-msg
+                    [control]="formulario.get('autoanticorpos')"
+                    label="Auto-anticorpos"
+                  >
+                  </app-error-msg>
+                </td>
+              </tr>
+
+              <tr>
+                <th scope="row">Glicemia</th>
+                <td>
+                  <input
+                    type="number"
+                    name="glicemia"
+                    id="glicemia"
+                    class="form-control"
+                    formControlName="glicemia"
+                    [ngClass]="aplicaCssErro('glicemia')"
+                  />
+                  <app-error-msg
+                    [control]="formulario.get('glicemia')"
+                    label="Glicemia"
+                  >
+                  </app-error-msg>
+                </td>
+              </tr>
+
+              <tr>
+                <th scope="row">F.Alc.</th>
+                <td>
+                  <input
+                    type="number"
+                    name="falc"
+                    id="falc"
+                    class="form-control"
+                    formControlName="falc"
+                    [ngClass]="aplicaCssErro('falc')"
+                  />
+                  <app-error-msg
+                    [control]="formulario.get('falc')"
+                    label="F.Alc."
+                  >
+                  </app-error-msg>
+                </td>
+              </tr>
+
+              <tr>
+                <th scope="row">Bil. Total</th>
+                <td>
+                  <input
+                    type="number"
+                    name="biltotal"
+                    id="biltotal"
+                    class="form-control"
+                    formControlName="biltotal"
+                    [ngClass]="aplicaCssErro('biltotal')"
+                  />
+                  <app-error-msg
+                    [control]="formulario.get('biltotal')"
+                    label="Bil Total"
+                  >
+                  </app-error-msg>
+                </td>
+              </tr>
+
+              <tr>
+                <th scope="row">Bil. Direta</th>
+                <td>
+                  <input
+                    type="number"
+                    name="bildireta"
+                    id="bildireta"
+                    class="form-control"
+                    formControlName="bildireta"
+                    [ngClass]="aplicaCssErro('bildireta')"
+                  />
+                  <app-error-msg
+                    [control]="formulario.get('bildireta')"
+                    label="Bil Direta"
+                  >
+                  </app-error-msg>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-body">
+      <h5>Marcadore Virais</h5>
+      <hr />
+
+      <div class="col">
+        <div class="row mb-3">
+          <h6 class="col-md col-sm-12">VHC *</h6>
+          <div class="col-md col-sm-12">
+            <div class="row justify-content-around">
+              <div class="mr-3">
+                <label for="usamedicamento"></label>
+                <input
+                  type="radio"
+                  formControlName="vhc"
+                  name="vhc"
+                  value="1"
+                />
+                +
+              </div>
+              <div class="mr-3">
+                <input
+                  type="radio"
+                  formControlName="vhc"
+                  name="vhc"
+                  value="2"
+                />
+                -
+              </div>
+              <div class="mr-3">
+                <input
+                  type="radio"
+                  formControlName="vhc"
+                  name="vhc"
+                  value="3"
+                />
+                não realizado
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div
+          *ngIf="
+            this.formulario.value.vhc == 1 || this.formulario.value.vhc == 2
+          "
+          class="mb-3"
+        >
+          <input
+            type="radio"
+            formControlName="descvhc"
+            name="descvhc"
+            value="1"
+            [ngClass]="aplicaCssErro('descvhc')"
+            required
+          />
+          Sorologia
+          <input
+            type="radio"
+            formControlName="descvhc"
+            name="descvhc"
+            value="2"
+            class="ml-3"
+            [ngClass]="aplicaCssErro('descvhc')"
+            required
+          />
+          PCR
+        </div>
+
+        <div class="row mb-3">
+          <h6 class="col-md col-sm-12">VHB *</h6>
+          <div class="col-md col-sm-12">
+            <div class="row justify-content-around">
+              <div class="mr-3">
+                <input
+                  type="radio"
+                  formControlName="vhb"
+                  name="vhb"
+                  value="1"
+                />
+                +
+              </div>
+              <div class="mr-3">
+                <input
+                  type="radio"
+                  formControlName="vhb"
+                  name="vhb"
+                  value="2"
+                />
+                -
+              </div>
+              <div class="mr-3">
+                <input
+                  type="radio"
+                  formControlName="vhb"
+                  name="vhb"
+                  value="3"
+                />
+                não realizado
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div
+          *ngIf="
+            this.formulario.value.vhb == 1 || this.formulario.value.vhb == 2
+          "
+          class="mb-3"
+        >
+          <input
+            type="radio"
+            formControlName="descvhb"
+            name="descvhb"
+            value="1"
+          />
+          Sorologia
+          <input
+            type="radio"
+            formControlName="descvhb"
+            name="descvhb"
+            value="2"
+            [ngClass]="aplicaCssErro('descvhb')"
+          />
+          PCR
+        </div>
+
+        <div class="row mb-3">
+          <h6 class="col-md col-sm-12">HIV *</h6>
+          <div class="col-md col-sm-12">
+            <div class="row justify-content-around">
+              <div class="mr-3">
+                <label for="usamedicamento"></label>
+                <input
+                  type="radio"
+                  formControlName="hiv"
+                  name="hiv"
+                  value="1"
+                />
+                +
+              </div>
+              <div class="mr-3">
+                <input
+                  type="radio"
+                  formControlName="hiv"
+                  name="hiv"
+                  value="2"
+                />
+                -
+              </div>
+              <div class="mr-3">
+                <input
+                  type="radio"
+                  formControlName="hiv"
+                  name="hiv"
+                  value="3"
+                />
+                não realizado
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div
+          *ngIf="
+            this.formulario.value.hiv == 1 || this.formulario.value.hiv == 2
+          "
+          class="mb-3"
+        >
+          <input
+            type="radio"
+            formControlName="descvhc"
+            name="descvhc"
+            value="1"
+            [ngClass]="aplicaCssErro('descvhc')"
+            required
+          />
+          Sorologia
+          <input
+            type="radio"
+            formControlName="descvhc"
+            name="descvhc"
+            value="2"
+            class="ml-3"
+            [ngClass]="aplicaCssErro('descvhc')"
+            required
+          />
+          PCR
+        </div>
+      </div>
+
+      <div class="col-12">
+        <label for="outros"> Outros</label>
+        <input
+          type="text"
+          name="outros"
+          id="outros"
+          class="form-control"
+          formControlName="outros"
+        />
+      </div>
+    </div>
+
+    <div class="card-header">
+      <div class="card-title">
+        <h4>Conclusão</h4>
+      </div>
+    </div>
+
+    <div class="card-body">
+      <div class="col">
+        <textarea
+          name="conclusao"
+          id="conclusao"
+          cols="120"
+          rows="3"
+          formControlName="conclusao"
+          class="form-control"
+          required
+          [ngClass]="aplicaCssErro('conclusao')"
+          placeholder="Conclusão"
+        ></textarea>
+        <app-error-msg
+          [control]="formulario.get('conclusao')"
+          label="Conclusão"
+        ></app-error-msg>
+      </div>
+
+      <div class="col">
+        <label for="observacao">Observação</label>
+        <input
+          type="text"
+          name="observacao"
+          id="observacao"
+          class="form-control"
+          placeholder="Observação"
+          formControlName="observacao"
+          [ngClass]="aplicaCssErro('observacao')"
+        />
+      </div>
+    </div>
+
+    <div class="card-footer">
+      <button type="submit" class="btn btn-primary" (click)="onSubmit()">
+        Salvar
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          fill="currentColor"
+          class="bi bi-save"
+          viewBox="0 0 16 16"
+        >
+          <path
+            d="M2 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H9.5a1 1 0 0 0-1 1v7.293l2.646-2.647a.5.5 0 0 1 .708.708l-3.5 3.5a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L7.5 9.293V2a2 2 0 0 1 2-2H14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h2.5a.5.5 0 0 1 0 1H2z"
+          />
+        </svg>
+      </button>
+
+      <button
+        class="btn float-right"
+        *ngIf="this.formulario.value.idexame == null"
+        (click)="onClear()"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          fill="Red"
+          class="bi bi-eraser-fill"
+          viewBox="0 0 16 16"
+        >
+          <path
+            d="M8.086 2.207a2 2 0 0 1 2.828 0l3.879 3.879a2 2 0 0 1 0 2.828l-5.5 5.5A2 2 0 0 1 7.879 15H5.12a2 2 0 0 1-1.414-.586l-2.5-2.5a2 2 0 0 1 0-2.828l6.879-6.879zm.66 11.34L3.453 8.254 1.914 9.793a1 1 0 0 0 0 1.414l2.5 2.5a1 1 0 0 0 .707.293H7.88a1 1 0 0 0 .707-.293l.16-.16z"
+          />
+        </svg>
+        limpar
+      </button>
+    </div>
+  </div>
 </form>
 
 <ng-template #addPaciente>
-    <app-exame-paciente (inserirPaciente)="incluirPaciente($event)"></app-exame-paciente>
+  <app-exame-paciente
+    (inserirPaciente)="incluirPaciente($event)"
+  ></app-exame-paciente>
 </ng-template>
 
 <ng-template #addOrgao>
-    <app-exame-orgao (inserirOrgao)="incluirOrgao($event)"></app-exame-orgao>
+  <app-exame-orgao (inserirOrgao)="incluirOrgao($event)"></app-exame-orgao>
 </ng-template>
 
 <ng-template #addPeca>
-    <app-exame-peca (inserirPeca)="incluirPeca($event)"></app-exame-peca>
+  <app-exame-peca (inserirPeca)="incluirPeca($event)"></app-exame-peca>
 </ng-template>
 
 <ng-template #addMedicosolic>
-    <app-exame-medicosolic (inserirMedicosolic)="incluirMedicosolic($event)"></app-exame-medicosolic>
+  <app-exame-medicosolic
+    (inserirMedicosolic)="incluirMedicosolic($event)"
+  ></app-exame-medicosolic>
 </ng-template>
 
 <ng-template #addMedicoresp>
-    <app-exame-medicoresp (inserirMedicoresp)="incluirMedicoresp($event)"></app-exame-medicoresp>
+  <app-exame-medicoresp
+    (inserirMedicoresp)="incluirMedicoresp($event)"
+  ></app-exame-medicoresp>
 </ng-template>
 
 <ng-template #addGrupodemedico>
-    <app-exame-grupodemedico (inserirGrupodemedico)="incluirGrupodemedico($event)"></app-exame-grupodemedico>
+  <app-exame-grupodemedico
+    (inserirGrupodemedico)="incluirGrupodemedico($event)"
+  ></app-exame-grupodemedico>
 </ng-template>
 
 <ng-template #addClinica>
-    <app-exame-clinica (inserirClinica)="incluirClinica($event)"></app-exame-clinica>
+  <app-exame-clinica
+    (inserirClinica)="incluirClinica($event)"
+  ></app-exame-clinica>
 </ng-template>
 
 <ng-template #addReuniao>
-    <app-exame-reuniao (inserirReuniao)="incluirReuniao($event)"></app-exame-reuniao>
+  <app-exame-reuniao
+    (inserirReuniao)="incluirReuniao($event)"
+  ></app-exame-reuniao>
 </ng-template>
 
 <ng-template #addDiagnostico>
-    <app-exame-diagnostico (inserirDiagnostico)="incluirDiagnostico($event)"></app-exame-diagnostico>
+  <app-exame-diagnostico
+    (inserirDiagnostico)="incluirDiagnostico($event)"
+  ></app-exame-diagnostico>
 </ng-template>
 
 <ng-template #addMedicorespdiag>
-    <app-exame-med-resp-diag (inserirMedicorespdiag)="incluirMedicorespdiag($event)"></app-exame-med-resp-diag>
+  <app-exame-med-resp-diag
+    (inserirMedicorespdiag)="incluirMedicorespdiag($event)"
+  ></app-exame-med-resp-diag>
 </ng-template>
 
 <ng-template #addCategoria>
-    <app-categoriaexame (inserirCategoria)="incluirCategoria($event)"></app-categoriaexame>
+  <app-categoriaexame
+    (inserirCategoria)="incluirCategoria($event)"
+  ></app-categoriaexame>
 </ng-template>
