@@ -19,12 +19,12 @@ namespace ExamRegister.WebApi.Controllers {
         [HttpGet]
         [Route("")]
         public paginacao<UsuarioDTO> List(
-            int skip = 0,
-            int top = 10,
-            bool count = false,
-            bool? soinativos = false,
-            string pesquisa = null
-            ) {
+        int skip = 0,
+        int top = 10,
+        bool count = false,
+        bool? soinativos = false,
+        string pesquisa = null
+        ) {
             return service.List(skip, top, count, soinativos, pesquisa);
         }
 
@@ -46,7 +46,7 @@ namespace ExamRegister.WebApi.Controllers {
         }
 
         [HttpPut]
-        [Route("{id}")]
+        [Route("{Id}")]
         public void Update(Guid Id, UsuarioDTO usuario) {
             service.Update(Id, usuario);
         }

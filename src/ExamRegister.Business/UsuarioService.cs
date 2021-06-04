@@ -60,7 +60,7 @@ namespace ExamRegister.Business {
                 throw new Exception("hashed n bateu");
             }*/
 
-            
+
             repository.Insert(user);
         }
 
@@ -88,7 +88,8 @@ namespace ExamRegister.Business {
                 nCount = usuarios.Count();
             }
 
-            if (skip < 0) skip = 0;
+            if (skip < 0)
+                skip = 0;
             usuarios = usuarios.OrderBy(a => a.nome);
             usuarios = usuarios.Skip(skip).Take(top);
 

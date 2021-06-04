@@ -1,10 +1,9 @@
 ﻿using ExamRegister.Business.Abstractions.DTO;
 using ExamRegister.WebApi.Abstractions.DTO;
 using System;
-using System.Linq;
 
 namespace ExamRegister.DA.Abstractions.interfaces {
-    public interface IUsuarioService {
+    public interface IUsuarioService {        
         paginacao<UsuarioDTO> List(
             int skip,
             int top,

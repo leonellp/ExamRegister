@@ -13,6 +13,7 @@ using Microsoft.OpenApi.Models;
 using System.Reflection;
 using System.IO;
 using System;
+using ExamRegister.Business.Abstractions.Interfaces;
 
 namespace ExamRegister.WebApi {
     public class Startup {
@@ -83,6 +84,7 @@ namespace ExamRegister.WebApi {
             services.AddScoped<IPecaService, PecaService>(); 
             services.AddScoped<IReuniaoService, ReuniaoService>(); 
             services.AddScoped<IUsuarioService, UsuarioService>();
+            services.AddScoped<IAuthenticationService, AuthenticationService>();
 
             services.AddScoped<ICategoriaExameRepository, CategoriaExameRepository>();
             services.AddScoped<ICategoriaRepository, CategoriaRepository>();
