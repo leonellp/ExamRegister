@@ -1,12 +1,34 @@
-#background{
+#background {
   overflow: hidden; /* para que não tenha rolagem se a imagem de fundo for maior que a tela */
   width: 100%;
   height: 100%;
   position: relative; /* criamos um contexto para posicionamento */
-  background: #FFF; /* fundo branco para navegadores que não suportam rgba */
-  background: rgba(255,255,255,0.8); /* fundo branco com um pouco de transparência */
+  background: #fff; /* fundo branco para navegadores que não suportam rgba */
+  background: rgba(
+    255,
+    255,
+    255,
+    0.8
+  ); /* fundo branco com um pouco de transparência */
 }
 
 .pointer {
   cursor: pointer;
+}
+
+.desktop {
+  display: block;
+}
+
+.mobile {
+  display: none;
+}
+
+@media (max-width: 480px) {
+  .desktop {
+    display: none;
+  }
+  .mobile {
+    display: block;
+  }
 }

@@ -10,15 +10,14 @@ import { ExameService } from '../shared/Services/exame.service';
 @Component({
   selector: 'app-exame',
   templateUrl: './exame.component.html',
-  styleUrls: ['./exame.component.css']
+  styleUrls: ['./exame.component.css'],
 })
 export class ExameComponent implements OnInit {
-
   @Output() public paginaChange = new EventEmitter<number>();
   pagina: number = 0;
   pageSize: number = 5;
 
-  pesquisa: string = "";
+  pesquisa: string = '';
   temPesquisa: boolean = false;
 
   exames?: Paginacao<ExameDTO>;
@@ -34,18 +33,18 @@ export class ExameComponent implements OnInit {
   }
 
   ngOnInit() {
-    sessionStorage.removeItem("clinica");
-    sessionStorage.removeItem("diagnostico");
-    sessionStorage.removeItem("exame");
-    sessionStorage.removeItem("categoria");
-    sessionStorage.removeItem("medicoSalvo");
-    sessionStorage.removeItem("orgao");
-    sessionStorage.removeItem("paciente");
-    sessionStorage.removeItem("peca");
-    sessionStorage.removeItem("reuniao");
-    sessionStorage.removeItem("novoUsuario");
-    sessionStorage.removeItem("informacao");
-    sessionStorage.removeItem("grupo");
+    sessionStorage.removeItem('clinica');
+    sessionStorage.removeItem('diagnostico');
+    sessionStorage.removeItem('exame');
+    sessionStorage.removeItem('categoria');
+    sessionStorage.removeItem('medicoSalvo');
+    sessionStorage.removeItem('orgao');
+    sessionStorage.removeItem('paciente');
+    sessionStorage.removeItem('peca');
+    sessionStorage.removeItem('reuniao');
+    sessionStorage.removeItem('novoUsuario');
+    sessionStorage.removeItem('informacao');
+    sessionStorage.removeItem('grupo');
   }
 
   examesCount(): number {
@@ -54,28 +53,44 @@ export class ExameComponent implements OnInit {
 
   onList($event: any) {
     this.pagina = $event;
-    this.exameService.list((this.pagina - 1) * this.pageSize, this.pageSize, true, false, this.pesquisa).subscribe(exames => {
-      this.exames = exames;
-    });
+    this.exameService
+      .list(
+        (this.pagina - 1) * this.pageSize,
+        this.pageSize,
+        true,
+        false,
+        this.pesquisa
+      )
+      .subscribe((exames) => {
+        this.exames = exames;
+      });
   }
 
   onDelete(exame: ExameDTO) {
     this.exameSelecionado = exame;
 
-    const result$ = this.alertService.showConfirm('Confirmação', 'Tem certeza que deseja remover esse exame?');
-    result$.asObservable()
+    const result$ = this.alertService.showConfirm(
+      'Confirmação',
+      'Tem certeza que deseja remover esse exame?'
+    );
+    result$
+      .asObservable()
       .pipe(
         take(1),
-        switchMap(result => result ? this.exameService.remove(exame.idexame) : EMPTY)
+        switchMap((result) =>
+          result ? this.exameService.remove(exame.idexame) : EMPTY
+        )
       )
       .subscribe(
-        result => {
+        (result) => {
           delay(1000);
           this.alertService.showAlertSuccess('Exame removido com sucesso!');
           location.reload();
         },
-        error => {
-          this.alertService.showAlertDanger('Erro ao remover exame. Tente novamente mais tarde.');
+        (error) => {
+          this.alertService.showAlertDanger(
+            'Erro ao remover exame. Tente novamente mais tarde.'
+          );
         }
       );
   }

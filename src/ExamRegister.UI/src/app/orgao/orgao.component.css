@@ -1,3 +1,24 @@
 .pointer {
-    cursor: pointer;
+  cursor: pointer;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.desktop {
+  display: block;
+}
+
+.mobile {
+  display: none;
+}
+
+@media (max-width: 480px) {
+  .desktop {
+    display: none;
+  }
+  .mobile {
+    display: block;
+  }
 }

@@ -14,12 +14,14 @@ import { GrupodemedicoService } from 'src/app/shared/Services/grupodemedico.serv
 @Component({
   selector: 'app-form-grupo-de-medico',
   templateUrl: './form-grupo-de-medico.component.html',
-  styleUrls: ['./form-grupo-de-medico.component.scss']
+  styleUrls: ['./form-grupo-de-medico.component.scss'],
 })
-export class FormGrupoDeMedicoComponent extends BaseFormComponent implements OnInit {
-  
+export class FormGrupoDeMedicoComponent
+  extends BaseFormComponent
+  implements OnInit
+{
   modalRef!: BsModalRef;
-  
+
   get medicoGrupo(): MedicogrupoDTO[] {
     return Object.assign({}, this.formulario.value).medicoGrupo;
   }
@@ -31,33 +33,46 @@ export class FormGrupoDeMedicoComponent extends BaseFormComponent implements OnI
     private modalService: BsModalService,
     private location: Location,
     private route: ActivatedRoute
-  ) { 
+  ) {
     super();
   }
 
   ngOnInit(): void {
-    this.formulario = this.formBuilder.group({
-      idgrupodemedicos: [null],
-      nome: [null, [Validators.required, Validators.maxLength(200)]],
-      idexterno: [null, [Validators.required, Validators.maxLength(20), Validators.minLength(2)]],
-      inativo: [null],
+    this.formulario = this.formBuilder.group(
+      {
+        idgrupodemedicos: [null],
+        nome: [null, [Validators.required, Validators.maxLength(200)]],
+        idexterno: [
+          null,
+          [
+            Validators.required,
+            Validators.maxLength(20),
+            Validators.minLength(2),
+          ],
+        ],
+        inativo: [null],
 
-      medicoGrupo: [null]
-    }, { updateOn: 'blur' });
+        medicoGrupo: [null],
+      },
+      { updateOn: 'blur' }
+    );
 
-    this.route.params.subscribe(params => {
+    this.route.params.subscribe((params) => {
       let idgrupodemedicos = params['id'];
 
       if (idgrupodemedicos) {
-        this.grupoService.loadByID(idgrupodemedicos).subscribe(grupo => {
+        this.grupoService.loadByID(idgrupodemedicos).subscribe((grupo) => {
           this.formulario.patchValue(Object.assign({}, grupo));
         });
-      } this.formulario.patchValue(Object.assign({}, JSON.parse(sessionStorage.getItem("grupoDeMedico") || "{}")));
+      }
+      this.formulario.patchValue(
+        Object.assign({}, JSON.parse(sessionStorage.getItem('grupo') || '{}'))
+      );
     });
 
     this.formulario.valueChanges.subscribe(() => {
       this.setForm();
-    });    
+    });
   }
 
   openModal(template: TemplateRef<any>) {
@@ -68,9 +83,8 @@ export class FormGrupoDeMedicoComponent extends BaseFormComponent implements OnI
     let valueSubmit = Object.assign({}, this.formulario.value);
 
     console.log(valueSubmit);
-    
-    if (this.formulario.valid) {
 
+    if (this.formulario.valid) {
       let msgSuccess = 'Grupo cadastrado com sucesso!';
       let msgError = 'Erro ao cadastrar grupo, tente novamente!';
 
@@ -89,23 +103,21 @@ export class FormGrupoDeMedicoComponent extends BaseFormComponent implements OnI
       );
     } else this.formulario.markAllAsTouched();
   }
-  
-  incluirMedico(medico: MedicoDTO) {
 
+  incluirMedico(medico: MedicoDTO) {
     let grupo: GrupodemedicoDTO = Object.assign({}, this.formulario.value);
 
     if (grupo.medicoGrupo == null) {
       grupo.medicoGrupo = [];
     }
 
-    grupo.medicoGrupo.push(
-      {
-        idgrupomedico: null,
-        idmedico: medico.idmedico,
-        idgrupo: grupo.idgrupodemedicos,
+    grupo.medicoGrupo.push({
+      idgrupomedico: null,
+      idmedico: medico.idmedico,
+      idgrupo: grupo.idgrupodemedicos,
 
-        medico: medico
-      });
+      medico: medico,
+    });
 
     this.formulario.patchValue(grupo);
   }
@@ -118,8 +130,7 @@ export class FormGrupoDeMedicoComponent extends BaseFormComponent implements OnI
     }
 
     grupo.medicoGrupo.forEach((value, i) => {
-      if (value.idmedico == medicoDel.idmedico)
-        grupo.medicoGrupo.splice(i, 1);
+      if (value.idmedico == medicoDel.idmedico) grupo.medicoGrupo.splice(i, 1);
     });
 
     this.formulario.patchValue(grupo);
@@ -130,11 +141,14 @@ export class FormGrupoDeMedicoComponent extends BaseFormComponent implements OnI
   }
 
   setForm() {
-    sessionStorage.setItem("grupoDeMedico", JSON.stringify(Object.assign({}, this.formulario.value)));
+    sessionStorage.setItem(
+      'grupo',
+      JSON.stringify(Object.assign({}, this.formulario.value))
+    );
   }
 
   onClear() {
     this.formulario.reset();
-    sessionStorage.removeItem("grupoDeMedico");
+    sessionStorage.removeItem('grupo');
   }
 }
