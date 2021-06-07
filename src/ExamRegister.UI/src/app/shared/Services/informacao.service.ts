@@ -6,23 +6,35 @@ import { InformacaoDTO } from '../DTOs/informacao-dto';
 import { Paginacao } from '../DTOs/Paginacao';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class InformacaoService {
-  
   private readonly API = `${environment.API}informacao`;
 
-  constructor(private http: HttpClient) { }
-  
-  list(skip: number, top: number, count: boolean, soinativo?: boolean, pesquisa?: string) {
-    return this.http.get<Paginacao<InformacaoDTO>>(
-      this.API +
-      "?skip=" + skip +
-      "&top=" + top +
-      "&count=" + count +
-      "&soinativo=" + soinativo +
-      "&pesquisa=" + pesquisa
-    ).pipe(take(1));
+  constructor(private http: HttpClient) {}
+
+  list(
+    skip: number,
+    top: number,
+    count: boolean,
+    soinativo?: boolean,
+    pesquisa?: string
+  ) {
+    return this.http
+      .get<Paginacao<InformacaoDTO>>(
+        this.API +
+          '?skip=' +
+          skip +
+          '&top=' +
+          top +
+          '&count=' +
+          count +
+          '&soinativo=' +
+          soinativo +
+          '&pesquisa=' +
+          pesquisa
+      )
+      .pipe(take(1));
   }
 
   loadByID(id: string) {
@@ -34,7 +46,9 @@ export class InformacaoService {
   }
 
   private update(informacao: InformacaoDTO) {
-    return this.http.put(`${this.API}/${informacao.idinformacao}`, informacao).pipe(take(1));
+    return this.http
+      .put(`${this.API}/${informacao.idinformacao}`, informacao)
+      .pipe(take(1));
   }
 
   save(informacao: InformacaoDTO) {

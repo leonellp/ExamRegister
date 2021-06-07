@@ -10,7 +10,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from './login/auth.service';
 import { AuthGuard } from './guards/auth.guard';
 import { LoginComponent } from './login/login.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ClinicaComponent } from './clinica/clinica.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { RouterModule } from '@angular/router';
@@ -45,7 +45,8 @@ const maskConfig: Partial<IConfig> = {
     PecaComponent,
     UsuarioComponent,
     ExameComponent,
-    CategoriaComponent
+    CategoriaComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -58,12 +59,9 @@ const maskConfig: Partial<IConfig> = {
     FormsModule,
     ModalModule.forRoot(),
     NgxMaskModule.forRoot(maskConfig),
+    ReactiveFormsModule,
   ],
-  providers: [
-    AuthService, 
-    AuthGuard,
-    DatePipe
-  ],
-  bootstrap: [AppComponent]
+  providers: [AuthService, AuthGuard, DatePipe],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

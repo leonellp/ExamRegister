@@ -48,19 +48,6 @@ namespace ExamRegister.Business {
             user.password_hash = hashed;
             user.password_salt = Convert.ToBase64String(salt);
 
-
-            /* string hashed2 = Convert.ToBase64String(KeyDerivation.Pbkdf2(
-                password: usuario.Password,
-                salt: Convert.FromBase64String(user.PasswordSalt),
-                prf: KeyDerivationPrf.HMACSHA1,
-                iterationCount: 10000,
-                numBytesRequested: 256 / 8));
-
-            if(hashed2 != hashed) {
-                throw new Exception("hashed n bateu");
-            }*/
-
-
             repository.Insert(user);
         }
 
@@ -119,7 +106,7 @@ namespace ExamRegister.Business {
             user.password_hash = hashed;
             user.password_salt = Convert.ToBase64String(salt);
 
-            repository.Update(Idusuario, mapper.Map<usuario>(usuarioNew));
+            repository.Update(Idusuario, mapper.Map<usuario>(user));
         }
     }
 }

@@ -16,9 +16,8 @@ namespace ExamRegister.Business {
             this.mapper = mapper;
         }
 
-        public UsuarioDTO Login(UsuarioDTO usuario) {
-            var _usuario = repository.List().Where(a => a.user == usuario.user).FirstOrDefault();
-            UsuarioDTO autenticacao = new UsuarioDTO();
+        public string Login(LoginDTO usuario) {
+            var _usuario = repository.List().Where(a => a.user == usuario.user && a.inativo == null).FirstOrDefault();            
 
             if (_usuario != null) {
                 string hashed = Convert.ToBase64String(KeyDerivation.Pbkdf2(
@@ -30,11 +29,13 @@ namespace ExamRegister.Business {
                     ));
 
                 if (hashed == _usuario.password_hash) {
-                    return mapper.Map<UsuarioDTO>(_usuario);
+                    
+                    return _usuario.idusuario.ToString();
+                    
                 }
             }
 
-            return null;
+            return "negado";
         }
     }
 }

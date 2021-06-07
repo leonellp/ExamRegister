@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { UsuarioRoutingModule } from './usuario-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
+import { PerfilComponent } from './perfil/perfil.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -14,6 +15,6 @@ import { SharedModule } from '../shared/shared.module';
     ReactiveFormsModule,
     SharedModule
   ],
-  declarations: [NovoUsuarioComponent]
+  declarations: [NovoUsuarioComponent, PerfilComponent]
 })
 export class UsuarioModule { }

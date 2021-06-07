@@ -1,23 +1,49 @@
-<form class="container-fluid" (ngSubmit)="fazerLogin()">
+<form class="container-fluid" [formGroup]="formulario">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title">Login ExamRegister</h5>
       </div>
-      <div class="modal-body">
+      <div class="modal-body form-group">
         <div class="mb-3">
           <label for="usuario" class="form-label">Usuário</label>
-          <input name="usuario" [(ngModel)]="usuario.user" type="text" class="form-control" id="usuario"
-            placeholder="Nome de usuário">
+          <input
+            name="user"
+            formControlName="user"
+            type="text"
+            class="form-control"
+            id="user"
+            placeholder="Usuário"
+            required
+            [ngClass]="aplicaCssErro('user')"
+          />
+          <app-error-msg
+            [control]="formulario.get('user')"
+            label="Usuário"
+          ></app-error-msg>
         </div>
         <div class="mb-3">
           <label for="senha" class="form-label">Senha</label>
-          <input name="senha" [(ngModel)]="usuario.password" type="password" class="form-control" id="senha"
-            placeholder="Senha">
+          <input
+            name="password"
+            formControlName="password"
+            type="password"
+            class="form-control"
+            id="password"
+            placeholder="Senha"
+            required
+            [ngClass]="aplicaCssErro('password')"
+          />
+          <app-error-msg
+            [control]="formulario.get('password')"
+            label="Senha"
+          ></app-error-msg>
         </div>
       </div>
       <div class="modal-footer">
-        <button type="submit" class="btn btn-primary" (click)="fazerLogin()">Entrar</button>
+        <button type="button" class="btn btn-primary" (click)="submit()">
+          Entrar
+        </button>
       </div>
     </div>
   </div>

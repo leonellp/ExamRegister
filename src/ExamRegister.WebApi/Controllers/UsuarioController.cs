@@ -29,7 +29,7 @@ namespace ExamRegister.WebApi.Controllers {
         }
 
         [HttpGet]
-        [Route("{id}")]
+        [Route("{Id}")]
         public UsuarioDTO Get(Guid Id) {
             return service.GetById(Id);
         }
@@ -40,7 +40,7 @@ namespace ExamRegister.WebApi.Controllers {
         }
 
         [HttpDelete]
-        [Route("{id}")]
+        [Route("{Id}")]
         public void Delete(Guid Id) {
             service.Delete(Id);
         }

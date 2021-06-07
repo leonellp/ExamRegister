@@ -14,7 +14,7 @@ namespace ExamRegister.WebApi.Controllers {
         }
 
         [HttpPost]
-        public UsuarioDTO Login(UsuarioDTO usuario) {
+        public string Login(LoginDTO usuario) {
             return service.Login(usuario);
         }
     }

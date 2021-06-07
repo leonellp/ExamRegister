@@ -1,39 +1,44 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 import { AppService } from '../app.service';
-import { UsuarioDTO } from '../shared/DTOs/usuario-dto';
+import { BaseFormComponent } from '../shared/base-form/base-form.component';
 import { AuthService } from './auth.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
 })
-export class LoginComponent implements OnInit {
-
-  usuario: UsuarioDTO = new UsuarioDTO();
-
+export class LoginComponent extends BaseFormComponent implements OnInit {
   constructor(
     public nav: AppService,
-    private authService: AuthService) { }
+    private authService: AuthService,
+    private formBuilder: FormBuilder
+  ) {
+    super();
+  }
 
   ngOnInit() {
-    sessionStorage.removeItem("clinica");
-    sessionStorage.removeItem("diagnostico");
-    sessionStorage.removeItem("exame");
-    sessionStorage.removeItem("categoria");
-    sessionStorage.removeItem("medicoSalvo");
-    sessionStorage.removeItem("orgao");
-    sessionStorage.removeItem("paciente");
-    sessionStorage.removeItem("peca");
-    sessionStorage.removeItem("reuniao");
-    sessionStorage.removeItem("novoUsuario");
-    sessionStorage.removeItem("informacao");
-    sessionStorage.removeItem("grupo");
+    this.formulario = this.formBuilder.group({
+      user: [null, Validators.required],
+      password: [null, Validators.required],
+    });
+
+    sessionStorage.removeItem('clinica');
+    sessionStorage.removeItem('diagnostico');
+    sessionStorage.removeItem('exame');
+    sessionStorage.removeItem('categoria');
+    sessionStorage.removeItem('medicoSalvo');
+    sessionStorage.removeItem('orgao');
+    sessionStorage.removeItem('paciente');
+    sessionStorage.removeItem('peca');
+    sessionStorage.removeItem('reuniao');
+    sessionStorage.removeItem('novoUsuario');
+    sessionStorage.removeItem('informacao');
+    sessionStorage.removeItem('grupo');
   }
 
-  fazerLogin(){
-    //console.log(this.usuario);
-    this.authService.fazerLogin(this.usuario);
+  submit() {
+    this.authService.fazerLogin(this.formulario);
   }
-
 }
