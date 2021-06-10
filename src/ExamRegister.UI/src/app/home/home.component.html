@@ -181,7 +181,7 @@
         (click)="isMenuCollapsed = !isMenuCollapsed"
       >
         <a class="nav-link" aria-current="page" routerLink="/usuario/perfil">
-          {{ usuario()?.nome }}
+          {{ usuario()?.given_name }}
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="20"
@@ -319,6 +319,9 @@
   </tr>
 </div>
 
-<div class="container col-md-11 col-sm-auto" (click)="isMenuCollapsed = true">
+<div
+  class="container col-md-11 col-sm-auto background"
+  (click)="isMenuCollapsed = true"
+>
   <router-outlet></router-outlet>
 </div>

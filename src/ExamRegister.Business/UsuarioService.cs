@@ -87,9 +87,9 @@ namespace ExamRegister.Business {
             };
         }
 
-        public void Update(Guid Idusuario, UsuarioDTO usuarioNew) {
+        public void Update(Guid Idusuario, UsuarioDTO usuarioUpdate) {
 
-            var user = mapper.Map<usuario>(usuarioNew);
+            var user = mapper.Map<usuario>(usuarioUpdate);
 
             byte[] salt = new byte[128 / 8];
             using (var rng = RandomNumberGenerator.Create()) {
@@ -97,7 +97,7 @@ namespace ExamRegister.Business {
             }
 
             string hashed = Convert.ToBase64String(KeyDerivation.Pbkdf2(
-                password: usuarioNew.password,
+                password: usuarioUpdate.password,
                 salt: salt,
                 prf: KeyDerivationPrf.HMACSHA1,
                 iterationCount: 10000,
@@ -106,7 +106,7 @@ namespace ExamRegister.Business {
             user.password_hash = hashed;
             user.password_salt = Convert.ToBase64String(salt);
 
-            repository.Update(Idusuario, mapper.Map<usuario>(user));
+            repository.Update(Idusuario, user);
         }
     }
 }

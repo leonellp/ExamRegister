@@ -14,9 +14,13 @@ using System.Reflection;
 using System.IO;
 using System;
 using ExamRegister.Business.Abstractions.Interfaces;
+using System.Text;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace ExamRegister.WebApi {
     public class Startup {
+
 
         readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
@@ -29,8 +33,7 @@ namespace ExamRegister.WebApi {
         public void ConfigureServices(IServiceCollection services) {
             services.AddSwaggerGen(options => {
 
-                options.SwaggerDoc("v1", new OpenApiInfo
-                {
+                options.SwaggerDoc("v1", new OpenApiInfo {
                     Title = "API ExamRegister",
                     Version = "v1",
                     Description = "API em C# de cadastro de exame médico",
@@ -60,7 +63,7 @@ namespace ExamRegister.WebApi {
             services.AddControllers();
             services.AddControllersWithViews();
             services.AddRazorPages();
-                        
+
             services.AddScoped<ICategoriaExameService, CategoriaExameService>();
             services.AddScoped<ICategoriaService, CategoriaService>();
             services.AddScoped<ICidadeService, CidadeService>();
@@ -70,45 +73,61 @@ namespace ExamRegister.WebApi {
             services.AddScoped<IEstadoService, EstadoService>();
             services.AddScoped<IExameDiagService, ExameDiagService>();
             services.AddScoped<IExameMedicorespDiagnosticoService, ExameMedicorespDiagnosticoService>();
-            services.AddScoped<IExameService, ExameService>(); 
-            services.AddScoped<IGrupoDeMedicoService, GrupoDeMedicoService>(); 
-            services.AddScoped<IMedicoGrupoService, MedicoGrupoService>(); 
-            services.AddScoped<IHistoricoPacienteService, HistoricoPacienteService>(); 
-            services.AddScoped<IImagemService, ImagemService>(); 
-            services.AddScoped<IInformacaoService, InformacaoService>(); 
-            services.AddScoped<IMedicoClinicaService, medicoclinicaService>(); 
-            services.AddScoped<IMedicoService, MedicoService>(); 
-            services.AddScoped<IOrgaoService, OrgaoService>(); 
-            services.AddScoped<IPacienteInformacaoService, PacienteInformacaoService>(); 
-            services.AddScoped<IPacienteService, PacienteService>(); 
-            services.AddScoped<IPecaService, PecaService>(); 
-            services.AddScoped<IReuniaoService, ReuniaoService>(); 
+            services.AddScoped<IExameService, ExameService>();
+            services.AddScoped<IGrupoDeMedicoService, GrupoDeMedicoService>();
+            services.AddScoped<IMedicoGrupoService, MedicoGrupoService>();
+            services.AddScoped<IHistoricoPacienteService, HistoricoPacienteService>();
+            services.AddScoped<IImagemService, ImagemService>();
+            services.AddScoped<IInformacaoService, InformacaoService>();
+            services.AddScoped<IMedicoClinicaService, medicoclinicaService>();
+            services.AddScoped<IMedicoService, MedicoService>();
+            services.AddScoped<IOrgaoService, OrgaoService>();
+            services.AddScoped<IPacienteInformacaoService, PacienteInformacaoService>();
+            services.AddScoped<IPacienteService, PacienteService>();
+            services.AddScoped<IPecaService, PecaService>();
+            services.AddScoped<IReuniaoService, ReuniaoService>();
             services.AddScoped<IUsuarioService, UsuarioService>();
             services.AddScoped<IAuthenticationService, AuthenticationService>();
 
             services.AddScoped<ICategoriaExameRepository, CategoriaExameRepository>();
             services.AddScoped<ICategoriaRepository, CategoriaRepository>();
-            services.AddScoped<ICidadeRepository, CidadeRepository>(); 
+            services.AddScoped<ICidadeRepository, CidadeRepository>();
             services.AddScoped<IClinicaRepository, ClinicaRepository>();
             services.AddScoped<IDiagnosticoRepository, DiagnosticoRepository>();
             services.AddScoped<IEnderecoRepository, EnderecoRepository>();
             services.AddScoped<IEstadoRepository, EstadoRepository>();
             services.AddScoped<IExameDiagRepository, ExameDiagRepository>();
-            services.AddScoped<IExameMedicorespDiagnosticoRepository, ExameMedicorespDiagnosticoRepository>(); 
+            services.AddScoped<IExameMedicorespDiagnosticoRepository, ExameMedicorespDiagnosticoRepository>();
             services.AddScoped<IExameRepository, ExameRepository>();
             services.AddScoped<IGrupoDeMedicosRepository, GrupoDeMedicoRepository>();
             services.AddScoped<IMedicoGrupoRepository, MedicoGrupoRepository>();
             services.AddScoped<IHistoricoPacienteRepository, HistoricoPacienteRepository>();
             services.AddScoped<IImagemRepository, ImagemRepository>();
-            services.AddScoped<IInformacaoRepository, InformacaoRepository>(); 
-            services.AddScoped<IMedicoClinicaRepository, MedicoClinicaRepository>(); 
-            services.AddScoped<IMedicoRepository, MedicoRepository>(); 
-            services.AddScoped<IOrgaoRepository, OrgaoRepository>(); 
-            services.AddScoped<IPacienteInformacaoRepository, PacienteInformacaoRepository>(); 
-            services.AddScoped<IPacienteRepository, PacienteRepository>(); 
-            services.AddScoped<IPecaRepository, PecaRepository>(); 
-            services.AddScoped<IReuniaoRepository, ReuniaoRepository>(); 
+            services.AddScoped<IInformacaoRepository, InformacaoRepository>();
+            services.AddScoped<IMedicoClinicaRepository, MedicoClinicaRepository>();
+            services.AddScoped<IMedicoRepository, MedicoRepository>();
+            services.AddScoped<IOrgaoRepository, OrgaoRepository>();
+            services.AddScoped<IPacienteInformacaoRepository, PacienteInformacaoRepository>();
+            services.AddScoped<IPacienteRepository, PacienteRepository>();
+            services.AddScoped<IPecaRepository, PecaRepository>();
+            services.AddScoped<IReuniaoRepository, ReuniaoRepository>();
             services.AddScoped<IUsuarioRepository, UsuarioRepository>();
+
+            var key = Encoding.ASCII.GetBytes(Configuration.GetValue<string>("JWT:Secret"));
+            services.AddAuthentication(x => {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+             .AddJwtBearer(x => {
+                 x.RequireHttpsMetadata = false;
+                 x.SaveToken = true;
+                 x.TokenValidationParameters = new TokenValidationParameters {
+                     ValidateIssuerSigningKey = true,
+                     IssuerSigningKey = new SymmetricSecurityKey(key),
+                     ValidateIssuer = false,
+                     ValidateAudience = false
+                 };
+             });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {
@@ -120,6 +139,7 @@ namespace ExamRegister.WebApi {
             app.UseRouting();
             app.UseCors(MyAllowSpecificOrigins);
             app.UseAuthorization();
+            app.UseAuthentication();            
 
             app.UseEndpoints(endpoints => {
                 endpoints.MapControllers();
@@ -132,6 +152,7 @@ namespace ExamRegister.WebApi {
             app.UseSwaggerUI(options => {
                 options.SwaggerEndpoint("/swagger/v1/swagger.json", "ExamRegister");
             });
+
         }
     }
 }

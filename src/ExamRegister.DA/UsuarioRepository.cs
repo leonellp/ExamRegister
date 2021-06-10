@@ -31,13 +31,15 @@ namespace ExamRegister.DA {
 
         }
 
-        public void Update(Guid Idusuario, usuario usuarioNew) {
+        public void Update(Guid Idusuario, usuario usuarioUpdate) {
             usuario usuario = examregisterContext.usuario.Where(a => a.idusuario == Idusuario).FirstOrDefault();
 
-            usuario.nome = usuarioNew.nome;
-            usuario.user = usuarioNew.user;
-            usuario.inativo = usuarioNew.inativo;
-            usuario.idexterno = usuarioNew.idexterno;
+            usuario.nome = usuarioUpdate.nome;
+            usuario.user = usuarioUpdate.user;
+            usuario.inativo = usuarioUpdate.inativo;
+            usuario.idexterno = usuarioUpdate.idexterno;
+            usuario.password_hash = usuarioUpdate.password_hash;
+            usuario.password_salt = usuarioUpdate.password_salt;
 
             examregisterContext.SaveChanges();
         }

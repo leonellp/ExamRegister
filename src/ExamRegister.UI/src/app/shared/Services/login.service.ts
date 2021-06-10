@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { LoginDTO } from '../DTOs/login-dto';
+import { AuthorizationEntradaDTO } from '../DTOs/authorizationentrada-dto';
+import { AuthorizationSaidaDTO } from '../DTOs/authorizationsaida-dto';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +12,7 @@ export class LoginService {
 
   constructor(private http: HttpClient) {}
 
-  login(login: LoginDTO) {
-    return this.http.post(this.API, login, { responseType: 'text' });
+  login(login: AuthorizationEntradaDTO) {
+    return this.http.post<AuthorizationSaidaDTO>(this.API, login);
   }
 }

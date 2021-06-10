@@ -1,6 +1,7 @@
 ﻿using ExamRegister.Business.Abstractions.Interfaces;
 using ExamRegister.WebApi.Abstractions.DTO;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace ExamRegister.WebApi.Controllers {
     [ApiController]
@@ -14,8 +15,8 @@ namespace ExamRegister.WebApi.Controllers {
         }
 
         [HttpPost]
-        public string Login(LoginDTO usuario) {
-            return service.Login(usuario);
+        public ActionResult<AuthorizationSaidaDTO> Authenticate([FromBody] AuthorizationEntradaDTO usuario) {
+            return service.Authenticate(usuario);
         }
     }
 }

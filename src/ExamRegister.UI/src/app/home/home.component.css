@@ -1,23 +1,29 @@
-.menu-vertical{
-    position:fixed;    
-    left: auto;    
-    right: 0px;
-    top: 40%;
+.menu-vertical {
+  position: fixed;
+  left: auto;
+  right: 0px;
+  top: 40%;
 }
 
 .desktop {
-    display: block;   
-  }
-  
-  .mobile {
+  display: block;
+}
+
+.mobile {
+  display: none;
+}
+
+@media (max-width: 480px) {
+  .desktop {
     display: none;
   }
-  
-  @media(max-width: 480px) {
-    .desktop {
-      display: none;
-    }
-    .mobile {
-      display: block;
-    }
+  .mobile {
+    display: block;
+  }
+}
+
+.background {
+  background-image: url(/assets/imagens/grupoDeMedico.png);
+  background-color: #fff;
+  color: #000;
 }

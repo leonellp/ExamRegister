@@ -1,65 +1,63 @@
-<form class="container-fluid" [formGroup]="formulario">
-  <div class="card mt-3">
-    <div class="card-header">
-      <div class="float-left">
-        <h5>{{ usuario.nome }}</h5>
-      </div>
-      <div class="float-right">
-        <button class="btn" (click)="onBack()">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            fill="currentColor"
-            class="bi bi-reply-fill"
-            viewBox="0 0 16 16"
-          >
-            <path
-              d="M5.921 11.9 1.353 8.62a.719.719 0 0 1 0-1.238L5.921 4.1A.716.716 0 0 1 7 4.719V6c1.5 0 6 0 7 8-2.5-4.5-7-4-7-4v1.281c0 .56-.606.898-1.079.62z"
-            />
-          </svg>
-        </button>
-      </div>
+<div class="card mt-3">
+  <div class="card-header">
+    <div class="float-left">
+      <h5>{{ usuario?.nome }}</h5>
     </div>
-
-    <div class="card-body">
-      <div class="form-group col">
-        <div class="row">
-          <label for="idexterno" class="form-label mr-3">Código:</label>
-          <p>{{ usuario.idexterno }}</p>
-        </div>
-        <div class="row">
-          <label for="nome" class="form-label mr-3">Nome:</label>
-          <p>{{ usuario.nome }}</p>
-        </div>
-
-        <div class="row">
-          <label for="user" class="form-label mr-3">Usuário:</label>
-          <p>{{ usuario.user }}</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="card-footer">
-      <button type="submit" class="btn btn-primary" (click)="onEdit()">
-        Editar
+    <div class="float-right">
+      <button class="btn" (click)="onBack()">
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          width="16"
-          height="16"
+          width="24"
+          height="24"
           fill="currentColor"
-          class="bi bi-pencil-square"
+          class="bi bi-reply-fill"
           viewBox="0 0 16 16"
         >
           <path
-            d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"
-          />
-          <path
-            fill-rule="evenodd"
-            d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"
+            d="M5.921 11.9 1.353 8.62a.719.719 0 0 1 0-1.238L5.921 4.1A.716.716 0 0 1 7 4.719V6c1.5 0 6 0 7 8-2.5-4.5-7-4-7-4v1.281c0 .56-.606.898-1.079.62z"
           />
         </svg>
       </button>
     </div>
   </div>
-</form>
+
+  <div class="card-body">
+    <div class="form-group">
+      <div class="row">
+        <label for="idexterno" class="form-label col">Código:</label>
+        <p class="col">{{ usuario?.idexterno }}</p>
+      </div>
+      <div class="row">
+        <label for="nome" class="form-label col">Nome:</label>
+        <p class="col">{{ usuario?.nome }}</p>
+      </div>
+
+      <div class="row">
+        <label for="user" class="form-label col">Usuário:</label>
+        <p class="col">{{ usuario?.user }}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-footer">
+    <button type="submit" class="btn btn-primary" (click)="onEdit()">
+      Editar
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="16"
+        height="16"
+        fill="currentColor"
+        class="bi bi-pencil-square"
+        viewBox="0 0 16 16"
+      >
+        <path
+          d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"
+        />
+        <path
+          fill-rule="evenodd"
+          d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"
+        />
+      </svg>
+    </button>
+  </div>
+</div>

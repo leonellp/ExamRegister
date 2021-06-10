@@ -23,6 +23,7 @@
     "@ng-bootstrap/ng-bootstrap": "^9.0.2",
     "bootstrap": "^4.6.0",
     "bootstrap-icons": "^1.4.1",
+    "js-base64": "^3.6.1",
     "ngx-bootstrap": "^6.2.0",
     "ngx-image-zoom": "^0.6.0",
     "ngx-img-zoom": "^4.1.2",

@@ -39,6 +39,8 @@ export class LoginComponent extends BaseFormComponent implements OnInit {
   }
 
   submit() {
-    this.authService.fazerLogin(this.formulario);
+    if (this.formulario.valid) {
+      this.authService.fazerLogin(this.formulario.value);
+    } else this.formulario.markAllAsTouched();
   }
 }
