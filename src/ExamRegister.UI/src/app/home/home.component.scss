@@ -1,0 +1,38 @@
+.menu-vertical {
+  position: fixed;
+  left: auto;
+  right: 0px;
+  top: 40%;
+  background-color: rgba(255, 255, 255, 0.645);
+  border-radius: 10px;
+}
+
+.desktop {
+  display: block;
+}
+
+.mobile {
+  display: none;
+}
+
+@media (max-width: 480px) {
+  .desktop {
+    display: none;
+  }
+  .mobile {
+    display: block;
+  }
+}
+
+body {
+  margin: 0;
+}
+
+.background {
+  background-image: url("../../assets/imagens/estetoscopio.png");
+  background-repeat: repeat;
+  background-clip: padding-box;
+  background-color: rgb(92, 92, 92);
+  background-size: 35px;
+  min-height: 1000px;
+}
